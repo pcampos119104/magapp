@@ -28,7 +28,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`magapp.com.br`)"
+      rule: "Host(`magapp.codemodi.com.br`)"
       entryPoints:
         - web-secure
       middlewares:
