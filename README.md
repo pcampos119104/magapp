@@ -1,4 +1,6 @@
 # Magapp
+update doc
+
 
 Recipe app
 
