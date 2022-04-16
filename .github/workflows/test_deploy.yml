@@ -31,4 +31,8 @@ jobs:
           key: ${{ secrets.KEY }}
           port: ${{ secrets.PORT }}
           script: |
-            touch test_file.py
+            cd magapp
+            git pull origin main
+            docker-compose -f docker-compose.production.yml down
+            docker-compose -f docker-compose.production.yml build
+            docker-compose -f docker-compose.production.yml up -d
