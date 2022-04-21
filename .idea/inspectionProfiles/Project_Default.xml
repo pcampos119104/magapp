@@ -6,7 +6,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="89">
+          <list size="97">
             <item index="0" class="java.lang.String" itemvalue="django-anymail" />
             <item index="1" class="java.lang.String" itemvalue="gunicorn" />
             <item index="2" class="java.lang.String" itemvalue="Collectfast" />
@@ -96,6 +96,14 @@
             <item index="86" class="java.lang.String" itemvalue="responses" />
             <item index="87" class="java.lang.String" itemvalue="isort" />
             <item index="88" class="java.lang.String" itemvalue="unipath" />
+            <item index="89" class="java.lang.String" itemvalue="jupyter" />
+            <item index="90" class="java.lang.String" itemvalue="mypy" />
+            <item index="91" class="java.lang.String" itemvalue="django-stubs" />
+            <item index="92" class="java.lang.String" itemvalue="pre-commit" />
+            <item index="93" class="java.lang.String" itemvalue="pylint-django" />
+            <item index="94" class="java.lang.String" itemvalue="model_bakery" />
+            <item index="95" class="java.lang.String" itemvalue="ipython" />
+            <item index="96" class="java.lang.String" itemvalue="django-htmx" />
           </list>
         </value>
       </option>
