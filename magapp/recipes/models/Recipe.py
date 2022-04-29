@@ -24,6 +24,7 @@ class Recipe(ModelBase):
         null=True,
         blank=True,
     )
+    draft = models.BooleanField("Rascunho", help_text="Se a receita é um rascunho")
 
     class Meta:
         verbose_name = "receita"
