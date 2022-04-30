@@ -45,3 +45,10 @@ class RecipeForm(forms.ModelForm):
             self.data or None
         )
         return super(RecipeForm, self).is_valid()
+
+
+# Novos Forms
+class RecipeStep1Form(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ("title", "description")

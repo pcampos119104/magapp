@@ -2,9 +2,9 @@ from django.contrib.auth.decorators import login_required
 from django.forms import formset_factory
 from django.shortcuts import redirect, render
 
-from magapp.recipes.forms import RecipeForm, RecipeIngredientForm
+from magapp.recipes.forms import RecipeForm, RecipeIngredientForm, RecipeStep1Form
 
-
+"""
 @login_required
 def recipe_create(request):
     template = "recipes/recipe_form.html"
@@ -21,6 +21,41 @@ def recipe_create(request):
         # "ingredient_formset_detail": ingredients_formset_detail,
     }
     return render(request, template, context)
+"""
+
+
+@login_required
+def recipe_create(request):
+    template = "recipes/recipe_add.html"
+    form = RecipeStep1Form()
+    context = {
+        "form": form,
+    }
+    return render(request, template, context)
+
+
+@login_required
+def partial_add_step_2(request):
+    pass
+
+
+@login_required
+def partial_add_step_1(request):
+    form = RecipeStep1Form(request.POST)
+    context = {}
+    if form.is_valid():
+        form.instance.created_by = request.user
+        form.instance.draft = True
+        form.save()
+        context = {
+            "form": RecipeIngredientForm(),
+        }
+        return render(request, "recipes/partials/recipe_add_step_2.html", context)
+    else:
+        context = {
+            "form": form,
+        }
+        return render(request, "recipes/partials/recipe_add_step_1.html", context)
 
 
 def add_recipeingredient(request):
