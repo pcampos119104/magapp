@@ -6,7 +6,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="107">
+          <list size="108">
             <item index="0" class="java.lang.String" itemvalue="django-anymail" />
             <item index="1" class="java.lang.String" itemvalue="gunicorn" />
             <item index="2" class="java.lang.String" itemvalue="Collectfast" />
@@ -114,6 +114,7 @@
             <item index="104" class="java.lang.String" itemvalue="pytest" />
             <item index="105" class="java.lang.String" itemvalue="django-debug-toolbar" />
             <item index="106" class="java.lang.String" itemvalue="flake8" />
+            <item index="107" class="java.lang.String" itemvalue="django-grappelli" />
           </list>
         </value>
       </option>

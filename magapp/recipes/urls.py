@@ -21,11 +21,15 @@ app_name = "recipes"
 urlpatterns = [
     path("create/", views.recipe_create, name="create"),
     path("htmx/create/step-1/", views.partial_add_step_1, name="partial_add_step_1"),
-    path("htmx/create/step-2/", views.partial_add_step_2, name="partial_add_step_2"),
+    path(
+        "htmx/create/step-2/<slug:slug>",
+        views.partial_add_step_2,
+        name="partial_add_step_2",
+    ),
     path("", views.ListView.as_view(), name="list"),
     path("<slug:slug>", views.DetailView.as_view(), name="detail"),
-    path("<uuid:pk>/update/", views.UpdateView.as_view(), name="update"),
-    path("<uuid:pk>/delete/", views.DeleteView.as_view(), name="delete"),
+    # path("<uuid:pk>/update/", views.UpdateView.as_view(), name="update"),
+    # path("<uuid:pk>/delete/", views.DeleteView.as_view(), name="delete"),
     path(
         "htmx/ingredient-form/",
         views.add_recipeingredient,

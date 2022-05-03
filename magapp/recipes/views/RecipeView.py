@@ -1,27 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.forms import formset_factory
-from django.shortcuts import redirect, render
+from django.shortcuts import get_object_or_404, redirect, render
 
-from magapp.recipes.forms import RecipeForm, RecipeIngredientForm, RecipeStep1Form
-
-"""
-@login_required
-def recipe_create(request):
-    template = "recipes/recipe_form.html"
-    form = RecipeForm(request.POST or None)
-
-    if form.is_valid():
-        form.instance.created_by = request.user
-        form.save()
-        return redirect("recipes:list")
-
-    context = {
-        "form": form,
-        "ingredient_form": RecipeIngredientForm(),
-        # "ingredient_formset_detail": ingredients_formset_detail,
-    }
-    return render(request, template, context)
-"""
+from magapp.recipes.forms import RecipeIngredientForm, RecipeStep1Form, RecipeStep2Form
+from magapp.recipes.models import Recipe
 
 
 @login_required
@@ -35,11 +17,6 @@ def recipe_create(request):
 
 
 @login_required
-def partial_add_step_2(request):
-    pass
-
-
-@login_required
 def partial_add_step_1(request):
     form = RecipeStep1Form(request.POST)
     context = {}
@@ -48,7 +25,9 @@ def partial_add_step_1(request):
         form.instance.draft = True
         form.save()
         context = {
-            "form": RecipeIngredientForm(),
+            "recipe_slug": form.instance.slug,
+            "recipe_form": RecipeStep2Form(),
+            "ingredient_form": RecipeIngredientForm(),
         }
         return render(request, "recipes/partials/recipe_add_step_2.html", context)
     else:
@@ -56,6 +35,22 @@ def partial_add_step_1(request):
             "form": form,
         }
         return render(request, "recipes/partials/recipe_add_step_1.html", context)
+
+
+@login_required
+def partial_add_step_2(request, slug):
+    obj = get_object_or_404(Recipe, slug=slug)
+    form = RecipeStep2Form(request.POST or None, instance=obj)
+
+    if form.is_valid():
+        form.instance.draft = False
+        form.save()
+        return redirect("recipes:list")
+    else:
+        context = {
+            "recipe_form": form,
+        }
+        return render(request, "recipes/partials/recipe_add_step_2.html", context)
 
 
 def add_recipeingredient(request):
