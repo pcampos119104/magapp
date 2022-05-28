@@ -240,8 +240,8 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+            "format": "[{asctime}]   [{process:d}] [{levelname}] {message}",
+            "style": "{",
         }
     },
     "handlers": {
@@ -251,8 +251,12 @@ LOGGING = {
             "formatter": "verbose",
         }
     },
-    "root": {"level": "INFO", "handlers": ["console"]},
+    "root": {"level": "DEBUG", "handlers": ["console"]},
 }
+"""
+# "format": "[{asctime}]   [{process:d}] [{levelname}] {message}",
+# "style": "{",
+"""
 
 # django-allauth
 # ------------------------------------------------------------------------------

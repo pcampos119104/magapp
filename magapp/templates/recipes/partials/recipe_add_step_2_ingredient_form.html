@@ -1,6 +1,7 @@
 {% load i18n %}
-<div id='ingredient_partial' hx-swap-oob="true">
-  {% for detail in ingredient_formset %}
+<div id='ingredient_partial' >
+<h1>{{ message }}</h1>
+  {% for detail in ingredients %}
     <div id="{{ detail.ingredient.name }}-detail" class="ingredient-item-detail">
       <p>
         {{ detail.ingredient.name }} {{ detail.qtd }} {{ detail.metric_type }}
@@ -24,24 +25,24 @@
       {{ ingredient_form.non_field_errors }}
       <div class="row form-row spacer">
         <div class="col-12">
+          {{ ingredient_form.ingredient.name.errors }}
           <label for="name" class="form-label">{% trans 'Nome' %}</label>
           {{ ingredient_form.ingredient }}
-          {{ ingredient_form.ingredient.name.errors }}
         </div>
         <div class="col-12">
+          {{ ingredient_form.qtd.errors }}
           <label for="qtd" class="form-label">{% trans 'Quantidade' %}</label>
           {{ ingredient_form.qtd }}
-          {{ ingredient_form.qtd.errors }}
         </div>
         <div class="col-12">
+          {{ ingredient_form.metric_type.errors }}
           <label for="metric_type" class="form-label">{% trans 'Metrica' %}</label>
           {{ ingredient_form.metric_type }}
-          {{ ingredient_form.metric_type.errors }}
         </div>
 
       </div>
     </div>
-    <button hx-post="{% url 'recipes:partial_add_recipeingredient' %}"
+    <button hx-post="{% url 'recipes:partial_add_recipeingredient' recipe_slug %}"
             hx-swap="outerHTML"
             hx-target="#ingredient_partial"
             class="w-100 btn btn-primary btn-lg">
