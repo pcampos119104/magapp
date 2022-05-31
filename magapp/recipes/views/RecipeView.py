@@ -52,7 +52,7 @@ def partial_add_step_2(request, slug):
     if form.is_valid():
         form.instance.draft = False
         form.save()
-        return redirect("recipes:list")
+        return render(request, "recipes/partials/recipe_add_finish.html")
     else:
         context = {
             "recipe_form": form,
@@ -79,8 +79,7 @@ def add_recipeingredient(request, slug):
     context = {
         "recipe_slug": recipe.slug,
         "ingredient_form": response_form,
-        "ingredients": RecipeIngredient.objects.all(),
-        "message": "Message",
+        "ingredients": RecipeIngredient.objects.filter(recipe=recipe).all(),
     }
     logger.debug(f"context - {context}")
     return render(
