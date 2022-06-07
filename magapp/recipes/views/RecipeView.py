@@ -46,7 +46,7 @@ def partial_add_step_1(request):
 @login_required
 @log_start
 def partial_add_step_2(request, slug):
-    obj = get_object_or_404(Recipe, slug=slug)
+    obj = Recipe.all_objects.filter(slug=slug).first()
     form = RecipeStep2Form(request.POST or None, instance=obj)
 
     if form.is_valid():
@@ -62,7 +62,8 @@ def partial_add_step_2(request, slug):
 
 @log_start
 def add_recipeingredient(request, slug):
-    recipe = get_object_or_404(Recipe, slug=slug)
+    recipe = Recipe.all_objects.filter(slug=slug).first()
+    logger.debug(f"recipe - {recipe}")
     form = RecipeIngredientForm(request.POST)
     response_form = RecipeIngredientForm()
     if form.is_valid():
