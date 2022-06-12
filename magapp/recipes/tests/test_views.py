@@ -1,3 +1,5 @@
+import uuid
+
 import pytest
 from django.urls import reverse
 from model_bakery import baker
@@ -10,7 +12,7 @@ pytestmark = pytest.mark.django_db
 
 class TestRecipesViews:
     def test_list_view(self, client):
-        recipes = baker.make(Recipe, 5, _fill_optional=True)
+        recipes = baker.make(Recipe, 5, title=str(uuid.uuid4())[:6], deleted_at=None)
         resp = client.get(reverse("recipes:list"))
         assert resp.status_code == 200
         assert_contains(resp, recipes[0].title)
@@ -32,7 +34,6 @@ class TestRecipesViews:
         resp = logged_client.get(reverse("recipes:create"))
         assert resp.status_code == 200
         assert_contains(resp, "id_title")
-        assert_contains(resp, "id_directions")
 
     @pytest.mark.skip
     def test_delete_view(self, logged_client):

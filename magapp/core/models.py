@@ -1,4 +1,4 @@
-from datetime import timezone
+from datetime import datetime
 
 from django.db import models
 from model_utils.models import SoftDeletableModel, UUIDModel
@@ -25,7 +25,7 @@ class SoftDeletionModel(models.Model):
         abstract = True
 
     def delete(self):
-        self.deleted_at = timezone.now()
+        self.deleted_at = datetime.now()
         self.save()
 
     def hard_delete(self):

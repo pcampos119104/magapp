@@ -9,12 +9,12 @@ down:
 
 test:
 	pre-commit run --all
-	docker-compose run --rm django python manage.py pytest
+	docker-compose run --rm django pytest -v
 
 migrate:
 	docker-compose run --rm django python manage.py migrate
 
-migrations:
+makemigrations:
 	docker-compose run --rm django python manage.py makemigrations
 
 notebook:

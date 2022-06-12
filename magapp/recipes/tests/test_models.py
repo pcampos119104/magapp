@@ -1,3 +1,5 @@
+import uuid
+
 import pytest
 from model_bakery import baker
 
@@ -16,7 +18,11 @@ class TestRecipeModel:
 
     def test_softdelete(self, db, created_user) -> None:
         model = baker.make(
-            Recipe, _fill_optional=True, created_by=created_user, is_removed=False
+            Recipe,
+            _fill_optional=True,
+            title=str(uuid.uuid4()),
+            created_by=created_user,
+            deleted_at=None,
         )
         assert Recipe.objects.filter(slug=model.slug).exists()
         model.delete()
@@ -25,24 +31,13 @@ class TestRecipeModel:
 
     def test_harddelete(self, db, created_user) -> None:
         model = baker.make(
-            Recipe, _fill_optional=True, created_by=created_user, is_removed=False
+            Recipe,
+            _fill_optional=True,
+            title=str(uuid.uuid4()),
+            created_by=created_user,
+            deleted_at=None,
         )
         assert Recipe.objects.filter(slug=model.slug).exists()
-        model.delete(soft=False)
+        model.hard_delete()
         assert not Recipe.objects.filter(slug=model.slug).exists()
         assert not Recipe.all_objects.filter(slug=model.slug).exists()
-
-
-"""
-# Ingredient
-def test_ingredient_str(ingredient: Ingredient) -> None:
-    assert ingredient.name == str(ingredient)
-
-
-def test_ingredient_obj(ingredient: Ingredient) -> None:
-    assert isinstance(ingredient, Ingredient)
-
-
-def test_ingredient_fk(ingredient: Ingredient) -> None:
-    assert isinstance(ingredient.recipe, Recipe)
-"""

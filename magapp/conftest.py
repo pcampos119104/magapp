@@ -33,11 +33,19 @@ def created_user(db, django_user_model):
 
 @pytest.fixture
 def recipe(db) -> Recipe:
-    model = baker.make(Recipe, _fill_optional=True, is_removed=False)
+    model = baker.make(
+        Recipe,
+        _fill_optional=True,
+        title="Bolo de cenoura",
+        slug="bolo-de-cenoura-asdf",
+        deleted_at=None,
+    )
     return model
 
 
 @pytest.fixture
 def ingredient(db, recipe) -> Ingredient:
-    model = baker.make(Ingredient, _fill_optional=True, recipe=recipe)
+    model = baker.make(
+        Ingredient, name="Farinha", slug="farinha-asdf", deleted_at=None, recipe=recipe
+    )
     return model
