@@ -12,7 +12,9 @@ pytestmark = pytest.mark.django_db
 
 class TestRecipesViews:
     def test_list_view(self, client):
-        recipes = baker.make(Recipe, 5, title=str(uuid.uuid4())[:6], deleted_at=None)
+        recipes = baker.make(
+            Recipe, 5, title=str(uuid.uuid4())[:6], draft=False, deleted_at=None
+        )
         resp = client.get(reverse("recipes:list"))
         assert resp.status_code == 200
         assert_contains(resp, recipes[0].title)
