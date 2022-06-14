@@ -86,7 +86,13 @@
       <li class="nav-item">
         <a href="{% url 'recipes:create' %}"
            class="nav-link {% if request.resolver_match.view_name == 'recipes:create' %}active{% endif %}">
-          {% trans 'Incluir' %}
+          {% trans 'Incluir receita' %}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'ingredients:create' %}"
+           class="nav-link {% if request.resolver_match.view_name == 'ingredients:create' %}active{% endif %}">
+          {% trans 'Incluir ingrediente' %}
         </a>
       </li>
       {% if request.user.is_authenticated %}

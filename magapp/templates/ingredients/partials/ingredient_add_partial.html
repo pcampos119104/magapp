@@ -1,0 +1,17 @@
+{% load i18n %}
+<form id="ingredient_add" class="needs-validation" method="post">
+  {% csrf_token %}
+  <div class="row g-3">
+    <div class="col-12">
+      {{ form.name.errors }}
+      <label for="{{ form.name.id_for_label }}" class="form-label">{% trans 'Nome' %}</label>
+      {{ form.name }}
+    </div>
+  </div>
+  <button hx-post="{% url 'ingredients:partial_add' %}"
+          hx-swap="outerHTML"
+          hx-target="#ingredient_add"
+          class="w-100 btn btn-primary btn-lg">
+    {% trans 'Incluir' %}
+  </button>
+</form>
