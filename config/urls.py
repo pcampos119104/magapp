@@ -10,12 +10,15 @@ urlpatterns = [
     path(
         "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
     ),
+    # grappelli URLS
+    path("grappelli/", include("grappelli.urls")),
     # Django Admin, use {% url 'admin:index' %}
     path(settings.ADMIN_URL, admin.site.urls),
     # User management
     path("users/", include("magapp.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
+    path("recipes/", include("magapp.recipes.urls", namespace="recipes")),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

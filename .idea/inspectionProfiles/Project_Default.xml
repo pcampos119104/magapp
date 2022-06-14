@@ -6,7 +6,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="89">
+          <list size="108">
             <item index="0" class="java.lang.String" itemvalue="django-anymail" />
             <item index="1" class="java.lang.String" itemvalue="gunicorn" />
             <item index="2" class="java.lang.String" itemvalue="Collectfast" />
@@ -96,6 +96,25 @@
             <item index="86" class="java.lang.String" itemvalue="responses" />
             <item index="87" class="java.lang.String" itemvalue="isort" />
             <item index="88" class="java.lang.String" itemvalue="unipath" />
+            <item index="89" class="java.lang.String" itemvalue="jupyter" />
+            <item index="90" class="java.lang.String" itemvalue="mypy" />
+            <item index="91" class="java.lang.String" itemvalue="django-stubs" />
+            <item index="92" class="java.lang.String" itemvalue="pre-commit" />
+            <item index="93" class="java.lang.String" itemvalue="pylint-django" />
+            <item index="94" class="java.lang.String" itemvalue="model_bakery" />
+            <item index="95" class="java.lang.String" itemvalue="ipython" />
+            <item index="96" class="java.lang.String" itemvalue="django-htmx" />
+            <item index="97" class="java.lang.String" itemvalue="sphinx" />
+            <item index="98" class="java.lang.String" itemvalue="flake8-isort" />
+            <item index="99" class="java.lang.String" itemvalue="pytest-sugar" />
+            <item index="100" class="java.lang.String" itemvalue="Werkzeug" />
+            <item index="101" class="java.lang.String" itemvalue="sphinx-autobuild" />
+            <item index="102" class="java.lang.String" itemvalue="factory-boy" />
+            <item index="103" class="java.lang.String" itemvalue="django-coverage-plugin" />
+            <item index="104" class="java.lang.String" itemvalue="pytest" />
+            <item index="105" class="java.lang.String" itemvalue="django-debug-toolbar" />
+            <item index="106" class="java.lang.String" itemvalue="flake8" />
+            <item index="107" class="java.lang.String" itemvalue="django-grappelli" />
           </list>
         </value>
       </option>
