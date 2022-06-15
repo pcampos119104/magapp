@@ -21,8 +21,8 @@ app_name = "ingredients"
 urlpatterns = [
     path("create/", views.ingredient_create, name="create"),
     path("htmx/create/", views.partial_add, name="partial_add"),
-    # path("", views.ListView.as_view(), name="list"),
-    # path("<slug:slug>", views.DetailView.as_view(), name="detail"),
-    # path("<uuid:pk>/update/", views.UpdateView.as_view(), name="update"),
+    path("<slug:slug>/update/", views.ingredient_update, name="update"),
+    path("", views.ListView.as_view(), name="list"),
+    path("<slug:slug>", views.ingredient_detail, name="detail"),
     # path("<uuid:pk>/delete/", views.DeleteView.as_view(), name="delete"),
 ]

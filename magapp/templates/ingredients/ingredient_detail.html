@@ -1,0 +1,21 @@
+{% extends "recipes/base_recipes.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <h4 class="card-header">
+                {{ ingredient.name }}
+            </h4>
+            <div class="card-body">
+                <p class="card-text">
+
+            </div>
+            <div class="card-footer">
+                {% if user == ingredient.created_by %}
+                <a href="{% url 'ingredients:update' ingredient.id %}"><h5>Editar</h5></a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
