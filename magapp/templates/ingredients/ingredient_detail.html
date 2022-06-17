@@ -12,7 +12,7 @@
             </div>
             <div class="card-footer">
                 {% if user == ingredient.created_by %}
-                <a href="{% url 'ingredients:update' ingredient.id %}"><h5>Editar</h5></a>
+                <a href="{% url 'ingredients:update' ingredient.slug %}"><h5>Editar</h5></a>
                 {% endif %}
             </div>
         </div>

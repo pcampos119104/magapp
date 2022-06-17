@@ -20,7 +20,6 @@ from magapp.ingredients import views
 app_name = "ingredients"
 urlpatterns = [
     path("create/", views.ingredient_create, name="create"),
-    path("htmx/create/", views.partial_add, name="partial_add"),
     path("<slug:slug>/update/", views.ingredient_update, name="update"),
     path("", views.ListView.as_view(), name="list"),
     path("<slug:slug>", views.ingredient_detail, name="detail"),

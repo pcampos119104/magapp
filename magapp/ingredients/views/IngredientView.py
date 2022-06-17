@@ -23,41 +23,52 @@ logger = logging.getLogger(__name__)
 @login_required
 @log_start
 def ingredient_create(request):
-    template = "ingredients/ingredient_add_update.html"
     form = IngredientForm()
-    context = {
-        "form": form,
-    }
-    return render(request, template, context)
+    if request.method == "POST":
+        form = IngredientForm(request.POST)
+        if form.is_valid():
+            form.instance.created_by = request.user
+            form.save()
+            return render(
+                request, "ingredients/partials/ingredient_add_update_finish.html"
+            )
+        else:
+            return render(
+                request,
+                "ingredients/partials/ingredient_add_partial.html",
+                {
+                    "form": form,
+                },
+            )
+
+    elif request.method == "GET":
+        template = "ingredients/ingredient_add.html"
+        return render(request, template, {"form": form})
 
 
 @login_required
 @log_start
 def ingredient_update(request, slug):
-    template = "ingredients/ingredient_add_update.html"
     ingredient = get_object_or_404(Ingredient, slug=slug)
-    form = IngredientForm(initial=ingredient)
-    context = {
-        "form": form,
-    }
-    return render(request, template, context)
-
-
-@login_required
-@log_start
-def partial_add(request):
-    form = IngredientForm(request.POST)
-
-    if form.is_valid():
-        form.save()
-        return render(request, "ingredients/partials/ingredient_add_finish.html")
-    else:
-        context = {
-            "form": form,
-        }
-        return render(
-            request, "ingredients/partials/ingredient_add_partial.html", context
-        )
+    if request.method == "POST":
+        form = IngredientForm(request.POST, instance=ingredient)
+        if form.is_valid():
+            form.save()
+            return render(
+                request, "ingredients/partials/ingredient_add_update_finish.html"
+            )
+        else:
+            return render(
+                request,
+                "ingredients/partials/ingredient_update_partial.html",
+                {
+                    "form": form,
+                },
+            )
+    elif request.method == "GET":
+        form = IngredientForm(instance=ingredient)
+        template = "ingredients/ingredient_update.html"
+        return render(request, template, {"form": form})
 
 
 class ListView(FilterView):

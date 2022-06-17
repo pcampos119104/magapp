@@ -1,5 +1,5 @@
 {% load i18n %}
-<form id="ingredient_add" class="needs-validation" method="post">
+<form id="ingredient_update" class="needs-validation" method="post">
   {% csrf_token %}
   <div class="row g-3">
     <div class="col-12">
@@ -8,9 +8,9 @@
       {{ form.name }}
     </div>
   </div>
-  <button hx-post="{% url 'ingredients:create' %}"
+  <button hx-post="{% url 'ingredients:update' form.instance.slug%}"
           hx-swap="outerHTML"
-          hx-target="#ingredient_add"
+          hx-target="#ingredient_update"
           class="w-100 btn btn-primary btn-lg">
     {% trans 'Incluir' %}
   </button>
