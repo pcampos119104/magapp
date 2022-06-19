@@ -22,7 +22,6 @@
             </div>
             <div class="card-footer">
                 {% if user == recipe.created_by %}
-                <a href="{% url 'recipes:update' recipe.id %}"><h5>Editar</h5></a>
                 <a href="{% url 'recipes:delete' recipe.id %}"><h5>Remover</h5></a>
                 {% endif %}
             </div>
