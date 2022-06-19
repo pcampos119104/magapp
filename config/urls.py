@@ -19,8 +19,9 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     path("recipes/", include("magapp.recipes.urls", namespace="recipes")),
-] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-
+    path("ingredients/", include("magapp.ingredients.urls", namespace="ingredients")),
+]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 if settings.DEBUG:
     # This allows the error pages to be debugged during development, just visit
