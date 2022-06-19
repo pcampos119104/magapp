@@ -23,5 +23,5 @@ urlpatterns = [
     path("<slug:slug>/update/", views.ingredient_update, name="update"),
     path("", views.ListView.as_view(), name="list"),
     path("<slug:slug>", views.ingredient_detail, name="detail"),
-    # path("<uuid:pk>/delete/", views.DeleteView.as_view(), name="delete"),
+    path("<uuid:pk>/delete/", views.DeleteView.as_view(), name="delete"),
 ]
