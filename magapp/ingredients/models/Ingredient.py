@@ -25,4 +25,4 @@ class Ingredient(ModelBase):
         return self.name
 
     def get_absolute_url(self):
-        return reverse("recipes:detail", kwargs={"slug": self.slug})
+        return reverse("ingredients:detail", kwargs={"slug": self.slug})

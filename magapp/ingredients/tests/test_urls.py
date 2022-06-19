@@ -4,14 +4,14 @@ from django.urls import resolve, reverse
 pytestmark = pytest.mark.django_db
 
 
-class TestRecipesUrls:
+class TestIngredientsUrls:
     def test_list(self) -> None:
-        assert reverse("recipes:list") == "/recipes/"
-        assert resolve("/recipes/").view_name == "recipes:list"
+        assert reverse("ingredients:list") == "/ingredients/"
+        assert resolve("/ingredients/").view_name == "ingredients:list"
 
     def test_create(self) -> None:
-        assert reverse("recipes:create") == "/recipes/create/"
-        assert resolve("/recipes/create/").view_name == "recipes:create"
+        assert reverse("ingredients:create") == "/ingredients/create/"
+        assert resolve("/ingredients/create/").view_name == "ingredients:create"
 
 
 """
