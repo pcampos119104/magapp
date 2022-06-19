@@ -35,4 +35,9 @@ urlpatterns = [
         views.add_recipeingredient,
         name="partial_add_recipeingredient",
     ),
+    path(
+        "htmx/ingredient-form/<uuid:pk>/delete/",
+        views.remove_recipeingredient,
+        name="partial_remove_recipeingredient",
+    ),
 ]

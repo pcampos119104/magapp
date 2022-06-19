@@ -4,13 +4,13 @@
     <div id="{{ detail.ingredient.name }}-detail" class="ingredient-item-detail">
       <p>
         {{ detail.ingredient.name }} {{ detail.qtd }} {{ detail.metric_type }}
-        <button
-          type="button"
-          class="w-100 btn btn-primary btn-sm"
-          _="on click call removeIngredientElement('a{{ detail.ingredient.pk }}')
-              then remove #{{ detail.ingredient.name }}-detail then tell #a{{ detail.ingredient.id }} remove yourself">
-          -
-        </button>
+      <button hx-delete="{% url 'recipes:partial_remove_recipeingredient' detail.pk %}"
+              hx-swap="outerHTML"
+              hx-target="#ingredient_partial"
+              hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+              class="w-100 btn btn-primary btn-lg">
+        {% trans 'remover' %}
+      </button>
       </p>
     </div>
   {% endfor %}

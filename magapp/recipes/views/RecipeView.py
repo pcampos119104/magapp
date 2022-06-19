@@ -60,6 +60,7 @@ def partial_add_step_2(request, slug):
         return render(request, "recipes/partials/recipe_add_step_2.html", context)
 
 
+@login_required
 @log_start
 def add_recipeingredient(request, slug):
     recipe = Recipe.all_objects.filter(slug=slug).first()
@@ -76,6 +77,26 @@ def add_recipeingredient(request, slug):
         logger.debug("form.is_valid() - False")
         logger.debug(f"form.errors.as_json() - {form.errors.as_json()}")
         response_form = form
+
+    context = {
+        "recipe_slug": recipe.slug,
+        "ingredient_form": response_form,
+        "ingredients": RecipeIngredient.objects.filter(recipe=recipe).all(),
+    }
+    logger.debug(f"context - {context}")
+    return render(
+        request, "recipes/partials/recipe_add_step_2_ingredient_form.html", context
+    )
+
+
+@login_required
+@log_start
+def remove_recipeingredient(request, pk):
+    recipe_ingredient = RecipeIngredient.objects.get(pk=pk)
+    logger.debug(f"recipe_ingredient - {recipe_ingredient}")
+    recipe = recipe_ingredient.recipe
+    recipe_ingredient.delete()
+    response_form = RecipeIngredientForm()
 
     context = {
         "recipe_slug": recipe.slug,
