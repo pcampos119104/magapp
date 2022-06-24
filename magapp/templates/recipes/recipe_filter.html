@@ -11,13 +11,24 @@
   </div>
 
 
-  <table class="table table-striped ">
+  <!-- start list recipes -->
+  <div class="row align-items-top">
     {% for recipe in page_obj %}
-      <tr>
-        <th><a href="{% url 'recipes:detail' recipe.slug %}"><h5>{{ recipe.title }}</h5></a></th>
-      </tr>
+        <div class="col-lg-12">
+
+          <!-- Default Card -->
+          <div class="card">
+            <div class="card-body">
+              <a href="{% url 'recipes:detail' recipe.slug %}"><h5 class="card-title" >{{ recipe.title | title }}</h5></a>
+
+              {{ recipe.description | truncatechars:100 }}
+            </div>
+          </div><!-- End Default Card -->
+
+        </div>
     {% endfor %}
-  </table>
+  </div>
+
   <div class="pagination">
     <span class="step-links">
         {% if page_obj.has_previous %}
@@ -35,6 +46,6 @@
       {% endif %}
     </span>
   </div>
-
+  <!-- end list recipes -->
 
 {% endblock %}
