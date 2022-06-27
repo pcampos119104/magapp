@@ -1,0 +1,24 @@
+{% load i18n %}
+<form id="recipe_add_step_3" class="needs-validation" method="post">
+  {% csrf_token %}
+  <div class="col-12">
+    <div class="form-floating">
+          <textarea class="form-control" value="{{ form.directions.value }}" placeholder="Preparo"
+                    name="{{ form.directions.name }}" id="floatingTextarea" style="height: 100px;"></textarea>
+      <label for="floatingTextarea">{{ form.directions.label }}</label>
+      {% for err in form.directions.errors %}
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+          {{ err }}
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="text-center">
+    <button hx-post="{% url 'recipes:partial_add_step_3' form.instance.slug %}"
+            hx-swap="outerHTML"
+            hx-target="#recipe_add_step_3"
+            class="btn btn-primary">
+      Finalizar
+    </button>
+  </div>
+</form>

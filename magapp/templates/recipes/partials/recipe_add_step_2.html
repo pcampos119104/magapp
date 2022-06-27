@@ -1,3 +1,97 @@
 {% load i18n %}
-{% include "recipes/partials/recipe_add_step_2_ingredient_form.html" %}
-{% include "recipes/partials/recipe_add_step_2_recipe_form.html" %}
+<div id='recipe_add_step_2'>
+  <!-- RecipeIngredient list -->
+  <div class="card">
+    <div class="card-body" id="{{ detail.ingredient.name }}-detail">
+      <h5 class="card-title">Ingredientes Adicionados</h5>
+      <ul class="list-group list-group-flush">
+        {% for detail in ingredients %}
+          <li class="list-group-item">{{ detail.ingredient.name | title }} {{ detail.qtd }} {{ detail.metric_type }}
+            <button
+              class="btn btn-danger btn-sm float-end "
+              hx-delete="{% url 'recipes:partial_remove_recipeingredient' detail.pk %}"
+              hx-swap="outerHTML"
+              hx-target="#ingredient_partial"
+              hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+            ><i class="bi-dash-circle"></i></button>
+          </li>
+
+        {% endfor %}
+      </ul><!-- End Clean list group -->
+
+    </div>
+  </div>
+  <!-- Card RecipeIngredient Form -->
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Ingredientes</h5>
+      <form class="row g-3" method="post">
+        {% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+          {{ hidden }}
+        {% endfor %}
+        {{ form.non_field_errors }}
+        <!-- ingredient -->
+        <div class="form-floating mb-3 col-12">
+          <select class="form-select" name="{{ form.ingredient.name }}" id="floatingSelect"
+                  aria-label="Ingrediente">
+            {% for choice in form.ingredient %}
+              {{ choice }}
+            {% endfor %}
+          </select>
+          <label for="floatingSelect">Ingrediente</label>
+          {% for err in form.ingredient.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ err }}
+            </div>
+          {% endfor %}
+        </div>
+        <!-- qtd -->
+        <div class="col-md-4">
+          <div class="form-floating">
+            <input type="number" value="{{ form.qtd.value }}" name="{{ form.qtd.name }}"
+                   class="form-control" id="floatingName" placeholder="">
+            <label for="floatingName">{{ form.qtd.label }}</label>
+            {% for err in form.qtd.errors %}
+              <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ err }}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <!-- metric_type -->
+        <div class="form-floating mb-3 col-md-8">
+          <select class="form-select" name="{{ form.metric_type.name }}" id="floatingSelect"
+                  aria-label="Metrica">
+            {% for choice in form.metric_type %}
+              {{ choice }}
+            {% endfor %}
+          </select>
+          <label for="floatingSelect">{{ form.metric_type.label }}</label>
+          {% for err in form.metric_type.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ err }}
+            </div>
+          {% endfor %}
+        </div>
+        <div class="text-center">
+          <button hx-post="{% url 'recipes:partial_add_step_2' recipe_slug %}"
+                  hx-swap="outerHTML"
+                  hx-target="#recipe_add_step_2"
+                  class="btn btn-primary">
+            Adicionar
+          </button>
+        </div>
+      </form><!-- End floating Labels Form -->
+      <div class="text-center">
+        <button hx-post="{% url 'recipes:partial_add_step_3' recipe_slug %}"
+                hx-swap="outerHTML"
+                hx-target="#recipe_add_step_2"
+                hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                class="btn btn-primary">
+          Próximo
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

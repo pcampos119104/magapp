@@ -10,20 +10,19 @@ class IngredientForm(forms.ModelForm):
         fields = ("name",)
 
 
-class RecipeIngredientForm(forms.ModelForm):
+class RecipeAddStep1Form(forms.ModelForm):
+    class Meta:
+        model = Recipe
+        fields = ("title", "description", "font")
+
+
+class RecipeAddStep2Form(forms.ModelForm):
     class Meta:
         model = RecipeIngredient
         fields = ("qtd", "metric_type", "ingredient")
 
 
-class RecipeStep2Form(forms.ModelForm):
+class RecipeAddStep3Form(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ("directions", "font")
-
-
-# Novos Forms
-class RecipeStep1Form(forms.ModelForm):
-    class Meta:
-        model = Recipe
-        fields = ("title", "description")
+        fields = ("directions",)

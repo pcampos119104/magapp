@@ -19,25 +19,27 @@ from magapp.recipes import views
 
 app_name = "recipes"
 urlpatterns = [
+    # Create Recipe
     path("create/", views.recipe_create, name="create"),
-    path("htmx/create/step-1/", views.partial_add_step_1, name="partial_add_step_1"),
+    path("htmx/create/step/1/", views.recipe_add_step_1, name="partial_add_step_1"),
     path(
-        "htmx/create/step-2/<slug:slug>/",
-        views.partial_add_step_2,
+        "htmx/create/step/2/<slug:slug>/",
+        views.recipe_add_step_2,
         name="partial_add_step_2",
     ),
+    path(
+        "htmx/create/step/3/<slug:slug>/",
+        views.recipe_add_step_3,
+        name="partial_add_step_3",
+    ),
+    path(
+        "htmx/recipe-ingredient/<uuid:pk>/delete/",
+        views.remove_recipeingredient,
+        name="partial_remove_recipeingredient",
+    ),
+    # List, Detail, Update and Delete Recipes
     path("", views.ListView.as_view(), name="list"),
     path("<slug:slug>", views.DetailView.as_view(), name="detail"),
     # path("<uuid:pk>/update/", views.UpdateView.as_view(), name="update"),
     path("<uuid:pk>/delete/", views.DeleteView.as_view(), name="delete"),
-    path(
-        "htmx/ingredient-form/<slug:slug>/",
-        views.add_recipeingredient,
-        name="partial_add_recipeingredient",
-    ),
-    path(
-        "htmx/ingredient-form/<uuid:pk>/delete/",
-        views.remove_recipeingredient,
-        name="partial_remove_recipeingredient",
-    ),
 ]
