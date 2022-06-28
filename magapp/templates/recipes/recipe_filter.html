@@ -16,6 +16,7 @@
   <!-- end filter -->
 
   <!-- start list recipes -->
+
   <div class="row align-items-top">
     {% for recipe in page_obj %}
       <div class="col-lg-6">
@@ -34,7 +35,6 @@
   </div>
 
   <!-- Pagination -->
-
   <ul class="pagination justify-content-center">
     {% if page_obj.has_previous %}
       <li class="page-item">
@@ -62,5 +62,6 @@
       </li>
     {% endif %}
   </ul>
+  <!-- end pagination -->
   <!-- end list recipes -->
 {% endblock %}
