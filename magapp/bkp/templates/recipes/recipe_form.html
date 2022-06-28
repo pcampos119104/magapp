@@ -1,0 +1,47 @@
+{% extends "recipes/base_recipes.html" %}
+
+{% load i18n %}
+{% block content %}
+
+  <div class="container">
+    <main>
+      <div class="row g-5">
+        <div class="col-md-7 col-lg-8">
+          <h4 class="mb-3">{% trans 'Nova receita' %}</h4>
+          <form class="needs-validation" method="post">
+            {% csrf_token %}
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="title" class="form-label">{% trans 'Título' %}</label>
+                {{ form.title }}
+              </div>
+            </div>
+
+            <!-- Ingredient detail-->
+            {% include "recipes/partials/recipe_ingredient_detail.html" %}
+            <!-- End Ingredient detail-->
+
+            <div class="col-12">
+              <label for="directions" class="form-label">{% trans 'Preparo' %}</label>
+              {{ form.directions }}
+            </div>
+
+            <div class="row g-3">
+              <div class="col-12">
+                <label for="font" class="form-label">{% trans 'Fonte' %}</label>
+                {{ form.font }}
+              </div>
+            </div>
+            <hr class="my-4">
+
+            <button class="w-100 btn btn-primary btn-lg" type="submit">{% trans 'Incluir' %}</button>
+          </form>
+          <!-- Ingredient form-->
+          {% include "recipes/partials/recipe_ingredient_form.html" %}
+          <!-- End Ingredient form-->
+        </div>
+      </div>
+    </main>
+  </div>
+
+{% endblock %}

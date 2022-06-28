@@ -1,0 +1,178 @@
+
+
+
+
+
+{% load static i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>{% block title %}magapp{% endblock title %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Recipes app">
+  <meta name="author" content="Pedro Campos">
+  <script src="https://unpkg.com/htmx.org@1.6.1"
+          integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW"
+          crossorigin="anonymous"></script>
+  <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+  <!--[if lt IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+  <![endif]-->
+
+  <link rel="icon" href="{% static 'images/favicons/favicon.png' %}">
+
+  {% block css %}
+    <!-- Latest compiled and minified Bootstrap CSS -->
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <!-- JavaScript Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
+    <!-- Your stuff: Third-party CSS libraries go here -->
+    <!-- This file stores project-specific CSS -->
+    <link href="{% static 'css/project.css' %}" rel="stylesheet">
+  {% endblock %}
+  <!-- Le javascript
+  ================================================== -->
+  {# Placed at the top of the document so pages load faster with defer #}
+  {% block javascript %}
+    <!-- Bootstrap JS and its dependencies-->
+    <script defer src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+            integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+            crossorigin="anonymous"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
+            integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
+            crossorigin="anonymous"></script>
+    <script defer src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/htmx.org@1.5.0"
+            integrity="sha384-oGA+prIp5Vchu6we2YkI51UtVzN9Jpx2Z7PnR1I78PnZlN8LkrCT4lqqqmDkyrvI"
+            crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/hyperscript.org@0.9.4"></script>
+
+
+    <!-- Your stuff: Third-party javascript libraries go here -->
+
+    <!-- place project specific Javascript in this file -->
+    <script defer src="{% static 'js/project.js' %}"></script>
+    <script>
+      document.body.addEventListener('htmx:configRequest', (event) => {
+        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
+      })
+    </script>
+  {% endblock javascript %}
+
+</head>
+
+<body>
+
+<div class="container">
+  <header class="d-flex flex-wrap justify-content-center py-3 mb-4 border-bottom">
+    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-dark text-decoration-none">
+      <span class="fs-4">MAGAPP</span>
+    </a>
+
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a href="{% url 'recipes:list' %}"
+           class="nav-link {% if request.resolver_match.view_name == 'recipes:list' %}active{% endif %}"
+           aria-current="page">
+          {% trans 'Receitas' %}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'ingredients:list' %}"
+           class="nav-link {% if request.resolver_match.view_name == 'ingredients:list' %}active{% endif %}"
+           aria-current="page">
+          {% trans 'Ingredientes' %}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'recipes:create' %}"
+           class="nav-link {% if request.resolver_match.view_name == 'recipes:create' %}active{% endif %}">
+          {% trans 'Incluir receita' %}
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="{% url 'ingredients:create' %}"
+           class="nav-link {% if request.resolver_match.view_name == 'ingredients:create' %}active{% endif %}">
+          {% trans 'Incluir ingrediente' %}
+        </a>
+      </li>
+      {% if request.user.is_authenticated %}
+        <li class="nav-item">
+          <a href="{% url 'users:detail' request.user.username %}"
+             class="nav-link {% if request.resolver_match.view_name == 'users:detail' %}active{% endif %}">
+            {% trans 'Minha conta' %}
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{% url 'account_logout' %}"
+             class="nav-link {% if request.resolver_match.view_name == 'account_logout' %}active{% endif %}">
+            {% trans 'Sair' %}
+          </a>
+        </li>
+      {% else %}
+        <li class="nav-item">
+          <a href="{% url 'account_login' %}"
+             class="nav-link {% if request.resolver_match.view_name == 'account_login' %}active{% endif %}">
+            {% trans 'Entrar' %}
+          </a>
+        </li>
+      {% endif %}
+    </ul>
+  </header>
+</div>
+<div class="b-example-divider"></div>
+<div class="container">
+
+  {% if messages %}
+    {% for message in messages %}
+      <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}">{{ message }}
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span
+          aria-hidden="true">&times;</span></button>
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  {% block content %}
+    <p>Use this document as a way to quick start any new project.</p>
+  {% endblock content %}
+
+</div> <!-- /container -->
+<footer class="my-5 pt-5 text-muted text-center text-small">
+
+  <ul class="list-inline">
+    <li class="list-inline-item">
+      <p class="mb-1">&copy; 2022 Codemodi</p>
+    </li>
+    <li class="list-inline-item">
+      <a href="https://github.com/pcampos119104">
+        <i class="bi bi-github"></i>
+      </a>
+    </li>
+    <li class="list-inline-item">
+      <a href="https://www.linkedin.com/in/pcampos119104/">
+        <i class="bi bi-linkedin"></i>
+      </a>
+    </li>
+  </ul>
+  <a href="http://www.djangoproject.com/"><img src="https://www.djangoproject.com/m/img/badges/djangosite100x25.gif"
+                                               border="0" alt="A Django site." title="A Django site."/></a>
+</footer>
+
+{% block modal %}{% endblock modal %}
+
+{% block inline_javascript %}
+  {# Script tags with only code, no src (defer by default) #}
+{% endblock inline_javascript %}
+</body>
+</html>

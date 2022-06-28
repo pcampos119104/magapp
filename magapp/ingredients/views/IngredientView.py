@@ -12,9 +12,9 @@ from magapp.ingredients.filters import IngredientFilter
 from magapp.ingredients.models import Ingredient
 from magapp.recipes.forms import (
     IngredientForm,
-    RecipeIngredientForm,
-    RecipeStep1Form,
-    RecipeStep2Form,
+    RecipeAddStep1Form,
+    RecipeAddStep2Form,
+    RecipeAddStep3Form,
 )
 from magapp.recipes.models import Recipe, RecipeIngredient
 from magapp.utils import log_start
