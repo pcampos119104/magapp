@@ -2,23 +2,18 @@
 
 {% block content %}
   <h2>Ingredients</h2>
-  <form action="" class="form-inline mr-auto w-100 navbar-search" id="search_form" method="get">
-    {% csrf_token %}
-    <div class="input-group col-12">
-      {{ filter.form.name }}
-        <div class="row form-row spacer">
-        <div class="">
-        <div class="col-12">
-          <div class="input-group">
-            <button class="btn btn-primary add-form-row" type="submit">
-              Buscar
-            </button>
-          </div>
-
-        </div>
+  <!-- filter -->
+  <div class="row align-items-top">
+    <form class="col-md-4" method="GET" action="#">
+      <div class="input-group search-bar mb-3">
+        {% csrf_token %}
+        <input type="text" name="{{ filter.form.name.name }}"
+               class="form-control" aria-label="Amount (to the nearest dollar)">
+        <button type="submit" class="input-group-text" title="Search"><i class="bi bi-search"></i></button>
       </div>
-    </div>
-  </form>
+    </form>
+  </div>
+  <!-- end filter -->
 
   <table class="table table-striped ">
     {% for ingredient in page_obj %}
