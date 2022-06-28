@@ -35,7 +35,7 @@ class TestIngredientsViews:
     def test_create_view_with_login(self, logged_client):
         resp = logged_client.get(reverse("ingredients:create"))
         assert resp.status_code == 200
-        assert_contains(resp, "id_name")
+        assert_contains(resp, "name")
 
     @pytest.mark.skip
     def test_delete_view(self, logged_client):
