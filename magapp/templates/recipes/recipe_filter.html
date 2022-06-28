@@ -6,8 +6,9 @@
     <form class="col-md-4" method="GET" action="#">
       <div class="input-group search-bar mb-3">
         {% csrf_token %}
-        <input type="text" value="{{ filter.form.title.value }}" name="{{ filter.form.title.name }}" class="form-control" aria-label="Amount (to the nearest dollar)">
-     <button type="submit" class="input-group-text" title="Search"><i class="bi bi-search"></i></button>
+        <input type="text" name="{{ filter.form.title.name }}"
+               class="form-control" aria-label="Amount (to the nearest dollar)">
+        <button type="submit" class="input-group-text" title="Search"><i class="bi bi-search"></i></button>
       </div>
     </form>
   </div>
@@ -30,23 +31,34 @@
     {% endfor %}
   </div>
 
-  <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-          <a href="?page=1&name={{ filter.form.name.value|default_if_none:'' }}">&laquo; first</a>
-          <a href="?page={{ page_obj.previous_page_number }}&name={{ filter.form.name.value|default_if_none:'' }}">previous</a>
-        {% endif %}
+  <!-- Pagination -->
 
-      <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.previous_page_number }}&name={{ filter.form.name.value|default_if_none:'' }}"
+           tabindex="-1" aria-disabled="true">Anterior</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+      </li>
+    {% endif %}
 
-      {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}&name={{ filter.form.name.value|default_if_none:'' }}">next</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}&name={{ filter.form.name.value|default_if_none:'' }}">last &raquo;</a>
-      {% endif %}
-    </span>
-  </div>
+    <li class="page-item page-link">
+      Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+    </li>
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.next_page_number }}&name={{ filter.form.name.value|default_if_none:'' }}">Próximo</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Próximo</a>
+      </li>
+    {% endif %}
+  </ul>
   <!-- end list recipes -->
-
 {% endblock %}

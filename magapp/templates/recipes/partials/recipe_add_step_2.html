@@ -74,24 +74,25 @@
             </div>
           {% endfor %}
         </div>
-        <div class="text-center">
+        <div class="text-lg-start col-md">
           <button hx-post="{% url 'recipes:partial_add_step_2' recipe_slug %}"
                   hx-swap="outerHTML"
                   hx-target="#recipe_add_step_2"
                   class="btn btn-primary">
-            Adicionar
+            Adicionar ingrediente
           </button>
         </div>
+        <div class="text-lg-end col-md">
+          <button hx-post="{% url 'recipes:partial_add_step_3' recipe_slug %}"
+                  hx-swap="outerHTML"
+                  hx-target="#recipe_add_step_2"
+                  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                  class="btn btn-primary">
+            Próximo passo
+          </button>
+        </div>
+
       </form><!-- End floating Labels Form -->
     </div>
-  </div>
-  <div class="text-center">
-    <button hx-post="{% url 'recipes:partial_add_step_3' recipe_slug %}"
-            hx-swap="outerHTML"
-            hx-target="#recipe_add_step_2"
-            hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-            class="btn btn-primary">
-      Próximo
-    </button>
   </div>
 </div>
