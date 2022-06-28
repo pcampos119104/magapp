@@ -1,0 +1,38 @@
+{% load i18n %}
+
+<div id="ingredient_edit" class="card">
+  <div class="card-body">
+    <h5 class="card-title">Ingrediente</h5>
+    <form class="row g-3" method="post">
+      {% csrf_token %}
+      <div class="col-12">
+        <div class="form-floating">
+          <input type="text" value="{{ form.name.value | default_if_none:'' }}" class="form-control"
+                 name="{{ form.name.name }}" id="floatingName" placeholder="Título">
+          <label for="floatingName">{{ form.name.label }}</label>
+          {% for err in form.name.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ err }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+      <div class="text-center">
+        {% if form.instance.slug %}
+          <button hx-post="{% url 'ingredients:update' form.instance.slug %}"
+                  hx-swap="outerHTML"
+                  hx-target="#ingredient_edit"
+                  class="btn btn-primary">
+          Salvar
+        {% else %}
+          <button hx-post="{% url 'ingredients:create' %}"
+                  hx-swap="outerHTML"
+                  hx-target="#ingredient_edit"
+                  class="btn btn-primary">
+            Salvar
+          </button>
+        {% endif %}
+      </div>
+    </form><!-- End floating Labels Form -->
+  </div>
+</div>

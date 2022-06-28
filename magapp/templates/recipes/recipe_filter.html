@@ -2,6 +2,7 @@
 
 {% block content %}
   <h2>Receitas</h2>
+  <!-- filter -->
   <div class="row align-items-top">
     <form class="col-md-4" method="GET" action="#">
       <div class="input-group search-bar mb-3">
@@ -12,8 +13,10 @@
       </div>
     </form>
   </div>
+  <!-- end filter -->
 
   <!-- start list recipes -->
+
   <div class="row align-items-top">
     {% for recipe in page_obj %}
       <div class="col-lg-6">
@@ -32,7 +35,6 @@
   </div>
 
   <!-- Pagination -->
-
   <ul class="pagination justify-content-center">
     {% if page_obj.has_previous %}
       <li class="page-item">
@@ -60,5 +62,6 @@
       </li>
     {% endif %}
   </ul>
+  <!-- end pagination -->
   <!-- end list recipes -->
 {% endblock %}

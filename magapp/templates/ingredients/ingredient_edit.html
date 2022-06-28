@@ -7,9 +7,13 @@
     <main>
       <div class="row g-5">
         <div class="col-md-7 col-lg-8">
-          <h4 class="mb-3">{% trans 'Atualizar ingrediente' %}</h4>
+          {% if form.instance.slug %}
+            <h4 class="mb-3">Atualizar ingrediente</h4>
+          {% else %}
+            <h4 class="mb-3">Novo ingrediente</h4>
+          {% endif %}
           <!-- form-->
-          {% include "ingredients/partials/ingredient_update_partial.html" %}
+          {% include "ingredients/partials/ingredient_edit_partial.html" %}
           <!-- End form-->
         </div>
       </div>

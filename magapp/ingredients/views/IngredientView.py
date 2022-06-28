@@ -31,20 +31,18 @@ def ingredient_create(request):
         if form.is_valid():
             form.instance.created_by = request.user
             form.save()
-            return render(
-                request, "ingredients/partials/ingredient_add_update_finish.html"
-            )
+            return render(request, "ingredients/partials/ingredient_edit_finish.html")
         else:
             return render(
                 request,
-                "ingredients/partials/ingredient_add_partial.html",
+                "ingredients/partials/ingredient_edit_partial.html",
                 {
                     "form": form,
                 },
             )
 
     elif request.method == "GET":
-        template = "ingredients/ingredient_add.html"
+        template = "ingredients/ingredient_edit.html"
         return render(request, template, {"form": form})
 
 
@@ -56,20 +54,18 @@ def ingredient_update(request, slug):
         form = IngredientForm(request.POST, instance=ingredient)
         if form.is_valid():
             form.save()
-            return render(
-                request, "ingredients/partials/ingredient_add_update_finish.html"
-            )
+            return render(request, "ingredients/partials/ingredient_edit_finish.html")
         else:
             return render(
                 request,
-                "ingredients/partials/ingredient_update_partial.html",
+                "ingredients/partials/ingredient_edit_partial.html",
                 {
                     "form": form,
                 },
             )
     elif request.method == "GET":
         form = IngredientForm(instance=ingredient)
-        template = "ingredients/ingredient_update.html"
+        template = "ingredients/ingredient_edit.html"
         return render(request, template, {"form": form})
 
 

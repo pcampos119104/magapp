@@ -2,48 +2,62 @@
 
 {% block content %}
   <h2>Ingredients</h2>
-  <form action="" class="form-inline mr-auto w-100 navbar-search" id="search_form" method="get">
-    {% csrf_token %}
-    <div class="input-group col-12">
-      {{ filter.form.name }}
-        <div class="row form-row spacer">
-        <div class="">
-        <div class="col-12">
-          <div class="input-group">
-            <button class="btn btn-primary add-form-row" type="submit">
-              Buscar
-            </button>
-          </div>
-
-        </div>
+  <!-- filter -->
+  <div class="row align-items-top">
+    <form class="col-md-4" method="GET" action="#">
+      <div class="input-group search-bar mb-3">
+        {% csrf_token %}
+        <input type="text" name="{{ filter.form.name.name }}"
+               class="form-control" aria-label="Amount (to the nearest dollar)">
+        <button type="submit" class="input-group-text" title="Search"><i class="bi bi-search"></i></button>
       </div>
-    </div>
-  </form>
-
-  <table class="table table-striped ">
-    {% for ingredient in page_obj %}
-      <tr>
-        <th><a href="{% url 'ingredients:detail' ingredient.slug %}"><h5>{{ ingredient.name }}</h5></a></th>
-      </tr>
-    {% endfor %}
-  </table>
-  <div class="pagination">
-    <span class="step-links">
-        {% if page_obj.has_previous %}
-          <a href="?page=1&name={{ filter.form.name.value|default_if_none:'' }}">&laquo; first</a>
-          <a href="?page={{ page_obj.previous_page_number }}&name={{ filter.form.name.value|default_if_none:'' }}">previous</a>
-        {% endif %}
-
-      <span class="current">
-            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        </span>
-
-      {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}&name={{ filter.form.name.value|default_if_none:'' }}">next</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}&name={{ filter.form.name.value|default_if_none:'' }}">last &raquo;</a>
-      {% endif %}
-    </span>
+    </form>
   </div>
+  <!-- end filter -->
+
+  <!-- Ingredient list -->
+  <div class="card">
+    <div class="card-body" >
+      <ul class="list-group list-group-flush">
+        {% for detail in page_obj %}
+          <li class="list-group-item">
+            <a href="{% url 'ingredients:detail' detail.slug %}"><h5>{{ detail.name | title}}</h5></a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  </div>
+  <!-- end Ingredient list -->
+
+  <!-- Pagination -->
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.previous_page_number }}&name={{ filter.form.name.value|default_if_none:'' }}"
+           tabindex="-1" aria-disabled="true">Anterior</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Anterior</a>
+      </li>
+    {% endif %}
+
+    <li class="page-item page-link">
+      Página {{ page_obj.number }} de {{ page_obj.paginator.num_pages }}
+    </li>
+    {% if page_obj.has_next %}
+      <li class="page-item">
+        <a class="page-link"
+           href="?page={{ page_obj.next_page_number }}&name={{ filter.form.name.value|default_if_none:'' }}">Próximo</a>
+      </li>
+    {% else %}
+      <li class="page-item disabled">
+        <a class="page-link" href="#" tabindex="-1" aria-disabled="true">Próximo</a>
+      </li>
+    {% endif %}
+  </ul>
+  <!-- end pagination -->
 
 
 {% endblock %}
