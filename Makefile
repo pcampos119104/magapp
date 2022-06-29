@@ -14,6 +14,9 @@ test:
 migrate:
 	docker-compose run --rm django python manage.py migrate
 
+remove_draft:
+	docker-compose run --rm django python manage.py remove_draft
+
 makemigrations:
 	docker-compose run --rm django python manage.py makemigrations
 
