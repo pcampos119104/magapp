@@ -19,7 +19,7 @@ class RecipeAddStep1Form(forms.ModelForm):
 class RecipeAddStep2Form(forms.ModelForm):
     class Meta:
         model = RecipeIngredient
-        fields = ("qtd", "metric_type", "ingredient")
+        fields = ("qtd", "metric", "ingredient")
 
 
 class RecipeAddStep3Form(forms.ModelForm):

@@ -2,7 +2,7 @@ import pytest
 from model_bakery import baker
 
 from magapp.ingredients.models import Ingredient
-from magapp.recipes.models import Recipe
+from magapp.recipes.models import Metric, Recipe
 from magapp.users.models import User
 from magapp.users.tests.factories import UserFactory
 
@@ -48,4 +48,10 @@ def ingredient(db, recipe) -> Ingredient:
     model = baker.make(
         Ingredient, name="Farinha", slug="farinha-asdf", deleted_at=None, recipe=recipe
     )
+    return model
+
+
+@pytest.fixture
+def metric(db) -> Metric:
+    model = baker.make(Metric, deleted_at=None)
     return model
