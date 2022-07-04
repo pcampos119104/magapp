@@ -8,7 +8,7 @@ from magapp.recipes.models import Metric, Recipe
 
 
 class RecipeIngredient(ModelBase):
-    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    ingredient = models.ForeignKey("ingredients.Ingredient", on_delete=models.CASCADE)
     recipe = models.ForeignKey(Recipe, on_delete=models.CASCADE)
     metric = models.ForeignKey("recipes.Metric", on_delete=models.CASCADE)
     qtd = models.IntegerField(

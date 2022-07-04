@@ -6,7 +6,7 @@
       <h5 class="card-title">Ingredientes Adicionados</h5>
       <ul class="list-group list-group-flush">
         {% for detail in ingredients %}
-          <li class="list-group-item">{{ detail.ingredient.name | title }} {{ detail.qtd }} {{ detail.metric_type }}
+          <li class="list-group-item">{{ detail.ingredient.name | title }} {{ detail.qtd }} {{ detail.metric }}
             <button
               class="btn btn-danger btn-sm float-end "
               hx-delete="{% url 'recipes:partial_remove_recipeingredient' detail.pk %}"
@@ -61,14 +61,14 @@
         </div>
         <!-- metric_type -->
         <div class="form-floating mb-3 col-md-8">
-          <select class="form-select" name="{{ form.metric_type.name }}" id="floatingSelect"
+          <select class="form-select" name="{{ form.metric.name }}" id="floatingSelect"
                   aria-label="Metrica">
-            {% for choice in form.metric_type %}
+            {% for choice in form.metric %}
               {{ choice }}
             {% endfor %}
           </select>
-          <label for="floatingSelect">{{ form.metric_type.label }}</label>
-          {% for err in form.metric_type.errors %}
+          <label for="floatingSelect">{{ form.metric.label }}</label>
+          {% for err in form.metric.errors %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
               {{ err }}
             </div>
