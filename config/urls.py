@@ -7,9 +7,6 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="base.html"), name="home"),
-    path(
-        "about/", TemplateView.as_view(template_name="pages/about.html"), name="about"
-    ),
     # grappelli URLS
     path("grappelli/", include("grappelli.urls")),
     # Django Admin, use {% url 'admin:index' %}
