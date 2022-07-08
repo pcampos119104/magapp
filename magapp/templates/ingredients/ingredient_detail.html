@@ -1,0 +1,22 @@
+{% extends "recipes/base_recipes.html" %}
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card">
+            <h4 class="card-header">
+                {{ ingredient.name | title }}
+            </h4>
+            <div class="card-body">
+                <p class="card-text">
+                </p>
+            </div>
+          <!-- Action buttons -->
+        </div>
+          {% if user == ingredient.created_by %}
+            <a href="{% url 'ingredients:update' ingredient.slug %}" type="button" class="btn btn-primary">Editar</a>
+            <a href="{% url 'ingredients:delete' ingredient.pk %}" type="button" class="btn btn-danger">Remover</a>
+          {% endif %}
+          <!-- end Action buttons -->
+    </div>
+</div>
+{% endblock %}

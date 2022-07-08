@@ -62,20 +62,22 @@ DJANGO_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     # "django.contrib.humanize", # Handy template tags
+    "grappelli",
     "django.contrib.admin",
     "django.forms",
 ]
 THIRD_PARTY_APPS = [
-    "crispy_forms",
-    "crispy_bootstrap5",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "django_htmx",
 ]
 
 LOCAL_APPS = [
-    "magapp.users",
-    # Your stuff: custom apps go here
+    "magapp.users.apps.UsersConfig",
+    "magapp.recipes.apps.RecipesConfig",
+    "magapp.core.apps.CoreConfig",
+    "magapp.ingredients.apps.IngredientsConfig",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -236,8 +238,8 @@ LOGGING = {
     "disable_existing_loggers": False,
     "formatters": {
         "verbose": {
-            "format": "%(levelname)s %(asctime)s %(module)s "
-            "%(process)d %(thread)d %(message)s"
+            "format": "[{asctime}]   [{process:d}] [{levelname}] {message}",
+            "style": "{",
         }
     },
     "handlers": {
@@ -247,9 +249,12 @@ LOGGING = {
             "formatter": "verbose",
         }
     },
-    "root": {"level": "INFO", "handlers": ["console"]},
+    "root": {"level": "DEBUG", "handlers": ["console"]},
 }
-
+"""
+# "format": "[{asctime}]   [{process:d}] [{levelname}] {message}",
+# "style": "{",
+"""
 
 # django-allauth
 # ------------------------------------------------------------------------------
@@ -259,7 +264,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "username"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_EMAIL_REQUIRED = True
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
-ACCOUNT_EMAIL_VERIFICATION = "mandatory"
+ACCOUNT_EMAIL_VERIFICATION = "none"
 # https://django-allauth.readthedocs.io/en/latest/configuration.html
 ACCOUNT_ADAPTER = "magapp.users.adapters.AccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
@@ -268,7 +273,6 @@ ACCOUNT_FORMS = {"signup": "magapp.users.forms.UserSignupForm"}
 SOCIALACCOUNT_ADAPTER = "magapp.users.adapters.SocialAccountAdapter"
 # https://django-allauth.readthedocs.io/en/latest/forms.html
 SOCIALACCOUNT_FORMS = {"signup": "magapp.users.forms.UserSocialSignupForm"}
-
 
 # Your stuff...
 # ------------------------------------------------------------------------------

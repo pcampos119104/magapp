@@ -330,3 +330,4 @@ magapp/media/
 .env
 .envs/*
 !.envs/.local/
+dev_extras/
