@@ -7,7 +7,7 @@ from magapp.recipes.models import Recipe, RecipeIngredient
 class IngredientForm(forms.ModelForm):
     class Meta:
         model = Ingredient
-        fields = ("name",)
+        fields = ("name", "qualifiers")
 
 
 class RecipeAddStep1Form(forms.ModelForm):
