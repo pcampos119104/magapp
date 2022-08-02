@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-# Register your models here.
-from magapp.ingredients.models import Ingredient
+from magapp.ingredients.models import Ingredient, Qualifier
 
 admin.site.register(Ingredient)
+admin.site.register(Qualifier)
