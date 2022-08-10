@@ -8,7 +8,6 @@ from magapp.core.utils import create_unique_slug
 
 class Ingredient(ModelBase):
     name = models.CharField("nome", max_length=64, help_text="Ingrediente e quantidade")
-    qualifiers = models.ManyToManyField("ingredients.Qualifier", blank=True)
     slug = models.SlugField(max_length=64, unique=True, editable=False)
     created_by = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, null=False
