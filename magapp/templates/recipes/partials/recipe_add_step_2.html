@@ -2,16 +2,21 @@
 <div id='recipe_add_step_2'>
   <!-- RecipeIngredient list -->
   <div class="card">
-    <div class="card-body" id="{{ detail.ingredient.name }}-detail">
+    <div class="card-body" id="ingredient-detail">
       <h5 class="card-title">Ingredientes Adicionados</h5>
       <ul class="list-group list-group-flush">
         {% for detail in ingredients %}
           <li class="list-group-item">{{ detail.ingredient.name | title }} {{ detail.qtd }} {{ detail.metric }}
+            {% for qualificator in detail.qualifiers.all  %}
+              {{ qualificator.name }},
+
+            {% endfor %}
+
             <button
               class="btn btn-danger btn-sm float-end "
               hx-delete="{% url 'recipes:partial_remove_recipeingredient' detail.pk %}"
               hx-swap="outerHTML"
-              hx-target="#ingredient_partial"
+              hx-target="#recipe_add_step_2"
               hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
             ><i class="bi-dash-circle"></i></button>
           </li>
@@ -73,6 +78,19 @@
               {{ err }}
             </div>
           {% endfor %}
+        </div>
+        <!-- qualifier -->
+        <div class="col-12">
+          <label class="col-form-label">Qualificadores, se necessário</label>
+          <div class="col-sm-10">
+            <select name="{{ form.qualifiers.name }}" id="" class="form-select"
+                    multiple="multiple"
+                    aria-label="multiple select example">
+              {% for qualifier in form.qualifiers %}
+                {{ qualifier }}
+              {% endfor %}
+            </select>
+          </div>
         </div>
         <div class="text-lg-start col-md">
           <button hx-post="{% url 'recipes:partial_add_step_2' recipe_slug %}"

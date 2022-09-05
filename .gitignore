@@ -331,3 +331,4 @@ magapp/media/
 .envs/*
 !.envs/.local/
 dev_extras/
+compose/production

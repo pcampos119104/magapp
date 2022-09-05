@@ -50,8 +50,8 @@ def recipe_add_step_1(request):
 @log_start
 def recipe_add_step_2(request, slug):
     recipe = Recipe.all_objects.filter(slug=slug).first()
-    logger.debug(f"recipe - {recipe}")
-    form = RecipeAddStep2Form(request.POST)
+    logger.debug(f"recipe - {recipe.pk}, {recipe.id} ")
+    form = RecipeAddStep2Form(data=request.POST)
     response_form = RecipeAddStep2Form()
     if form.is_valid():
         logger.debug("form.is_valid() - True")
