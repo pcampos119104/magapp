@@ -18,3 +18,4 @@ django-redis==5.2.0  # https://github.com/jazzband/django-redis
 django-filter==21.1 # https://django-filter.readthedocs.io/en/stable/
 django-htmx==1.12.0 #
 django-grappelli==3.0.3 # https://django-grappelli.readthedocs.io/en/latest/index.html
+django-tagulous==1.3.3 # https://django-tagulous.readthedocs.io/en/latest/#

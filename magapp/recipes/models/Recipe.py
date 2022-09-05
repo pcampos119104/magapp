@@ -1,3 +1,4 @@
+import tagulous
 from django.contrib.auth import get_user_model
 from django.db import models
 from django.forms import model_to_dict
@@ -12,6 +13,9 @@ class Recipe(DraftModel, ModelBase):
     description = models.TextField("descrição", help_text="Breve descrição da receita")
     directions = models.TextField("preparo", help_text="Passos para o preparo.")
     slug = models.SlugField(max_length=64, unique=True, editable=False)
+    tags = tagulous.models.TagField(
+        force_lowercase=True,
+    )
     ingredients = models.ManyToManyField(
         "ingredients.Ingredient", through="recipes.RecipeIngredient"
     )

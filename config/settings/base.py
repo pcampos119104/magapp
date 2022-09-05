@@ -71,6 +71,7 @@ THIRD_PARTY_APPS = [
     "allauth.account",
     "allauth.socialaccount",
     "django_htmx",
+    "tagulous",
 ]
 
 LOCAL_APPS = [
@@ -79,6 +80,14 @@ LOCAL_APPS = [
     "magapp.core.apps.CoreConfig",
     "magapp.ingredients.apps.IngredientsConfig",
 ]
+
+# tagulous
+SERIALIZATION_MODULES = {
+    "xml": "tagulous.serializers.xml_serializer",
+    "json": "tagulous.serializers.json",
+    "python": "tagulous.serializers.python",
+    "yaml": "tagulous.serializers.pyyaml",
+}
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
 
