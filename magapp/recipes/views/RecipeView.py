@@ -50,20 +50,14 @@ def recipe_add_step_1(request):
 @log_start
 def recipe_add_step_2(request, slug):
     recipe = Recipe.all_objects.filter(slug=slug).first()
-    logger.debug(f"recipe - {recipe}")
-    post = request.POST.copy()
-    post["recipe"] = "dc3a79d6-96ae-45cc-bdec-323a69428484"
-    form = RecipeAddStep2Form(data=post)
-    logger.debug(f"request.POST.copy() - {request.POST.copy()}")
+    logger.debug(f"recipe - {recipe.pk}, {recipe.id} ")
+    form = RecipeAddStep2Form(data=request.POST)
     response_form = RecipeAddStep2Form()
     if form.is_valid():
         logger.debug("form.is_valid() - True")
-        form.save()
-        """
         obj = form.save(commit=False)
         obj.recipe = recipe
         obj.save()
-        """
 
     else:
         logger.debug("form.is_valid() - False")

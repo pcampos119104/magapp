@@ -2,7 +2,7 @@
 <div id='recipe_add_step_2'>
   <!-- RecipeIngredient list -->
   <div class="card">
-    <div class="card-body" id="{{ detail.ingredient.name }}-detail">
+    <div class="card-body" id="ingredient-detail">
       <h5 class="card-title">Ingredientes Adicionados</h5>
       <ul class="list-group list-group-flush">
         {% for detail in ingredients %}
@@ -16,7 +16,7 @@
               class="btn btn-danger btn-sm float-end "
               hx-delete="{% url 'recipes:partial_remove_recipeingredient' detail.pk %}"
               hx-swap="outerHTML"
-              hx-target="#ingredient_partial"
+              hx-target="#recipe_add_step_2"
               hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
             ><i class="bi-dash-circle"></i></button>
           </li>
