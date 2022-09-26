@@ -14,7 +14,7 @@ class Recipe(DraftModel, ModelBase):
     directions = models.TextField("preparo", help_text="Passos para o preparo.")
     slug = models.SlugField(max_length=64, unique=True, editable=False)
     tags = tagulous.models.TagField(
-        force_lowercase=True,
+        force_lowercase=True, null=True, blank=True, help_text="tags da receita"
     )
     ingredients = models.ManyToManyField(
         "ingredients.Ingredient", through="recipes.RecipeIngredient"

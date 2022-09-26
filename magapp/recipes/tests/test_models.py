@@ -5,7 +5,7 @@ from model_bakery import baker
 
 from magapp.recipes.models import Metric, Recipe
 
-pytestmark = pytest.mark.django_db
+pytestmark = [pytest.mark.django_db, pytest.mark.models]
 
 
 class TestRecipeModel:
@@ -42,6 +42,21 @@ class TestRecipeModel:
         model.hard_delete()
         assert not Recipe.objects.filter(slug=model.slug).exists()
         assert not Recipe.all_objects.filter(slug=model.slug).exists()
+
+    def test_tag(self, db, created_user) -> None:
+        model = baker.make(
+            Recipe,
+            title=str(uuid.uuid4()),
+            draft=False,
+            created_by=created_user,
+            deleted_at=None,
+        )
+        model.tags = ["tag1", "tag2"]
+        model.save()
+        assert Recipe.objects.filter(slug=model.slug).filter(tags="tag1").exists()
+        assert (
+            not Recipe.objects.filter(slug=model.slug).filter(tags="not_tag").exists()
+        )
 
 
 class TestMetricModel:

@@ -13,7 +13,7 @@ class IngredientForm(forms.ModelForm):
 class RecipeAddStep1Form(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ("title", "description", "font")
+        fields = ("title", "description", "font", "tags")
 
 
 class RecipeAddStep2Form(forms.ModelForm):
