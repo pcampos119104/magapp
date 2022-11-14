@@ -13,27 +13,29 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+import tagulous.views
 from django.urls import path
 
 from magapp.recipes import views
+from magapp.recipes.models import Recipe
 
 app_name = "recipes"
 urlpatterns = [
     # Create Recipe
     path("create/", views.recipe_create, name="create"),
-    path("htmx/create/step/1/", views.recipe_add_step_1, name="partial_add_step_1"),
+    path("partial/create/step/1/", views.recipe_add_step_1, name="partial_add_step_1"),
     path(
-        "htmx/create/step/2/<slug:slug>/",
+        "partial/create/step/2/<slug:slug>/",
         views.recipe_add_step_2,
         name="partial_add_step_2",
     ),
     path(
-        "htmx/create/step/3/<slug:slug>/",
+        "partial/create/step/3/<slug:slug>/",
         views.recipe_add_step_3,
         name="partial_add_step_3",
     ),
     path(
-        "htmx/recipe-ingredient/<uuid:pk>/delete/",
+        "partial/recipe-ingredient/<uuid:pk>/delete/",
         views.remove_recipeingredient,
         name="partial_remove_recipeingredient",
     ),
@@ -42,4 +44,10 @@ urlpatterns = [
     path("<slug:slug>", views.DetailView.as_view(), name="detail"),
     # path("<uuid:pk>/update/", views.UpdateView.as_view(), name="update"),
     path("<uuid:pk>/delete/", views.DeleteView.as_view(), name="delete"),
+    path(
+        "partial/tag/autocomplete/",
+        tagulous.views.autocomplete,
+        {"tag_model": Recipe},
+        name="partial_autocomplete_recipe_tag",
+    ),
 ]
