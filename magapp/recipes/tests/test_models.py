@@ -5,7 +5,7 @@ from model_bakery import baker
 
 from magapp.recipes.models import Metric, Recipe
 
-pytestmark = pytest.mark.django_db
+pytestmark = [pytest.mark.django_db, pytest.mark.models]
 
 
 class TestRecipeModel:
