@@ -1,0 +1,54 @@
+{% extends "recipes/base_recipes.html" %}
+{% block content %}
+  <div class="row">
+    <div class="pagetitle">
+      <h1>{{ recipe.title | title }}</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a href="{% url 'recipes:list' %}">Home</a></li>
+          <li class="breadcrumb-item"><a href="{% url 'recipes:list' %}">Receitas</a></li>
+          <li class="breadcrumb-item active">{{ recipe.title | title }}</li>
+        </ol>
+      </nav>
+    </div>
+    <div class="col-md-8">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Descrição</h5>
+          {{ recipe.description }}
+        </div>
+        <div class="card-footer">
+          <p>Fonte: {{ recipe.font }}</p>
+          <p>Adicionado por: {{ recipe.created_by.username }}</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Ingredientes</h5>
+          <ul class="list-group">
+            {% for i in ingredient_list %}
+              <li class="list-group-item">
+                <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
+                {{ i.qtd }} {{ i.metric_type }} - {{ i.ingredient.name }} </li>
+            {% endfor %}
+
+          </ul>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">Modo de preparo</h5>
+          {{ recipe.directions }}
+        </div>
+      </div>
+      <!-- Action buttons -->
+      {% if user == recipe.created_by %}
+        <a type="button" class="btn btn-primary">Editar</a>
+        <a href="{% url 'recipes:delete' recipe.id %}" type="button" class="btn btn-danger">Remover</a>
+      {% endif %}
+      <!-- end Action buttons -->
+    </div>
+  </div>
+{% endblock %}
