@@ -19,7 +19,7 @@ class Ingredient(ModelBase):
 
     def save(self, *args, **kwargs):
         self.slug = create_unique_slug(self.name)
-        super(Ingredient, self).save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
     def __str__(self):
         return self.name

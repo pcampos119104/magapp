@@ -1,5 +1,8 @@
 import pytest
+from model_bakery import baker
 
+from magapp.ingredients.models import Ingredient
+from magapp.recipes.models import Metric, Recipe
 from magapp.users.models import User
 from magapp.users.tests.factories import UserFactory
 

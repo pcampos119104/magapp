@@ -11,11 +11,7 @@ from django.urls import reverse
 from magapp.users.forms import UserAdminChangeForm
 from magapp.users.models import User
 from magapp.users.tests.factories import UserFactory
-from magapp.users.views import (
-    UserRedirectView,
-    UserUpdateView,
-    user_detail_view,
-)
+from magapp.users.views import UserRedirectView, UserUpdateView, user_detail_view
 
 pytestmark = pytest.mark.django_db
 
