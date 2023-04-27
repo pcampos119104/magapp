@@ -32,32 +32,6 @@
   <!-- Template Main CSS File -->
   <link href="{% static 'css/style.css' %}" rel="stylesheet">
 
-  {% block javascript %}
-    <!-- Vendor JS Files -->
-    <script src="{% static 'vendor/apexcharts/apexcharts.min.js' %}"></script>
-    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <script src="{% static 'vendor/chart.js/chart.min.js' %}"></script>
-    <script src="{% static 'vendor/echarts/echarts.min.js' %}"></script>
-    <script src="{% static 'vendor/quill/quill.min.js' %}"></script>
-    <script src="{% static 'vendor/simple-datatables/simple-datatables.js' %}"></script>
-    <script src="{% static 'vendor/tinymce/tinymce.min.js' %}"></script>
-    <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
-
-    <!-- Template Main JS File -->
-    <!-- Bootstrap JS and its dependencies-->
-    <script src="https://unpkg.com/htmx.org@1.6.1"
-            integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW"
-            crossorigin="anonymous"></script>
-    <script src="https://unpkg.com/hyperscript.org@0.9.4"></script>
-
-    <!-- Your stuff: Third-party javascript libraries go here -->
-
-    <!-- place project specific Javascript in this file -->
-      document.body.addEventListener('htmx:configRequest', (event) => {
-        event.detail.headers['X-CSRFToken'] = '{{ csrf_token }}';
-      })
-    </script>
-  {% endblock javascript %}
   <!-- =======================================================
   * Template Name: NiceAdmin - v2.2.2
   * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
@@ -149,6 +123,30 @@
 
 {% block modal %}{% endblock modal %}
 
+{% block javascript %}
+  <!-- Vendor JS Files -->
+  <script src="{% static 'vendor/apexcharts/apexcharts.min.js' %}"></script>
+  <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'vendor/chart.js/chart.min.js' %}"></script>
+  <script src="{% static 'vendor/echarts/echarts.min.js' %}"></script>
+  <script src="{% static 'vendor/quill/quill.min.js' %}"></script>
+  <script src="{% static 'vendor/simple-datatables/simple-datatables.js' %}"></script>
+  <script src="{% static 'vendor/tinymce/tinymce.min.js' %}"></script>
+  <script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'js/main.js' %}"></script>
+  <!-- Bootstrap JS and its dependencies-->
+  <script src="https://unpkg.com/htmx.org@1.6.1"
+          integrity="sha384-tvG/2mnCFmGQzYC1Oh3qxQ7CkQ9kMzYjWZSNtrRZygHPDDqottzEJsqS4oUVodhW"
+          crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/hyperscript.org@0.9.4"></script>
+
+  <!-- Your stuff: Third-party javascript libraries go here -->
+
+  <!-- place project specific Javascript in this file -->
+
+{% endblock javascript %}
 {% block inline_javascript %}
   {# Script tags with only code, no src (defer by default) #}
 {% endblock inline_javascript %}

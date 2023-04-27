@@ -332,3 +332,5 @@ magapp/media/
 .ipython/
 .env
 .envs/*
+dev_extras/
+magapp.db

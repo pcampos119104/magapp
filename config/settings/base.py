@@ -74,10 +74,14 @@ THIRD_PARTY_APPS = [
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
+    "django_htmx",
 ]
 
 LOCAL_APPS = [
-    "magapp.users",
+    "magapp.users.apps.UsersConfig",
+    "magapp.recipes.apps.RecipesConfig",
+    "magapp.core.apps.CoreConfig",
+    "magapp.ingredients.apps.IngredientsConfig",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
