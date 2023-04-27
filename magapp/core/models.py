@@ -29,7 +29,7 @@ class SoftDeletionModel(models.Model):
         self.save()
 
     def hard_delete(self):
-        super(SoftDeletionModel, self).delete()
+        super().delete()
 
 
 class ModelBase(SoftDeletionModel, UUIDModel):

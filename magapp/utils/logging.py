@@ -8,7 +8,7 @@ def log_start(f):
     """
     Log the start of a function with this annotation.
     used on pycharm to refactor, many function at once
-    The regex to capture: ([ ]*)(def (?!__init__)\w+) # noqa W605
+    The regex to capture: ([ ]*)(def (?!__init__)\\w+) # noqa W605
     The regex to replace: $1@log_start \n$1$2
     """
 
