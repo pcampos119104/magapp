@@ -5,5 +5,11 @@ set -o pipefail
 set -o nounset
 
 
+echo "Running migrations..."
 python manage.py migrate
+
+echo "Starting jupyterlab"
+exec python manage.py shell_plus --lab &> /dev/null &
+
+echo "Starting runserver_plus"
 exec python manage.py runserver_plus 0.0.0.0:8000

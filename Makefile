@@ -21,7 +21,7 @@ makemigrations:
 	docker-compose run --rm django python manage.py makemigrations
 
 notebook:
-	docker-compose run --rm -p 8888:8888 django python manage.py shell_plus --notebook
+	docker-compose run --rm -p 8888:8888 django python manage.py shell_plus --lab
 
 rebuild:
 	echo "TODO"

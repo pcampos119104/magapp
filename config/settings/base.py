@@ -41,7 +41,7 @@ LOCALE_PATHS = [str(BASE_DIR / "locale")]
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        "NAME": "magapp.db",
+        "NAME": BASE_DIR / "magapp.db",
     }
 }
 DATABASES["default"]["ATOMIC_REQUESTS"] = True

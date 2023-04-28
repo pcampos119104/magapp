@@ -1,3 +1,5 @@
+import os
+
 from .base import *  # noqa
 from .base import env
 
@@ -62,3 +64,18 @@ INSTALLED_APPS += ["django_extensions"]  # noqa F405
 
 # Your stuff...
 # ------------------------------------------------------------------------------
+# jupyter lab
+NOTEBOOK_ARGUMENTS = [
+    "--ip",
+    "0.0.0.0",
+    "--port",
+    "8888",
+    "--allow-root",
+    "--NotebookApp.token",
+    "",
+    "--NotebookApp.password",
+    "",
+]
+
+os.environ["DJANGO_ALLOW_ASYNC_UNSAFE"] = "true"
+IPYTHON_KERNEL_DISPLAY_NAME = "Django Magapp Kernel"
