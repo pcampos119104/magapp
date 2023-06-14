@@ -17,4 +17,4 @@ crispy-bootstrap5==0.7  # https://github.com/django-crispy-forms/crispy-bootstra
 django-redis==5.2.0  # https://github.com/jazzband/django-redis
 django-filter==23.1 # https://django-filter.readthedocs.io/en/stable/
 django-htmx==1.14.0 # https://django-htmx.readthedocs.io/en/latest/
-django-grappelli==3.0.5 # https://django-grappelli.readthedocs.io/en/latest/index.html
+django-grappelli==3.0.6 # https://django-grappelli.readthedocs.io/en/latest/index.html
