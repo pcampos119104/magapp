@@ -101,7 +101,7 @@
           </button>
         </div>
         <div class="text-lg-end col-md">
-          <button hx-post="{% url 'recipes:partial_add_step_3' recipe_slug %}"
+          <button hx-get="{% url 'recipes:partial_add_step_3' recipe_slug %}"
                   hx-swap="outerHTML"
                   hx-target="#recipe_add_step_2"
                   hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
