@@ -30,20 +30,20 @@ def recipe_create(request):
 def recipe_add_step_1(request):
     form = RecipeAddStep1Form(request.POST)
     context = {}
-    if form.is_valid():
-        form.instance.created_by = request.user
-        form.instance.draft = True
-        form.save()
-        context = {
-            "recipe_slug": form.instance.slug,
-            "form": RecipeAddStep2Form(),
-        }
-        return render(request, "recipes/partials/recipe_add_step_2.html", context)
-    else:
+    if not form.is_valid():
         context = {
             "form": form,
         }
         return render(request, "recipes/partials/recipe_add_step_1.html", context)
+
+    form.instance.created_by = request.user
+    form.instance.draft = True
+    form.save()
+    context = {
+        "recipe_slug": form.instance.slug,
+        "form": RecipeAddStep2Form(),
+    }
+    return render(request, "recipes/partials/recipe_add_step_2.html", context)
 
 
 @login_required
@@ -53,17 +53,15 @@ def recipe_add_step_2(request, slug):
     logger.debug(f"recipe - {recipe.pk}, {recipe.id} ")
     form = RecipeAddStep2Form(data=request.POST)
     response_form = RecipeAddStep2Form()
-    if form.is_valid():
-        logger.debug("form.is_valid() - True")
-        obj = form.save(commit=False)
-        obj.recipe = recipe
-        obj.save()
-
-    else:
+    if not form.is_valid():
         logger.debug("form.is_valid() - False")
         logger.debug(f"form.errors.as_json() - {form.errors.as_json()}")
         response_form = form
 
+    logger.debug("form.is_valid() - True")
+    obj = form.save(commit=False)
+    obj.recipe = recipe
+    obj.save()
     context = {
         "recipe_slug": recipe.slug,
         "form": response_form,
@@ -79,15 +77,15 @@ def recipe_add_step_3(request, slug):
     obj = Recipe.all_objects.filter(slug=slug).first()
     form = RecipeAddStep3Form(request.POST or None, instance=obj)
 
-    if form.is_valid():
-        form.instance.draft = False
-        form.save()
-        return render(request, "recipes/partials/recipe_add_step_finish.html")
-    else:
+    if not form.is_valid():
         context = {
             "form": form,
         }
         return render(request, "recipes/partials/recipe_add_step_3.html", context)
+
+    form.instance.draft = False
+    form.save()
+    return render(request, "recipes/partials/recipe_add_step_finish.html")
 
 
 @login_required
