@@ -20,7 +20,7 @@ class Recipe(DraftModel, ModelBase):
     )
     font = models.CharField(
         "Fonte",
-        max_length=64,
+        max_length=200,
         help_text="Livro de receita, link do youtube e etc.",
         null=True,
         blank=True,

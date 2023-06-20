@@ -6,7 +6,7 @@
     <inspection_tool class="PyPackageRequirementsInspection" enabled="true" level="WARNING" enabled_by_default="true">
       <option name="ignoredPackages">
         <value>
-          <list size="285">
+          <list size="299">
             <item index="0" class="java.lang.String" itemvalue="django-anymail" />
             <item index="1" class="java.lang.String" itemvalue="gunicorn" />
             <item index="2" class="java.lang.String" itemvalue="Collectfast" />
@@ -292,6 +292,20 @@
             <item index="282" class="java.lang.String" itemvalue="django-simple-tags" />
             <item index="283" class="java.lang.String" itemvalue="argon2-cffi-bindings" />
             <item index="284" class="java.lang.String" itemvalue="django-timezone-field" />
+            <item index="285" class="java.lang.String" itemvalue="pytest-sugar" />
+            <item index="286" class="java.lang.String" itemvalue="Werkzeug" />
+            <item index="287" class="java.lang.String" itemvalue="sphinx-autobuild" />
+            <item index="288" class="java.lang.String" itemvalue="factory-boy" />
+            <item index="289" class="java.lang.String" itemvalue="django-coverage-plugin" />
+            <item index="290" class="java.lang.String" itemvalue="pytest" />
+            <item index="291" class="java.lang.String" itemvalue="pre-commit" />
+            <item index="292" class="java.lang.String" itemvalue="pylint-django" />
+            <item index="293" class="java.lang.String" itemvalue="django-debug-toolbar" />
+            <item index="294" class="java.lang.String" itemvalue="django-htmx" />
+            <item index="295" class="java.lang.String" itemvalue="sphinx" />
+            <item index="296" class="java.lang.String" itemvalue="flake8-isort" />
+            <item index="297" class="java.lang.String" itemvalue="django-grappelli" />
+            <item index="298" class="java.lang.String" itemvalue="model_bakery" />
           </list>
         </value>
       </option>
