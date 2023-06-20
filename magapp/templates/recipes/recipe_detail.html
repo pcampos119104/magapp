@@ -15,7 +15,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Descrição</h5>
-          {{ recipe.description }}
+          {{ recipe.description|linebreaks }}
         </div>
         <div class="card-footer">
           <p>Fonte: {{ recipe.font }}</p>
@@ -40,7 +40,7 @@
       <div class="card">
         <div class="card-body">
           <h5 class="card-title">Modo de preparo</h5>
-          {{ recipe.directions }}
+          {{ recipe.directions|linebreaks }}
         </div>
       </div>
       <!-- Action buttons -->
