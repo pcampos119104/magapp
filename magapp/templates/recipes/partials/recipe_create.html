@@ -1,0 +1,80 @@
+{% load i18n %}
+<div id="recipe_create" class="card">
+  <div class="card-body">
+    <h5 class="card-title">Nova receita</h5>
+
+    <form class="row g-3">
+      {% csrf_token %}
+      {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+      {{ form.non_field_errors }}
+
+      <!-- Titulo -->
+      <div class="col-md-12">
+        <div class="form-floating">
+          <input type="text" value="{{ form.title.value | default_if_none:'' }}" class="form-control"
+                 name="{{ form.title.name }}" id="floatingName" placeholder="Título">
+          <label for="floatingName">{{ form.title.label }}</label>
+          {% for err in form.title.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ err }}
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+      <!-- Descrição -->
+        <div class="col-12 form-floating">
+          <textarea class="form-control" value="{{ form.description.value }}" placeholder="Descrição"
+                    name="{{ form.description.name }}" id="floatingTextareaDescription" style="height: 100px;"></textarea>
+          <label for="floatingTextareaDescription">{{ form.description.label }}</label>
+          {% for err in form.description.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ err }}
+            </div>
+          {% endfor %}
+        </div>
+
+      <!-- Fonte -->
+      <div class="col-md-12">
+        <div class="form-floating">
+          <input type="text" value="{{ form.font.value | default_if_none:'' }}" class="form-control"
+                 name="{{ form.font.name }}" id="floatingName" placeholder="Título">
+          <label for="floatingName">{{ form.font.label }}</label>
+          {% for err in form.font.errors %}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ err }}
+            </div>
+          {% endfor %}
+
+        </div>
+      </div>
+
+
+      <!-- Preparo -->
+      <div class="col-12 form-floating">
+          <textarea class="form-control" value="{{ form.directions.value }}" placeholder="Preparo"
+                    name="{{ form.directions.name }}" id="floatingTextareaDirections" style="height: 200px;"></textarea>
+        <label for="floatingTextareaDirections">{{ form.directions.label }}</label>
+        {% for err in form.directions.errors %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ err }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Botão Incluir -->
+      <div class="text-center">
+        <button hx-post="{% url 'recipes:create' %}"
+                hx-swap="outerHTML"
+                hx-target="#recipe_create"
+                class="btn btn-primary">
+          Incluir
+        </button>
+      </div>
+
+    </form>
+  </div>
+</div>

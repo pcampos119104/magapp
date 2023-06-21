@@ -1,12 +1,15 @@
 import logging
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
+from django.views import View
 
 from magapp.recipes.forms import (
     RecipeAddStep1Form,
     RecipeAddStep2Form,
     RecipeAddStep3Form,
+    RecipeCreateForm,
 )
 from magapp.recipes.models import Recipe, RecipeIngredient
 from magapp.utils import log_start
@@ -16,13 +19,44 @@ logger = logging.getLogger(__name__)
 
 @login_required
 @log_start
-def recipe_create(request):
+def recipe_add(request):
     template = "recipes/recipe_add.html"
     form = RecipeAddStep1Form()
     context = {
         "form": form,
     }
     return render(request, template, context)
+
+
+class RecipeCreateView(LoginRequiredMixin, View):
+    @log_start
+    def get(self, request):
+        template = "recipes/recipe_add.html"
+        form = RecipeCreateForm()
+        context = {
+            "form": form,
+        }
+        return render(request, template, context)
+
+    @log_start
+    def post(self, request):
+        form = RecipeCreateForm(request.POST)
+        logger.debug(f"request.POST - {request.POST}")
+        context = {}
+        if not form.is_valid():
+            logger.debug("form.is_valid() - False")
+            logger.debug(f"form.errors.as_json() - {form.errors.as_json()}")
+            context = {
+                "form": form,
+            }
+            logger.debug(f"context - {context}")
+            return render(request, "recipes/partials/recipe_create.html", context)
+
+        logger.debug("form.is_valid() - True")
+        form.instance.created_by = request.user
+        form.instance.draft = True
+        form.save()
+        return render(request, "recipes/partials/recipe_add_step_finish.html")
 
 
 @login_required
