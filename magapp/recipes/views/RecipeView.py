@@ -10,6 +10,7 @@ from magapp.recipes.forms import (
     RecipeAddStep2Form,
     RecipeAddStep3Form,
     RecipeCreateForm,
+    RecipeIngredientForm,
 )
 from magapp.recipes.models import Recipe, RecipeIngredient
 from magapp.utils import log_start
@@ -33,8 +34,10 @@ class RecipeCreateView(LoginRequiredMixin, View):
     def get(self, request):
         template = "recipes/recipe_add.html"
         form = RecipeCreateForm()
+        ingredient_form = RecipeIngredientForm()
         context = {
             "form": form,
+            "ingredient_form": ingredient_form,
         }
         return render(request, template, context)
 

@@ -16,6 +16,12 @@ class RecipeCreateForm(forms.ModelForm):
         fields = ("title", "description", "font", "directions")
 
 
+class RecipeIngredientForm(forms.ModelForm):
+    class Meta:
+        model = RecipeIngredient
+        fields = ("qtd", "metric", "ingredient", "qualifiers")
+
+
 class RecipeAddStep1Form(forms.ModelForm):
     class Meta:
         model = Recipe

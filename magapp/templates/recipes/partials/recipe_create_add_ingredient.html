@@ -22,14 +22,14 @@
 
   <!-- ingredient -->
   <div class="form-floating mb-3 col-12">
-    <select class="form-select" name="{{ form.ingredient.name }}" id="floatingSelect"
+    <select class="form-select" name="{{ ingredient_form.ingredient.name }}" id="floatingSelect"
             aria-label="Ingrediente">
-      {% for choice in form.ingredient %}
+      {% for choice in ingredient_form.ingredient %}
         {{ choice }}
       {% endfor %}
     </select>
     <label for="floatingSelect">Ingrediente</label>
-    {% for err in form.ingredient.errors %}
+    {% for err in ingredient_form.ingredient.errors %}
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{ err }}
       </div>
@@ -37,10 +37,10 @@
   </div>
   <!-- qtd -->
     <div class="form-floating col-md-4">
-      <input type="number" value="{{ form.qtd.value }}" name="{{ form.qtd.name }}"
+      <input type="number" value="{{ ingredient_form.qtd.value }}" name="{{ ingredient_form.qtd.name }}"
              class="form-control" id="floatingName" placeholder="">
-      <label for="floatingName">{{ form.qtd.label }}</label>
-      {% for err in form.qtd.errors %}
+      <label for="floatingName">{{ ingredient_form.qtd.label }}</label>
+      {% for err in ingredient_form.qtd.errors %}
         <div class="alert alert-danger alert-dismissible fade show" role="alert">
           {{ err }}
         </div>
@@ -48,14 +48,14 @@
     </div>
   <!-- metric_type -->
   <div class="form-floating mb-3 col-md-8">
-    <select class="form-select" name="{{ form.metric.name }}" id="floatingSelect"
+    <select class="form-select" name="{{ ingredient_form.metric.name }}" id="floatingSelect"
             aria-label="Metrica">
-      {% for choice in form.metric %}
+      {% for choice in ingredient_form.metric %}
         {{ choice }}
       {% endfor %}
     </select>
-    <label for="floatingSelect">{{ form.metric.label }}</label>
-    {% for err in form.metric.errors %}
+    <label for="floatingSelect">{{ ingredient_form.metric.label }}</label>
+    {% for err in ingredient_form.metric.errors %}
       <div class="alert alert-danger alert-dismissible fade show" role="alert">
         {{ err }}
       </div>
@@ -65,10 +65,10 @@
   <div class="col-12">
     <label class="col-form-label">Qualificadores, se necessário</label>
     <div class="col-sm-10">
-      <select name="{{ form.qualifiers.name }}" id="" class="form-select"
+      <select name="{{ ingredient_form.qualifiers.name }}" id="" class="form-select"
               multiple="multiple"
               aria-label="multiple select example">
-        {% for qualifier in form.qualifiers %}
+        {% for qualifier in ingredient_form.qualifiers %}
           {{ qualifier }}
         {% endfor %}
       </select>
