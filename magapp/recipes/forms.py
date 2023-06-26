@@ -16,10 +16,12 @@ class RecipeIngredientForm(forms.ModelForm):
         model = RecipeIngredient
         fields = ("qtd", "metric", "ingredient", "qualifiers")
 
+
 RecipeIngredientFormSet = inlineformset_factory(
-    Recipe, RecipeIngredient, form=RecipeIngredientForm,
-    extra=2
+    Recipe, RecipeIngredient, form=RecipeIngredientForm, extra=2
 )
+
+
 class RecipeCreateForm(forms.ModelForm):
     # ingredients = RecipeIngredientForm(many=True)
 

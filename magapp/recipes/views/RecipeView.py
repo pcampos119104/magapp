@@ -1,7 +1,8 @@
 import logging
-from django.forms import modelformset_factory, formset_factory
+
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.forms import formset_factory, modelformset_factory
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views import View
 
@@ -10,7 +11,8 @@ from magapp.recipes.forms import (
     RecipeAddStep2Form,
     RecipeAddStep3Form,
     RecipeCreateForm,
-    RecipeIngredientForm, RecipeIngredientFormSet,
+    RecipeIngredientForm,
+    RecipeIngredientFormSet,
 )
 from magapp.recipes.models import Recipe, RecipeIngredient
 from magapp.utils import log_start
