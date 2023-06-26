@@ -12,9 +12,6 @@ class Recipe(DraftModel, ModelBase):
     description = models.TextField("descrição", help_text="Breve descrição da receita")
     directions = models.TextField("preparo", help_text="Passos para o preparo.")
     slug = models.SlugField(max_length=64, unique=True, editable=False)
-    ingredients = models.ManyToManyField(
-        "ingredients.Ingredient", through="recipes.RecipeIngredient"
-    )
     created_by = models.ForeignKey(
         get_user_model(), on_delete=models.CASCADE, null=False
     )

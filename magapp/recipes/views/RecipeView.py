@@ -1,5 +1,5 @@
 import logging
-
+from django.forms import modelformset_factory, formset_factory
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, redirect, render
@@ -10,7 +10,7 @@ from magapp.recipes.forms import (
     RecipeAddStep2Form,
     RecipeAddStep3Form,
     RecipeCreateForm,
-    RecipeIngredientForm,
+    RecipeIngredientForm, RecipeIngredientFormSet,
 )
 from magapp.recipes.models import Recipe, RecipeIngredient
 from magapp.utils import log_start
@@ -33,32 +33,38 @@ class RecipeCreateView(LoginRequiredMixin, View):
     @log_start
     def get(self, request):
         template = "recipes/recipe_add.html"
-        form = RecipeCreateForm()
-        ingredient_form = RecipeIngredientForm()
+        recipe_form = RecipeCreateForm()
+        ingredient_formset = RecipeIngredientFormSet()
         context = {
-            "form": form,
-            "ingredient_form": ingredient_form,
+            "form": recipe_form,
+            "ingredient_formset": ingredient_formset,
         }
         return render(request, template, context)
 
     @log_start
     def post(self, request):
         form = RecipeCreateForm(request.POST)
+        ingredient_formset = RecipeIngredientFormSet(request.POST)
         logger.debug(f"request.POST - {request.POST}")
         context = {}
-        if not form.is_valid():
-            logger.debug("form.is_valid() - False")
+        if not form.is_valid() or not ingredient_formset.is_valid():
+            logger.debug("form.is_valid() or ingredient_formset.is_valid() - False")
             logger.debug(f"form.errors.as_json() - {form.errors.as_json()}")
             context = {
                 "form": form,
+                "ingredient_formset": ingredient_formset,
             }
             logger.debug(f"context - {context}")
             return render(request, "recipes/partials/recipe_create.html", context)
 
-        logger.debug("form.is_valid() - True")
+        logger.debug("form.is_valid() or ingredient_formset.is_valid() - True")
         form.instance.created_by = request.user
-        form.instance.draft = True
-        form.save()
+        form.instance.draft = False
+        recipe = form.save()
+        recipe_ingredients = ingredient_formset.save(commit=False)
+        for recipe_ingredient in recipe_ingredients:
+            recipe_ingredient.recipe = recipe
+            recipe_ingredient.save()
         return render(request, "recipes/partials/recipe_add_step_finish.html")
 
 

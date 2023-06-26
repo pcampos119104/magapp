@@ -1,25 +1,7 @@
 {% load i18n %}
 <div id='recipe_add_ingredient' class='row g-3' >
-  <!-- Ingredientes Adicionados -->
-  <div class="col-md-12">
-    <div class="form-floating">
-      <h5 class="card-title">Ingredientes</h5>
-      <ul class="list-group list-group-flush">
-        {% for detail in ingredients %}
-          <li class="list-group-item">{{ detail.ingredient.name | title }} {{ detail.qtd }} {{ detail.metric }}
-            {% for qualificator in detail.qualifiers.all %}
-              {{ qualificator.name }},
-            {% endfor %}
-            <button
-              class="btn btn-danger btn-sm float-end "
-            ><i class="bi-dash-circle"></i></button>
-          </li>
-        {% endfor %}
-      </ul>
-    </div>
-  </div>
-  <!-- Formulario para adicionar Ingrediente -->
-
+  <h5 class="card-title">Ingredientes</h5>
+  {% for ingredient_form in ingredient_formset %}
   <!-- ingredient -->
   <div class="form-floating mb-3 col-12">
     <select class="form-select" name="{{ ingredient_form.ingredient.name }}" id="floatingSelect"
@@ -77,7 +59,8 @@
   <div class="text-lg-end col-md">
     <button
       class="btn btn-primary">
-      Adicionar ingrediente
+      +
     </button>
   </div>
+{% endfor %}
 </div>
