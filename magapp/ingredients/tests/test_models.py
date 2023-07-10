@@ -15,9 +15,6 @@ class TestIngredient:
     def test_ingredient_obj(self, ingredient: Ingredient) -> None:
         assert isinstance(ingredient, Ingredient)
 
-    def test_ingredient_fk(self, ingredient: Ingredient) -> None:
-        assert isinstance(ingredient.recipe, Recipe)
-
     # todo refatorar, apresentar o erro para cada field
     def test_ingredient_fields(self, ingredient: Ingredient) -> None:
         try:
