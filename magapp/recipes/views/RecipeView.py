@@ -47,7 +47,6 @@ class RecipeCreateView(LoginRequiredMixin, View):
 
         logger.debug("form.is_valid() or ingredient_formset.is_valid() - True")
         form.instance.created_by = request.user
-        form.instance.draft = False
         recipe = form.save()
         recipe_ingredients = ingredient_formset.save(commit=False)
         for recipe_ingredient in recipe_ingredients:

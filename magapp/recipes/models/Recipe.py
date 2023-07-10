@@ -3,11 +3,11 @@ from django.db import models
 from django.forms import model_to_dict
 from django.urls import reverse
 
-from magapp.core.models import DraftModel, ModelBase
+from magapp.core.models import ModelBase
 from magapp.core.utils import create_unique_slug
 
 
-class Recipe(DraftModel, ModelBase):
+class Recipe(ModelBase):
     title = models.CharField("título", max_length=64, help_text="Título da receita.")
     description = models.TextField("descrição", help_text="Breve descrição da receita")
     directions = models.TextField("preparo", help_text="Passos para o preparo.")
