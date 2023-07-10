@@ -10,12 +10,7 @@ from django_filters.views import FilterView
 
 from magapp.ingredients.filters import IngredientFilter
 from magapp.ingredients.models import Ingredient
-from magapp.recipes.forms import (
-    IngredientForm,
-    RecipeAddStep1Form,
-    RecipeAddStep2Form,
-    RecipeAddStep3Form,
-)
+from magapp.recipes.forms import IngredientForm
 from magapp.recipes.models import Recipe, RecipeIngredient
 from magapp.utils import log_start
 

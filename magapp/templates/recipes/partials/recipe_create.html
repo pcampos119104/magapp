@@ -1,11 +1,16 @@
 {% load i18n %}
-<div id="recipe_add_step_1" class="card">
+<div id="recipe_create" class="card">
   <div class="card-body">
-    <h5 class="card-title">Informações basicas</h5>
+    <h5 class="card-title">Nova receita</h5>
 
-    <!-- Floating Labels Form -->
-    <form class="row g-3" method="post">
+    <form class="row g-3">
       {% csrf_token %}
+      {% for hidden in form.hidden_fields %}
+        {{ hidden }}
+      {% endfor %}
+      {{ form.non_field_errors }}
+
+      <!-- Titulo -->
       <div class="col-md-12">
         <div class="form-floating">
           <input type="text" value="{{ form.title.value | default_if_none:'' }}" class="form-control"
@@ -19,18 +24,20 @@
 
         </div>
       </div>
-      <div class="col-12">
-        <div class="form-floating">
+
+      <!-- Descrição -->
+        <div class="col-12 form-floating">
           <textarea class="form-control" value="{{ form.description.value }}" placeholder="Descrição"
-                    name="{{ form.description.name }}" id="floatingTextarea" style="height: 100px;"></textarea>
-          <label for="floatingTextarea">{{ form.description.label }}</label>
+                    name="{{ form.description.name }}" id="floatingTextareaDescription" style="height: 100px;"></textarea>
+          <label for="floatingTextareaDescription">{{ form.description.label }}</label>
           {% for err in form.description.errors %}
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
               {{ err }}
             </div>
           {% endfor %}
         </div>
-      </div>
+
+      <!-- Fonte -->
       <div class="col-md-12">
         <div class="form-floating">
           <input type="text" value="{{ form.font.value | default_if_none:'' }}" class="form-control"
@@ -44,14 +51,31 @@
 
         </div>
       </div>
+
+      {% include "recipes/partials/recipe_create_add_ingredient.html" %}
+
+      <!-- Preparo -->
+      <div class="col-12 form-floating">
+          <textarea class="form-control" value="{{ form.directions.value }}" placeholder="Preparo"
+                    name="{{ form.directions.name }}" id="floatingTextareaDirections" style="height: 200px;"></textarea>
+        <label for="floatingTextareaDirections">{{ form.directions.label }}</label>
+        {% for err in form.directions.errors %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ err }}
+          </div>
+        {% endfor %}
+      </div>
+
+      <!-- Botão Incluir -->
       <div class="text-center">
-        <button hx-post="{% url 'recipes:partial_add_step_1' %}"
+        <button hx-post="{% url 'recipes:create' %}"
                 hx-swap="outerHTML"
-                hx-target="#recipe_add_step_1"
+                hx-target="#recipe_create"
                 class="btn btn-primary">
-          Próximo passo
+          Incluir
         </button>
       </div>
-    </form><!-- End floating Labels Form -->
+
+    </form>
   </div>
 </div>

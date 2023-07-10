@@ -20,7 +20,6 @@ class TestRecipeModel:
             Recipe,
             _fill_optional=True,
             title=str(uuid.uuid4()),
-            draft=False,
             created_by=created_user,
             deleted_at=None,
         )
@@ -34,7 +33,6 @@ class TestRecipeModel:
             Recipe,
             _fill_optional=True,
             title=str(uuid.uuid4()),
-            draft=False,
             created_by=created_user,
             deleted_at=None,
         )

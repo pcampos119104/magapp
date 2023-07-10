@@ -46,7 +46,10 @@ def recipe(db) -> Recipe:
 @pytest.fixture
 def ingredient(db, recipe) -> Ingredient:
     model = baker.make(
-        Ingredient, name="Farinha", slug="farinha-asdf", deleted_at=None, recipe=recipe
+        Ingredient,
+        name="Farinha",
+        slug="farinha-asdf",
+        deleted_at=None,
     )
     return model
 

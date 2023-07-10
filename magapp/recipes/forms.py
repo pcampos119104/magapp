@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import inlineformset_factory
 
 from magapp.ingredients.models import Ingredient
 from magapp.recipes.models import Recipe, RecipeIngredient
@@ -10,19 +11,20 @@ class IngredientForm(forms.ModelForm):
         fields = ("name",)
 
 
-class RecipeAddStep1Form(forms.ModelForm):
-    class Meta:
-        model = Recipe
-        fields = ("title", "description", "font")
-
-
-class RecipeAddStep2Form(forms.ModelForm):
+class RecipeIngredientForm(forms.ModelForm):
     class Meta:
         model = RecipeIngredient
         fields = ("qtd", "metric", "ingredient", "qualifiers")
 
 
-class RecipeAddStep3Form(forms.ModelForm):
+RecipeIngredientFormSet = inlineformset_factory(
+    Recipe, RecipeIngredient, form=RecipeIngredientForm, extra=2
+)
+
+
+class RecipeCreateForm(forms.ModelForm):
+    # ingredients = RecipeIngredientForm(many=True)
+
     class Meta:
         model = Recipe
-        fields = ("directions",)
+        fields = ("title", "description", "font", "directions")

@@ -20,17 +20,10 @@ from magapp.recipes import views
 app_name = "recipes"
 urlpatterns = [
     # Create Recipe
-    path("create/", views.recipe_create, name="create"),
-    path("htmx/create/step/1/", views.recipe_add_step_1, name="partial_add_step_1"),
     path(
-        "htmx/create/step/2/<slug:slug>/",
-        views.recipe_add_step_2,
-        name="partial_add_step_2",
-    ),
-    path(
-        "htmx/create/step/3/<slug:slug>/",
-        views.recipe_add_step_3,
-        name="partial_add_step_3",
+        "create/",
+        views.RecipeCreateView.as_view(),
+        name="create",
     ),
     path(
         "htmx/recipe-ingredient/<uuid:pk>/delete/",
