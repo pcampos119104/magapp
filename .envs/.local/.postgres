@@ -1,0 +1,7 @@
+# PostgreSQL
+# ------------------------------------------------------------------------------
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_DB=magapp
+POSTGRES_USER=OKVhiAHuseCPwiqBbEOQLGSaDeSsBepM
+POSTGRES_PASSWORD=zEnd0voir6h2XRuDKPhthQDz7MJRlq3QzcXw3KVwqYgxYBzENFW5wCoGNDQA7OY5
