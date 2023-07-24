@@ -15,11 +15,12 @@ concurrency:
   group: ${{ github.head_ref || github.run_id }}
   cancel-in-progress: true
 
+    # script: |
     # cd magapp
     # git pull origin main
     # docker-compose -f docker-compose.production.yml down
     # docker-compose -f docker-compose.production.yml build
-  # docker-compose -f docker-compose.production.yml up -d
+   # docker-compose -f docker-compose.production.yml up -d
 jobs:
   build:
     name: Build
