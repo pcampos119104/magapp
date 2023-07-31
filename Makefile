@@ -20,6 +20,9 @@ remove_draft:
 makemigrations:
 	docker-compose run --rm django python manage.py makemigrations
 
+createsuperuser:
+	docker-compose run --rm django python manage.py createsuperuser
+
 notebook:
 	docker-compose run --rm -p 8888:8888 django python manage.py shell_plus --lab
 
