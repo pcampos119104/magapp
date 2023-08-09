@@ -334,3 +334,4 @@ magapp/media/
 .envs/.production
 dev_extras/
 magapp.db
+db/magapp.db
