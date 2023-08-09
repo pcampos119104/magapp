@@ -28,7 +28,7 @@ certificatesResolvers:
 http:
   routers:
     web-secure-router:
-      rule: "Host(`magapp.com.br`)"
+      rule: "Host(`www.magapp.com.br`,`magapp.com.br`)"
       entryPoints:
         - web-secure
       middlewares:
@@ -39,7 +39,7 @@ http:
         certResolver: letsencrypt
 
     web-media-router:
-      rule: "Host(`magapp.com.br`) && PathPrefix(`/media/`)"
+      rule: "Host(`www.magapp.com.br`,`magapp.com.br`) && PathPrefix(`/media/`)"
       entryPoints:
         - web-secure
       middlewares:

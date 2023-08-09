@@ -32,9 +32,13 @@ services:
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.docker.network=traefik_default"
 
   redis:
     image: redis:6
+
   nginx:
     build:
       context: .
