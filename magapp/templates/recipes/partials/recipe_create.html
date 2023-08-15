@@ -26,16 +26,17 @@
       </div>
 
       <!-- Descrição -->
-        <div class="col-12 form-floating">
+      <div class="col-12 form-floating">
           <textarea class="form-control" value="{{ form.description.value }}" placeholder="Descrição"
-                    name="{{ form.description.name }}" id="floatingTextareaDescription" style="height: 100px;"></textarea>
-          <label for="floatingTextareaDescription">{{ form.description.label }}</label>
-          {% for err in form.description.errors %}
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
-              {{ err }}
-            </div>
-          {% endfor %}
-        </div>
+                    name="{{ form.description.name }}" id="floatingTextareaDescription"
+                    style="height: 100px;"></textarea>
+        <label for="floatingTextareaDescription">{{ form.description.label }}</label>
+        {% for err in form.description.errors %}
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ err }}
+          </div>
+        {% endfor %}
+      </div>
 
       <!-- Fonte -->
       <div class="col-md-12">
@@ -52,7 +53,77 @@
         </div>
       </div>
 
-      {% include "recipes/partials/recipe_create_add_ingredient.html" %}
+      <div id='recipe_add_ingredient' class='row g-3'>
+        {{ ingredient_formset.management_form }}
+        <h5 class="card-title">Ingredientes</h5>
+        {% for ingredient_form in ingredient_formset %}
+          <!-- ingredient -->
+          <div id="{{ ingredient_form.prefix }}" class='row g-3'>
+            <div class="form-floating mb-3 col-12">
+              <select class="form-select" name="{{ ingredient_form.ingredient.html_name }}"
+                      id="{{ ingredient_form.ingredient.auto_id }}"
+                      aria-label="Ingrediente">
+                {% for choice in ingredient_form.ingredient %}
+                  {{ choice }}
+                {% endfor %}
+              </select>
+              <label for="{{ ingredient_form.ingredient.auto_id }}">Ingrediente</label>
+              {% for err in ingredient_form.ingredient.errors %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ err }}
+                </div>
+              {% endfor %}
+            </div>
+            <!-- qtd -->
+            <div class="form-floating col-md-4">
+              <input type="number" value="{{ ingredient_form.qtd.value }}" name="{{ ingredient_form.qtd.html_name }}"
+                     class="form-control" id="{{ ingredient_form.qtd.auto_id }}" placeholder="">
+              <label for="{{ ingredient_form.qtd.auto_id }}">{{ ingredient_form.qtd.label }}</label>
+              {% for err in ingredient_form.qtd.errors %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ err }}
+                </div>
+              {% endfor %}
+            </div>
+            <!-- metric_type -->
+            <div class="form-floating mb-3 col-md-8">
+              <select class="form-select" name="{{ ingredient_form.metric.html_name }}"
+                      id="{{ ingredient_form.metric.auto_id }}"
+                      aria-label="Metrica">
+                {% for choice in ingredient_form.metric %}
+                  {{ choice }}
+                {% endfor %}
+              </select>
+              <label for="{{ ingredient_form.metric.auto_id }}">{{ ingredient_form.metric.label }}</label>
+              {% for err in ingredient_form.metric.errors %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{ err }}
+                </div>
+              {% endfor %}
+            </div>
+            <!-- qualifier -->
+            <div class="col-12">
+              <label class="col-form-label">Qualificadores, se necessário</label>
+              <div class="col-sm-10">
+                <select name="{{ ingredient_form.qualifiers.html_name }}" id="{{ ingredient_form.qualifiers.auto_id }}"
+                        class="form-select"
+                        multiple="multiple"
+                        aria-label="multiple select example">
+                  {% for qualifier in ingredient_form.qualifiers %}
+                    {{ qualifier }}
+                  {% endfor %}
+                </select>
+              </div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="text-lg-end col-md">
+        <a
+          class="btn btn-primary" onclick="addIngredientForm()">
+          Adicionar ingrediente
+        </a>
+      </div>
 
       <!-- Preparo -->
       <div class="col-12 form-floating">
@@ -79,3 +150,16 @@
     </form>
   </div>
 </div>
+<script>
+  function addIngredientForm() {
+    const total_forms = document.getElementById('id_ingredients-TOTAL_FORMS');
+    const form_idx = total_forms.value;
+    const recipe_add = document.getElementById('recipe_add_ingredient');
+    const new_form = document.getElementById('ingredients-0')
+      .cloneNode(true)
+      .outerHTML
+      .replace(/-0-/g, '-' + form_idx + '-');
+    recipe_add.insertAdjacentHTML('beforeend', new_form)
+    total_forms.value = parseInt(form_idx) + 1;
+  };
+</script>
