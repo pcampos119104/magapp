@@ -30,7 +30,7 @@
             {% for i in ingredient_list %}
               <li class="list-group-item">
                 <input class="form-check-input me-1" type="checkbox" value="" aria-label="...">
-                {{ i.qtd }} {{ i.metric_type }} - {{ i.ingredient.name }} </li>
+                {{ i.qtd }} {{ i.metric.abbr }} - {{ i.ingredient.name }} </li>
             {% endfor %}
 
           </ul>
