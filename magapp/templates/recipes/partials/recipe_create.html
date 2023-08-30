@@ -115,9 +115,10 @@
                 </select>
               </div>
             </div>
+            <!-- remove ingredient -->
             <div class="text-lg-end col-md">
               <a
-                class="btn btn-danger" onclick="removeIngredientForm()">
+                class="btn btn-danger" onclick="removeIngredientForm(this)">
                 Remover ingrediente
               </a>
             </div>
@@ -170,13 +171,18 @@
     total_forms.value = parseInt(form_idx) + 1;
   }
 
-  function removeIngredientForm() {
+  function removeIngredientForm(el) {
+    el.parentNode.parentNode.remove();
     const total_forms = document.getElementById('id_ingredients-TOTAL_FORMS');
     const form_idx = total_forms.value;
     const ingredients = document.querySelectorAll('.ingredient-block');
     console.log(ingredients.length);
     for (const [index, element] of ingredients.entries()) {
-      console.log({index, element});
+      console.log(index);
+      new_element = element.innerHTML.replace(/-[0-9]+-/g, '-' + index + '-');
+      element.innerHTML = new_element;
+      console.log(element.innerHTML);
     }
+    total_forms.value = parseInt(form_idx) - 1;
   }
 </script>
