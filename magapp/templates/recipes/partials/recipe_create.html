@@ -1,7 +1,7 @@
 {% load i18n %}
 <div id="recipe_create" class="card">
   <div class="card-body">
-    <h5 class="card-title">Nova receita</h5>
+    <h5 class="card-title"></h5>
 
     <form class="row g-3" autocomplete="off">
       {% csrf_token %}
@@ -58,7 +58,7 @@
         <h5 class="card-title">Ingredientes</h5>
         {% for ingredient_form in ingredient_formset %}
           <!-- ingredient -->
-          <div id="{{ ingredient_form.prefix }}" class='row g-3'>
+          <div id="{{ ingredient_form.prefix }}" class='row g-3 ingredient-block'>
             <div class="form-floating mb-3 col-12">
               <select class="form-select" name="{{ ingredient_form.ingredient.html_name }}"
                       id="{{ ingredient_form.ingredient.auto_id }}"
@@ -115,10 +115,19 @@
                 </select>
               </div>
             </div>
+            <!-- remove ingredient -->
+            <div class="text-lg-end col-md">
+              <a
+                class="btn btn-danger" onclick="removeIngredientForm(this)">
+                Remover ingrediente
+              </a>
+            </div>
+          <hr class="hr" />
           </div>
+
         {% endfor %}
       </div>
-      <div class="text-lg-end col-md">
+      <div class="text-center col-md">
         <a
           class="btn btn-primary" onclick="addIngredientForm()">
           Adicionar ingrediente
@@ -161,5 +170,9 @@
       .replace(/-0-/g, '-' + form_idx + '-');
     recipe_add.insertAdjacentHTML('beforeend', new_form)
     total_forms.value = parseInt(form_idx) + 1;
-  };
+  }
+
+  function removeIngredientForm(el) {
+    el.parentNode.parentNode.remove();
+  }
 </script>
