@@ -1,7 +1,7 @@
 {% load i18n %}
 <div id="recipe_create" class="card">
   <div class="card-body">
-    <h5 class="card-title">Nova receita</h5>
+    <h5 class="card-title"></h5>
 
     <form class="row g-3" autocomplete="off">
       {% csrf_token %}
@@ -122,11 +122,12 @@
                 Remover ingrediente
               </a>
             </div>
+          <hr class="hr" />
           </div>
 
         {% endfor %}
       </div>
-      <div class="text-lg-end col-md">
+      <div class="text-center col-md">
         <a
           class="btn btn-primary" onclick="addIngredientForm()">
           Adicionar ingrediente
