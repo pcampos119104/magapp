@@ -1,14 +1,21 @@
 {% load i18n %}
 
 <div class="card text-center">
-  <div class="card-body">
+  <div class="card-body row g-3">
     <h5 class="card-title"></h5>
     <p class="card-text">Finalizado com sucesso.</p>
-    <div class="ingredient-item-detail">
+    <div class="col-md-6">
       <a href="{% url 'ingredients:list' %}"
          class="btn btn-primary">
         Ir para inicio
       </a>
     </div>
+    <div class="col-md-6">
+      <a href="{% url 'ingredients:create' %}"
+         class="btn btn-primary">
+        Adicionar outro
+      </a>
+    </div>
+  </div>
   </div>
 </div>
