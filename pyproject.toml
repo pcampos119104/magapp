@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "magapp"
+version = "0.1.0"
+description = ""
+authors = ["pcampos <pcampos119104@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+Django = "^5.0.2"
+
+[tool.poetry.group.dev.dependencies]
+django-pytest = "^0.2.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
