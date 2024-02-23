@@ -333,5 +333,4 @@ magapp/media/
 .env
 .envs/.production
 dev_extras/
-magapp.db
-db/magapp.db
+magapp.sqlite3
