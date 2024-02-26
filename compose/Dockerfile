@@ -16,7 +16,7 @@ COPY poetry.lock pyproject.toml /app
 RUN pip3 install poetry
 RUN poetry config virtualenvs.create false
 # Install dependencies
-RUN poetry install
+RUN poetry install --with dev
 
 # Copy start
 COPY ./compose/start /start
