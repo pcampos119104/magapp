@@ -1,0 +1,14 @@
+services: 
+  web:
+    build:
+      context: .
+      dockerfile: ./compose/Dockerfile
+    image: magapp_local
+    container_name: magapp_local
+    volumes:
+      - .:/app:z
+    env_file:
+      - .env
+    ports:
+      - "8000:8000"
+    command: /start
