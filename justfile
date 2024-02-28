@@ -17,3 +17,12 @@ mng command:
 # Entra no console do container web
 sh:
   docker compose run --rm web sh
+
+# Ruff format
+ruff:
+  docker compose run --rm web ruff check --fix
+  docker compose run --rm web ruff format
+
+# Ruff check
+check:
+  docker compose run --rm web ruff check
