@@ -26,3 +26,7 @@ ruff:
 # Ruff check
 check:
   docker compose run --rm web ruff check
+
+# Testa o sistema
+test:
+  docker compose run --rm web pytest

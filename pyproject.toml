@@ -11,6 +11,7 @@ Django = "^5.0.2"
 django-allauth = "^0.61.1"
 django-environ = "^0.11.2"
 django-extensions = "^3.2.3"
+pytest-django = "^4.8.0"
 
 [tool.poetry.group.dev.dependencies]
 django-pytest = "^0.2.0"
@@ -36,3 +37,13 @@ select = [
 
 [tool.ruff.format]
 quote-style = "single"
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "magapp.settings"
+markers = [
+    'models: test the models',
+    'views: test all views'
+]
+
+# -- recommended but optional:
+python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
