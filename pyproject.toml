@@ -40,5 +40,10 @@ quote-style = "single"
 
 [tool.pytest.ini_options]
 DJANGO_SETTINGS_MODULE = "magapp.settings"
+markers = [
+    'models: test the models',
+    'views: test all views'
+]
+
 # -- recommended but optional:
 python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
