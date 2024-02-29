@@ -38,9 +38,10 @@ jobs:
         run: |
           touch .env
           echo DEBUG=true > .env
-          echo SECRET_KEY='dev-key-(g!%yi9ax$h6$*sz**^ld6+j)r305*=6i^3ho1bq=z@8c#b7ml' > .env
+          echo SECRET_KEY=0m8HMl9crvazciYYD58znKmuQaQAFT8q > .env
           echo ENVIRONMENT=dev > .env
           echo ALLOWED_HOSTS=* > .env
+          cat .env
 
       - name: Build the Stack
         run:  docker-compose build
