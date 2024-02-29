@@ -38,9 +38,9 @@ jobs:
         run: |
           touch .env
           echo DEBUG=true > .env
-          echo SECRET_KEY=0m8HMl9crvazciYYD58znKmuQaQAFT8q > .env
-          echo ENVIRONMENT=dev > .env
-          echo ALLOWED_HOSTS=* > .env
+          echo SECRET_KEY=0m8HMl9crvazciYYD58znKmuQaQAFT8q >> .env
+          echo ENVIRONMENT=dev >> .env
+          echo ALLOWED_HOSTS=* >> .env
           cat .env
 
       - name: Build the Stack
