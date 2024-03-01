@@ -26,7 +26,11 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
 
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+if DEBUG:
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+else:
+    APP_NAME = env("FLY_APP_NAME")
+    ALLOWED_HOSTS = [f"{APP_NAME}.fly.dev"]
 
 # Application definition
 
