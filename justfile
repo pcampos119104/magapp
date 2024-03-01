@@ -30,3 +30,7 @@ check:
 # Testa o sistema
 test:
   docker compose run --rm web pytest
+
+# Gera requirements.txt a partir do poetry
+requirements:
+  poetry export -f requirements.txt --without-hashes > requirements.txt
