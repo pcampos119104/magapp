@@ -19,7 +19,7 @@ RUN poetry config virtualenvs.create false
 RUN poetry install --with dev
 
 # Copy start
-COPY ./compose/start /start
+COPY ./docker/dev/start /start
 RUN sed -i 's/\r$//g' /start
 RUN chmod +x /start
 
