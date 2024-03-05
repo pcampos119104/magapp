@@ -2,7 +2,7 @@ services:
   web:
     build:
       context: .
-      dockerfile: ./compose/Dockerfile
+      dockerfile: ./docker/dev/Dockerfile
     image: magapp_local
     container_name: magapp_local
     volumes:
