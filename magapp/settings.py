@@ -27,13 +27,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
 
-if DEBUG:
-    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-else:
-    APP_NAME = env("FLY_APP_NAME")
-    ALLOWED_HOSTS = [f"{APP_NAME}.fly.dev"]
 
-# Application definition
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -146,15 +140,22 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = None
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
-# todo erro 403 no fly.io
-# CSRF_COOKIE_SECURE = True
-# SESSION_COOKIE_SECURE = True
+APP_NAME = env("FLY_APP_NAME", default='')
+if DEBUG:
+    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+else:
+    host = f"{APP_NAME}.fly.dev"
+    https_host = f'https://{host}'
+    ALLOWED_HOSTS = [host]
+    CSRF_TRUSTED_ORIGINS = [https_host]
+    CSRF_ALLOWED_ORIGINS = [https_host]
+    CORS_ORIGINS_WHITELIST = [https_host]
 
-# settings.py
-
+# sentry
 SENTRY_DSN = env('SENTRY_DSN', default='')
-
 sentry_sdk.init(
     dsn=SENTRY_DSN,
     # Set traces_sample_rate to 1.0 to capture 100%
@@ -165,3 +166,25 @@ sentry_sdk.init(
     # We recommend adjusting this value in production.
     profiles_sample_rate=1.0,
 )
+# Logging
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "class": "logging.StreamHandler",
+        },
+    },
+    "root": {
+        "handlers": ["console"],
+        "level": "WARNING",
+    },
+    "loggers": {
+        "django": {
+            "handlers": ["console"],
+            "level": "INFO",
+            "propagate": False,
+        },
+    },
+}
