@@ -17,7 +17,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from django.urls import path
+
+
+def trigger_error(request):
+    division_by_zero = 1 / 0
+
+
 urlpatterns = [
+    path('sentry-debug/', trigger_error),
     path('admin/', admin.site.urls),
     path('accounts/', include('allauth.urls')),
     path('', include('magapp.base.urls')),
