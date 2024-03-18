@@ -4,6 +4,7 @@
 #
 
 app = 'magapp'
+
 primary_region = 'gru'
 # The command to run when you run the fly console command.
 console_command = '/code/manage.py shell'

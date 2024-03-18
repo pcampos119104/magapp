@@ -52,6 +52,7 @@ jobs:
       - name: Run Django collectstatis 
         run:  docker-compose run --rm web python manage.py collectstatic --noinput
         
+
       - name: Run Django Tests
         run:  docker-compose run web pytest
 
