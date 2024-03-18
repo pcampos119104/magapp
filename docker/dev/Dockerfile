@@ -10,6 +10,10 @@ ENV PYTHONUNBUFFERED 1
 
 RUN apk update
 RUN apk add --no-cache bash
+RUN apk add --no-cache --update npm
+
+COPY package*.json ./
+RUN npm install
 
 COPY poetry.lock pyproject.toml /app
 
