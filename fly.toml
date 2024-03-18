@@ -3,7 +3,8 @@
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'magapp-weathered-moon-2824'
+app = 'magapp'
+
 primary_region = 'gru'
 # The command to run when you run the fly console command.
 console_command = '/code/manage.py shell'

@@ -8,6 +8,7 @@ build:
 
 # Sobe o servidor em desenvolvimento com hot reload
 runserver:
+  npx tailwindcss -i ./magapp/static/input.css -o ./magapp/static/output.css --watch=always &
   docker compose up --build
 
 # Roda o comando manage.py dentro do container
@@ -29,4 +30,5 @@ check:
 
 # Testa o sistema
 test:
+  docker compose run --rm web python manage.py collectstatic --noinput
   docker compose run --rm web pytest
