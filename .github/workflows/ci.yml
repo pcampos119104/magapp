@@ -49,6 +49,9 @@ jobs:
       - name: Run DB Migrations
         run:  docker-compose run --rm web python manage.py migrate
 
+      - name: Run Django collectstatis 
+        run:  docker-compose run --rm web python manage.py collectstatic --noinput
+        
       - name: Run Django Tests
         run:  docker-compose run web pytest
 
