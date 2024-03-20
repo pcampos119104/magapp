@@ -1,0 +1,25 @@
+{% load static %}
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="{% static 'output.css' %}" rel="stylesheet">
+</head>
+<body>
+<div class="antialiased bg-gray-50 dark:bg-gray-900">
+	<!-- Header -->
+	{% include 'base/_header.html' %}
+
+	<!-- Sidebar -->
+	{% include 'base/_sidebar.html' %}
+
+	<!-- Content -->
+	<main class="p-4 md:ml-64 h-auto pt-20">
+		{% block content %}
+		{% endblock content %}
+	</main>
+</div>
+{% include 'base/_footer.html' %}
+<script src='{% static 'js/flowbite.min.js' %}'></script>
+</body>
+</html>
