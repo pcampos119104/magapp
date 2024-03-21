@@ -13,6 +13,7 @@ from pathlib import Path
 
 import environ
 import sentry_sdk
+from django.urls import reverse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -142,8 +143,12 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = None
-CSRF_COOKIE_SECURE = True
+# todo isso nao funciona por algum motivo
+"""https://forum.djangoproject.com/t/cannot-access-admin-if-setting-is-set-cannot-access-website-if-setting-is-not-set/24496
 SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+"""
+LOGIN_REDIRECT_URL = '/'
 
 APP_NAME = env('FLY_APP_NAME', default='')
 if DEBUG:
