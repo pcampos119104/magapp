@@ -1,5 +1,5 @@
 """
-URL configuration for magapp project.
+URL configuration for imperial project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.0/topics/http/urls/
@@ -14,20 +14,11 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
-from django.urls import include, path
+from django.urls import path
 
+from magapp.ingredients.views import list
 
-def trigger_error(request):
-    division_by_zero = 1 / 0
-
-
+app_name = 'ingredients'
 urlpatterns = [
-    path('sentry-debug/', trigger_error),
-    path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
-    path('', include('magapp.base.urls')),
-    path('ingredients/', include('magapp.ingredients.urls')),
-    # django browser reload
-    path('__reload__/', include('django_browser_reload.urls')),
+    path('', list, name='list'),
 ]
