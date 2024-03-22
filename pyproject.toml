@@ -30,6 +30,7 @@ build-backend = "poetry.core.masonry.api"
 [tool.ruff]
 # Set the maximum line length to 120.
 line-length = 120
+show-fixes = true
 
 [tool.ruff.lint]
 select = [
