@@ -12,7 +12,7 @@ def list(request):
 
 
 class Create(View, LoginRequiredMixin):
-    template_name = "ingredients/create_modal.html"
+    template_name = 'ingredients/create_modal.html'
 
     def get(self, request):
         return render(request, self.template_name)
