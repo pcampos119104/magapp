@@ -1,9 +1,10 @@
-{% load static %}
+{% load static django_htmx %}
 <html>
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="{% static 'output.css' %}" rel="stylesheet">
+	<script src="{% static 'js/htmx.min.js' %}" defer></script>
 </head>
 <body>
 <div class="antialiased bg-gray-50 dark:bg-gray-900">
@@ -19,7 +20,10 @@
 		{% endblock content %}
 	</main>
 </div>
+<!-- Footer -->
 {% include 'base/_footer.html' %}
 <script src='{% static 'js/flowbite.min.js' %}'></script>
+<!-- https://django-htmx.readthedocs.io/en/latest/extension_script.html -->
+{% django_htmx_script %}
 </body>
 </html>
