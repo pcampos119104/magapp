@@ -14,8 +14,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
+import django
 
 
 def trigger_error(request):
@@ -31,3 +33,23 @@ urlpatterns = [
     # django browser reload
     path('__reload__/', include('django_browser_reload.urls')),
 ]
+
+# for testing the 400, 404, 500 pages layout
+if settings.DEBUG:
+    def custom_page_not_found(request):
+        return django.views.defaults.page_not_found(request, None)
+
+
+    def custom_page_bad_request(request):
+        return django.views.defaults.bad_request(request, None)
+
+
+    def custom_server_error(request):
+        return django.views.defaults.server_error(request)
+
+
+    urlpatterns += [
+        path("404/", custom_page_not_found),
+        path("400/", custom_page_bad_request),
+        path("500/", custom_server_error),
+    ]
