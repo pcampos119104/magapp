@@ -5,7 +5,7 @@ from django.shortcuts import render
 from django.views import View
 
 from magapp.ingredients.forms import IngredientForm
-
+from django.contrib import messages
 
 @login_required
 def list(request):
@@ -22,5 +22,5 @@ class Create(View, LoginRequiredMixin):
         return render(request, self.template, context={'form': IngredientForm()})
 
     def post(self, request):
-        print(IngredientForm(request.POST))
+        messages.success(request, "Profile details updated.")
         return render(request, self.template, context={'form': IngredientForm()})
