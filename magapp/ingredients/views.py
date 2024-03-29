@@ -23,4 +23,4 @@ class Create(View, LoginRequiredMixin):
 
     def post(self, request):
         messages.success(request, "Profile details updated.")
-        return render(request, self.template, context={'form': IngredientForm()})
+        return render(request, self.template, status=201)

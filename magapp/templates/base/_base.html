@@ -31,7 +31,13 @@
 </div>
 <!-- Footer -->
 {% include 'base/_footer.html' %}
+
+<!-- Messages -->
+{% include 'base/_messages.html' %}
+
+<!-- Flowbite js -->
 <script src='{% static 'js/flowbite.min.js' %}'></script>
+
 <!-- https://django-htmx.readthedocs.io/en/latest/extension_script.html -->
 {% django_htmx_script %}
 </body>

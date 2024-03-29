@@ -1,6 +1,11 @@
 {% load static %}
 <!-- Main modal -->
 <div
+	x-data="{
+	selfRemove(){
+		$el.remove()
+	}
+	}"
 	id="base_modal"
 	tabindex="-1"
 	aria-hidden="false"
@@ -10,7 +15,7 @@
 	 z-50 justify-center items-center w-full md:inset-0 h-modal md:h-full bg-gray-800 bg-opacity-60 transition-opacity ">
 	<!-- Modal frame -->
 	<div
-		x-on:click.outside='document.getElementById("base_modal").remove()'
+		x-on:click.outside='selfRemove()'
 		class="relative p-4 w-full max-w-2xl h-full md:h-auto">
 		<!-- Modal content -->
 		<div class="relative p-4 bg-white rounded-lg shadow dark:bg-gray-800 sm:p-5">
@@ -21,7 +26,7 @@
 					{% endblock modal_title %}
 				</h3>
 				<button
-					x-on:click='document.getElementById("base_modal").remove()'
+					x-on:click='selfRemove()'
 					type="button"
 					class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white">
 					<svg

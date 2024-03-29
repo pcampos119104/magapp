@@ -4,9 +4,18 @@
 {% endblock modal_title %}
 {% block modal_content %}
 	<form
+		x-data="{
+        init() {
+        	// Remove o modal se a resposta for 201 Created
+            htmx.on('htmx:beforeSwap', function(evt) {
+              if (evt.detail.xhr.status === 201) selfRemove()
+            })
+        }
+    	}"
 		hx-post="{% url 'ingredients:create' %}"
 		hx-swap="outerHTML"
-		hx-target="#base_modal">
+		hx-target="#base_modal"
+	>
 		{% csrf_token %}
 		<div class="my-4 text-red-500">{{ form.non_field_errors }}</div>
 		<!-- Nome -->
