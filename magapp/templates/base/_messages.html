@@ -6,7 +6,6 @@
         },
 		init(){
 			htmx.on('messages', (evt) => {
-			console.log(evt)
 				evt.detail.value.forEach((message) => this.notifications.push({
                 	id: message.timeStamp,
                 	type: message.tags,
