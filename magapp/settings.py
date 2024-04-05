@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'django_extensions',
+    'magapp.base',
+    'magapp.ingredients',
 ]
 
 MIDDLEWARE = [

@@ -7,6 +7,9 @@ from django.views import View
 from magapp.ingredients.forms import IngredientForm
 from django.contrib import messages
 
+from magapp.ingredients.models import Ingredient
+
+
 @login_required
 def list(request):
     template = 'ingredients/list.html'
@@ -22,5 +25,11 @@ class Create(View, LoginRequiredMixin):
         return render(request, self.template, context={'form': IngredientForm()})
 
     def post(self, request):
-        messages.info(request, "Profile details updated.")
+        messages.success(request, "Ingrediente criado.")
+        form = IngredientForm(request.POST)
+        if not form.is_valid(): # nao valida se o slug eh unico
+            return render(request, self.template, context={'form': form})
+
+        form.instance.created_by = request.user
+        form.save() # erro 500 slug nao eh unico
         return render(request, self.template, status=201)
