@@ -35,11 +35,11 @@ class Create(View, LoginRequiredMixin):
         return render(request, self.template, context={'form': IngredientForm()})
 
     def post(self, request):
-        messages.success(request, "Ingrediente criado.")
         form = IngredientForm(request.POST)
         if not form.is_valid():
             return render(request, self.template, context={'form': form})
 
+        messages.success(request, "Ingrediente criado.")
         form.instance.created_by = request.user
         form.save()
         return render(request, self.template, status=201)
