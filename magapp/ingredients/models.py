@@ -26,6 +26,7 @@ class Ingredient(SoftDeletionModel):
     class Meta:
         verbose_name = "ingrediente"
         verbose_name_plural = "ingredientes"
+        ordering = ["name"]
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
