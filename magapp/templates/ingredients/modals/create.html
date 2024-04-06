@@ -8,7 +8,9 @@
         init() {
         	// Remove o modal se a resposta for 201 Created
             htmx.on('htmx:beforeSwap', function(evt) {
-              if (evt.detail.xhr.status === 201) selfRemove()
+              if (evt.detail.xhr.status === 201) {
+              	selfRemove()
+				}
             })
         }
     	}"
