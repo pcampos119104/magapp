@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.http import HttpResponseNotFound
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.views import View
 
 from magapp.ingredients.forms import IngredientForm
@@ -26,7 +26,7 @@ def list(request):
 
 
 class Create(View, LoginRequiredMixin):
-    template = 'ingredients/modals/create.html'
+    template = 'ingredients/modals/create_update.html'
 
     def get(self, request):
         if not request.htmx:
@@ -38,7 +38,36 @@ class Create(View, LoginRequiredMixin):
         if not form.is_valid():
             return render(request, self.template, context={'form': form})
 
-        messages.success(request, 'Ingrediente criado.')
         form.instance.created_by = request.user
         form.save()
+        messages.success(request, 'Ingrediente criado.')
         return render(request, self.template, status=201)
+
+
+class Update(View, LoginRequiredMixin):
+    template = 'ingredients/modals/create_update.html'
+
+    def get(self, request, slug):
+        if not request.htmx:
+            return HttpResponseNotFound()
+        ingredient = get_object_or_404(Ingredient, slug=slug)
+        form = IngredientForm(instance=ingredient)
+        return render(request, self.template, context={'form': form, 'update': True})
+
+    def put(self, request, slug):
+        form = IngredientForm(request.POST)
+        if not form.is_valid():
+            return render(request, self.template, context={'form': form, 'update': True})
+
+        form.instance.created_by = request.user
+        form.save()
+        messages.success(request, 'Ingrediente atualizado.')
+        return render(request, self.template, status=201)
+
+
+class Delete(View, LoginRequiredMixin):
+    '''
+    For now delete only on admin.
+    todo create profile for deleting ingredient
+    '''
+    pass

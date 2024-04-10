@@ -12,36 +12,37 @@
 		<div class="bg-white dark:bg-gray-800 relative shadow-md sm:rounded-lg overflow-hidden">
 			<div
 				class="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-					<!-- Search form -->
-					<form class="w-full md:w-1/2 flex items-center mb-0">
-						<label
-							for="simple-search"
-							class="sr-only">Search</label>
-						<div class="relative w-full">
-							<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-								<svg
-									aria-hidden="true"
-									class="w-5 h-5 text-gray-500 dark:text-gray-400"
-									fill="currentColor"
-									viewbox="0 0 20 20"
-									xmlns="http://www.w3.org/2000/svg">
-									<path
-										fill-rule="evenodd"
-										d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-										clip-rule="evenodd"/>
-								</svg>
-							</div>
-							<input
-								type="text"
-								id="simple-search"
-								class="input pl-10"
-								placeholder="Search"
-								required>
+				<!-- Search form -->
+				<form class="w-full md:w-1/2 flex items-center mb-0">
+					<label
+						for="simple-search"
+						class="sr-only">Search</label>
+					<div class="relative w-full">
+						<div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+							<svg
+								aria-hidden="true"
+								class="w-5 h-5 text-gray-500 dark:text-gray-400"
+								fill="currentColor"
+								viewbox="0 0 20 20"
+								xmlns="http://www.w3.org/2000/svg">
+								<path
+									fill-rule="evenodd"
+									d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+									clip-rule="evenodd"/>
+							</svg>
 						</div>
-					</form>
+						<input
+							type="text"
+							id="simple-search"
+							class="input pl-10"
+							placeholder="Search"
+							required>
+					</div>
+				</form>
 				<div
-					class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center justify-end md:space-x-3 flex-shrink-0">
-					<!-- Add ingredient -->
+					class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch
+					 md:items-center justify-end md:space-x-3 flex-shrink-0">
+					<!-- create ingredient -->
 
 					<button
 						type="button"
@@ -50,7 +51,7 @@
 						hx-target="body"
 						hx-swap="beforeend"
 						hx-push-url="false"
-						>
+					>
 						<svg
 							class="h-3.5 w-3.5 mr-2"
 							fill="currentColor"
@@ -82,7 +83,8 @@
 							<div class="py-1">
 								<a
 									href=""
-									class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
+									class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100
+									 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete
 									all</a>
 							</div>
 						</div>
@@ -113,49 +115,20 @@
 							<th
 								scope="row"
 								class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-								{{ ingredient.name }}
+								{{ ingredient.name | title }}
 							</th>
 							<td class="px-4 py-3 flex items-center justify-end">
 								<button
-									id="apple-imac-27-dropdown-button"
-									data-dropdown-toggle="apple-imac-27-dropdown"
+									type="button"
 									class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500
 								 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400
 								 dark:hover:text-gray-100"
-									type="button">
-									<svg
-										class="w-5 h-5"
-										aria-hidden="true"
-										fill="currentColor"
-										viewbox="0 0 20 20"
-										xmlns="http://www.w3.org/2000/svg">
-										<path
-											d="M6 10a2 2 0 11-4 0 2 2 0 014 0zM12 10a2 2 0 11-4 0 2 2 0 014 0zM16 12a2 2 0 100-4 2 2 0 000 4z"/>
-									</svg>
+									hx-get="{% url 'ingredients:update' ingredient.slug  %}"
+									hx-target="body"
+									hx-swap="beforeend"
+									hx-push-url="false">
+									Editar
 								</button>
-								<div
-									id="apple-imac-27-dropdown"
-									class="hidden z-10 w-44 bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-									<ul
-										class="py-1 text-sm text-gray-700 dark:text-gray-200"
-										aria-labelledby="apple-imac-27-dropdown-button">
-										<li>
-											<a
-												href="#"
-												class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Show</a>
-										</li>
-										<li>
-											<a
-												href="#"
-												class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-										</li>
-									</ul>
-									<div class="py-1">
-										<a
-											href="#"
-											class="block py-2 px-4 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Delete</a>
-									</div>
-								</div>
 							</td>
 						</tr>
 					{% endfor %}
