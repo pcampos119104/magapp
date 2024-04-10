@@ -10,9 +10,9 @@
 	<form
 		x-data="{
         init() {
-        	// Remove o modal se a resposta for 201 Created
+        	// Remove o modal se a resposta for 201 Created ou 204
             htmx.on('htmx:beforeSwap', function(evt) {
-              if (evt.detail.xhr.status === 201) {
+              if ([201, 204].includes(evt.detail.xhr.status)) {
               	selfRemove()
 				}
             })

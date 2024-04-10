@@ -2,8 +2,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
-from django.http import HttpResponseNotFound
-from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseNotFound, QueryDict
+from django.shortcuts import get_object_or_404, render
 from django.views import View
 
 from magapp.ingredients.forms import IngredientForm
@@ -12,7 +12,7 @@ from magapp.ingredients.models import Ingredient
 
 @login_required
 def list(request):
-    base_template = "base/_partial_base.html" if request.htmx else "base/_base.html"
+    base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
     num_per_page = 10
     template = 'ingredients/partials/listing.html'
     # Ingredient.objects.filter(name__unaccent__lower__trigram_similar="banana")
@@ -20,9 +20,7 @@ def list(request):
     paginator = Paginator(ingredients, num_per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, template, {
-        'page_obj': page_obj,
-        'base_template': base_template})
+    return render(request, template, {'page_obj': page_obj, 'base_template': base_template})
 
 
 class Create(View, LoginRequiredMixin):
@@ -55,19 +53,26 @@ class Update(View, LoginRequiredMixin):
         return render(request, self.template, context={'form': form, 'update': True})
 
     def put(self, request, slug):
-        form = IngredientForm(request.POST)
+        ingredient = get_object_or_404(Ingredient, slug=slug)
+        payload = QueryDict(request.body)
+        form = IngredientForm(payload, instance=ingredient)
+        # if has not changed compared with original
+        if not form.has_changed():
+            return render(request, self.template, status=204)
+
         if not form.is_valid():
             return render(request, self.template, context={'form': form, 'update': True})
 
         form.instance.created_by = request.user
         form.save()
         messages.success(request, 'Ingrediente atualizado.')
-        return render(request, self.template, status=201)
+        return render(request, self.template, status=204)
 
 
 class Delete(View, LoginRequiredMixin):
-    '''
+    """
     For now delete only on admin.
     todo create profile for deleting ingredient
-    '''
+    """
+
     pass
