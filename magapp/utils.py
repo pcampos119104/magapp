@@ -1,8 +1,7 @@
 from django.forms import forms
 
 
-def clean_unique(form, field, exclude_initial=True,
-                 format="O campo %(field) com valor %(value) já existe."):
+def clean_unique(form, field, exclude_initial=True, format='O campo %(field) com valor %(value) já existe.'):
     """
     Check in the database if the field is unique.
     """
