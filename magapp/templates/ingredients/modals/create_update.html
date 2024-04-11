@@ -1,0 +1,84 @@
+{% extends 'base/_modal.html' %}
+{% block modal_title %}
+	{% if update %}
+		Editar {{ form.instance.name | title}}
+	{% else %}
+		Novo ingrediente
+	{% endif %}
+{% endblock modal_title %}
+{% block modal_content %}
+	<form
+		x-data="{
+        init() {
+        	// Remove o modal se a resposta for 201 Created ou 204
+            htmx.on('htmx:beforeSwap', function(evt) {
+              if ([201, 204].includes(evt.detail.xhr.status)) {
+              	selfRemove()
+				}
+            })
+        }
+    	}"
+		{% if update %}
+		hx-put="{% url 'ingredients:update' form.instance.slug %}"
+		{% else %}
+		hx-post="{% url 'ingredients:create' %}"
+		{% endif %}
+		hx-swap="outerHTML"
+		hx-target="#base_modal"
+	>
+		{% csrf_token %}
+		<div class="my-4 text-red-500">{{ form.non_field_errors }}</div>
+		<!-- Nome -->
+		<div class="grid gap-4 mb-4 sm:grid-cols-2">
+			<div>
+				<label
+					for="name"
+					{% if form.name.errors %}
+					class="input-label-error"
+					{% else %}
+					class="input-label"
+					{% endif %}
+				>Nome
+				</label>
+				<input
+					type="text"
+					value="{{ form.name.value  | default_if_none:'' }}"
+					name="{{ form.name.name }}"
+					id="name"
+					{% if form.name.errors %}
+					class="input-error"
+					{% else %}
+					class="input"
+					{% endif %}
+
+					placeholder="Nome do ingrediente"
+					autofocus
+					required>
+				{% for err in form.name.errors %}
+					<p class="input-error-message">{{ err }}
+					</p>
+				{% endfor %}
+			</div>
+		</div>
+
+		<button
+			type="submit"
+			class="btn">
+			<svg
+				class="mr-1 -ml-1 w-6 h-6"
+				fill="currentColor"
+				viewBox="0 0 20 20"
+				xmlns="http://www.w3.org/2000/svg">
+				<path
+					fill-rule="evenodd"
+					d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+					clip-rule="evenodd"></path>
+			</svg>
+			{% if update %}
+				Atualizar ingrediente
+			{% else %}
+				Adicionar ingrediente
+			{% endif %}
+		</button>
+	</form>
+{% endblock modal_content %}

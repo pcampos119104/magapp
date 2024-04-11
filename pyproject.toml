@@ -17,6 +17,7 @@ whitenoise = {extras = ["brotli"], version = "^6.6.0"}
 sentry-sdk = {extras = ["django"], version = "^1.41.0"}
 django-browser-reload = "^1.12.1"
 django-htmx = "^1.17.3"
+python-slugify = "^8.0.4"
 
 [tool.poetry.group.dev.dependencies]
 django-pytest = "^0.2.0"
