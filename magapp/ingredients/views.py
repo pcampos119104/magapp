@@ -23,7 +23,7 @@ def list(request):
     return render(request, template, {'page_obj': page_obj, 'base_template': base_template})
 
 
-class Create(View, LoginRequiredMixin):
+class Create(LoginRequiredMixin, View):
     template = 'ingredients/modals/create_update.html'
 
     def get(self, request):
