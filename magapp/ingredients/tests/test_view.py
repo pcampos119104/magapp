@@ -1,7 +1,6 @@
-import uuid
-
 import pytest
 from django.urls import reverse
+from pytest_django.asserts import assertContains
 
 pytestmark = pytest.mark.views
 
@@ -43,25 +42,25 @@ class TestCreateIngredients:
 
     def test_new_name(self, logged_client):
         payload = {
-            'name': 'Test name'
+            'name': 'Test name 2'
         }
-        resp = logged_client.get(
+        resp = logged_client.post(
             reverse('ingredients:create'),
             data=payload,
             headers=self.headers
         )
         assert resp.status_code == 201
 
-    def test_try_already_exists(self, logged_client):
+    def test_try_already_exists_name(self, logged_client, ingredient):
         payload = {
-            'name': 'Test name'
+            'name': ingredient.name
         }
-        resp = logged_client.get(
+        resp = logged_client.post(
             reverse('ingredients:create'),
             data=payload,
             headers=self.headers
         )
-        assert resp.status_code == 201
+        assertContains(resp, 'Este ingrediente já existe.', status_code=200)
 
     def test_create(self, client):
         pass
