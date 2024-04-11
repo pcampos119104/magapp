@@ -13,6 +13,7 @@
         	// Remove o modal se a resposta for 201 Created ou 204
             htmx.on('htmx:beforeSwap', function(evt) {
               if ([201, 204].includes(evt.detail.xhr.status)) {
+              	$dispatch('createdIngredient')
               	selfRemove()
 				}
             })
