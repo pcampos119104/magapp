@@ -2,12 +2,20 @@
 <html>
 <head>
 	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link href="{% static 'output.css' %}" rel="stylesheet">
-	<script src="{% static 'js/htmx.min.js' %}" defer></script>
-	<script src="{% static 'js/alpine.min.js' %}" defer></script>
+	<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0">
+	<link
+		href="{% static 'output.css' %}"
+		rel="stylesheet">
+	<script
+		src="{% static 'js/htmx.min.js' %}"
+		defer></script>
+	<script
+		src="{% static 'js/alpine.min.js' %}"
+		defer></script>
 </head>
-<body>
+<body  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
 <div class="antialiased bg-gray-50 dark:bg-gray-900">
 	<!-- Header -->
 	{% include 'base/_header.html' %}
@@ -23,7 +31,13 @@
 </div>
 <!-- Footer -->
 {% include 'base/_footer.html' %}
+
+<!-- Messages -->
+{% include 'base/_messages.html' %}
+
+<!-- Flowbite js -->
 <script src='{% static 'js/flowbite.min.js' %}'></script>
+
 <!-- https://django-htmx.readthedocs.io/en/latest/extension_script.html -->
 {% django_htmx_script %}
 </body>

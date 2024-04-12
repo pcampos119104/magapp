@@ -37,7 +37,9 @@
 				<span class="sr-only">Toggle sidebar</span>
 			</button>
 			<!-- direcionar para dashboard -->
-			<a href="#" class="flex items-center justify-between mr-4">
+			<a
+				href="#"
+				class="flex items-center justify-between mr-4">
 				<span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Magapp</span>
 			</a>
 
@@ -95,7 +97,7 @@
 					class="block text-sm font-semibold text-gray-900 dark:text-white"
 				>{{ user.username | title }}
 				</span>
-				<!-- Dropdown button -->
+			<!-- Dropdown button -->
 				<button
 					type="button"
 					class="flex mx-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
@@ -104,15 +106,24 @@
 					data-dropdown-toggle="dropdown"
 				>
 					<span class="sr-only">Open user menu</span>
-					<svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-						 xmlns="http://www.w3.org/2000/svg"
-						 width="24" height="24" fill="none" viewBox="0 0 24 24">
-						<path stroke="currentColor" stroke-linecap="round" stroke-width="2"
-							  d="M12 6h.01M12 12h.01M12 18h.01"/>
+					<svg
+						class="w-6 h-6 text-gray-800 dark:text-white"
+						aria-hidden="true"
+						xmlns="http://www.w3.org/2000/svg"
+						width="24"
+						height="24"
+						fill="none"
+						viewBox="0 0 24 24">
+						<path
+							stroke="currentColor"
+							stroke-linecap="round"
+							stroke-width="2"
+							d="M12 6h.01M12 12h.01M12 18h.01"/>
 					</svg>
 				</button>
 			{% else %}
-				<a href="{% url 'account_login' %}"
+				<a
+					href="{% url 'account_login' %}"
 					class="flex mx-3 text-sm rounded-full md:mr-0 focus:ring-4 focus:ring-gray-300 dark:focus:ring-gray-600"
 					id="user-login-button"
 					aria-expanded="false"
@@ -174,8 +185,10 @@
 							action="{% url 'account_logout' %}">
 							{% csrf_token %}
 							{% if redirect_field_value %}
-								<input type="hidden" name="{{ redirect_field_name }}"
-									   value="{{ redirect_field_value }}"/>
+								<input
+									type="hidden"
+									name="{{ redirect_field_name }}"
+									value="{{ redirect_field_value }}"/>
 							{% endif %}
 							<button
 								type="submit">Sign out
