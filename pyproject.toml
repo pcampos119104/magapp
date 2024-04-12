@@ -24,6 +24,7 @@ django-pytest = "^0.2.0"
 marimo = "0.2.4"
 werkzeug = "^3.0.1"
 ruff = "^0.2.2"
+model-bakery = "^1.17.0"
 
 [build-system]
 requires = ["poetry-core"]
