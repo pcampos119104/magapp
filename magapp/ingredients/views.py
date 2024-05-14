@@ -58,6 +58,7 @@ class Update(View, LoginRequiredMixin):
         form = IngredientForm(payload, instance=ingredient)
         # if has not changed compared with original
         if not form.has_changed():
+            messages.success(request, 'Ingrediente atualizado.')
             return render(request, self.template, status=204)
 
         if not form.is_valid():
