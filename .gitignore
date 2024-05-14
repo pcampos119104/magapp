@@ -332,5 +332,4 @@ magapp/media/
 .ipython/
 .env
 .envs/.production
-magapp.sqlite3
 local/

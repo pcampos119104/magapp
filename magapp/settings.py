@@ -87,16 +87,15 @@ WSGI_APPLICATION = 'magapp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASE_PATH = env('DATABASE_PATH', default=BASE_DIR / 'magapp.sqlite3')
 
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'postgres',
-        'PORT': '5432',
+        'NAME': env('DB_NAME'),
+        'USER':  env('DB_USER'),
+        'PASSWORD':  env('DB_PASSWORD'),
+        'HOST':  env('DB_HOST'),
+        'PORT':  env('DB_PORT'),
     }
 }
 
