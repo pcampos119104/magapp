@@ -41,6 +41,11 @@ jobs:
           echo SECRET_KEY=0m8HMl9crvazciYYD58znKmuQaQAFT8q >> .env
           echo ENVIRONMENT=dev >> .env
           echo ALLOWED_HOSTS=* >> .env
+          echo DB_NAME=postgres >> .env
+          echo DB_USER=postgres >> .env
+          echo DB_PASSWORD=postgres >> .env
+          echo DB_HOST=postgres >> .env
+          echo DB_PORT=5432 >> .env
           cat .env
 
       - name: Build the Stack
