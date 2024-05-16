@@ -16,10 +16,16 @@ As versoes utilizadas estao no Poetry.
   - compose.yaml
   - compose/Dockerfile
   - compose/start
+- [gunicorn](https://gunicorn.org/) Servidor WSGI HTTP Python para UNIX
+- [sentry-sdk](https://docs.sentry.io/platforms/python/) Usado para reportar erros no sistema
+- [psycopg](https://www.psycopg.org/) Adaptador python para o Postgres
 - [Just](https://just.systems/) Usado para encapsular comandos
   - justfile
 - [Whitenoise](https://whitenoise.readthedocs.io/en/stable/django.html) Usado para gerenciar arquivos estaticos, neste caso, somente servir pelo django 
 - [HTMX](https://htmx.org/) htmx da acesso a AJAX, CSS Transitions, WebSockets e Server Sent Events direto no HTML   
+- [django-htmx](https://django-htmx.readthedocs.io/en/latest/) Extensao para usar o Django com HTMX
+- [django-allauth](https://docs.allauth.org/en/latest/) Add Django para autenticacao e autorizacao. 
+- [django-environ](https://django-environ.readthedocs.io/en/latest/) Gerencia variaveis de ambiente 
 - [TailwindCSS](https://tailwindcss.com/) Framework CSS
 - [Flowbite](https://flowbite.com/) Componentes construido em cima do Tailwind
 - [AlpineJS](https://alpinejs.dev/) Framework JavaScript
@@ -27,11 +33,14 @@ As versoes utilizadas estao no Poetry.
 ### ...de desenvolvimento
 
 - [django-extensions](https://django-extensions.readthedocs.io/en/latest/) Contem commandos e ferramentas para auxiliar no desenvolvimento
+- [django-browser-reload](https://github.com/adamchainz/django-browser-reload) Atualiza a pagina no navegador quando salva um arquivo, util quando desenvolvento com tailwind 
+- [ruff](https://docs.astral.sh/ruff/) Linter e formatacao de codigo  
+- [model_bakery](https://model-bakery.readthedocs.io/en/latest/) Usado para criar fixtures para testes 
 - [Pytest](https://docs.pytest.org/en/8.0.x/) Conjunto de ferramentas para testes.
 - [Pytest-django](https://pytest-django.readthedocs.io/en/latest/) Plugin do Pytest para o Django 
 - [Marimo](https://marimo.io/) Notebook utilizado para desenvolver algoritmos, testar, debugar e etc.
   - extras/local - Esta no .gitignore, para notebooks pessoais
-  - extras/template_marimo.py - Template para criar um novo notebook.
+  - extras/template_marimo.py - Template a se usar para criar um novo notebook.
 
 ## Instalacao do ambiente de desenvolvimento
 
