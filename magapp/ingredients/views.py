@@ -42,7 +42,7 @@ class Create(LoginRequiredMixin, View):
         return render(request, self.template, status=201)
 
 
-class Update(View, LoginRequiredMixin):
+class Update(LoginRequiredMixin, View):
     template = 'ingredients/modals/create_update.html'
 
     def get(self, request, slug):
