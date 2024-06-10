@@ -1,4 +1,7 @@
+import uuid
+
 from django.forms import forms
+from slugify import slugify
 
 
 def clean_unique(form, field, exclude_initial=True, format='O campo %(field) com valor %(value) já existe.'):
@@ -14,3 +17,7 @@ def clean_unique(form, field, exclude_initial=True, format='O campo %(field) com
         if qs.count() > 0:
             raise forms.ValidationError(format % {'field': field, 'value': value})
     return value
+
+def create_unique_slug(title):
+    uuid_str = str(uuid.uuid4())
+    return slugify(f"{title} {uuid_str[:8]}")
