@@ -50,7 +50,8 @@ quote-style = "single"
 DJANGO_SETTINGS_MODULE = "magapp.settings"
 markers = [
     'models: test the models',
-    'views: test all views'
+    'views: test all views',
+    'search: test search implementations'
 ]
 
 # -- recommended but optional:
