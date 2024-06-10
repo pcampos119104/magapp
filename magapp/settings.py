@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'django_extensions',
     'magapp.base',
     'magapp.ingredients',
+    'magapp.recipes',
 ]
 
 MIDDLEWARE = [
