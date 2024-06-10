@@ -11,7 +11,7 @@ def ingredient(db) -> Type[Ingredient]:
     model = baker.make(
         Ingredient,
         _fill_optional=True,
-        name="Farinha",
+        name='Farinha',
         deleted_at=None,
     )
     return model

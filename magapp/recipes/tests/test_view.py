@@ -15,6 +15,7 @@ class TestListRecipes:
         resp = logged_client.get(reverse('recipes:list'))
         assert resp.status_code == 200
 
+
 #
 #
 #
