@@ -1319,6 +1319,10 @@ video {
   justify-content: space-between;
 }
 
+.gap-2 {
+  gap: 0.5rem;
+}
+
 .gap-4 {
   gap: 1rem;
 }
@@ -2429,8 +2433,8 @@ video {
     height: 100vh;
   }
 
-  .md\:w-1\/2 {
-    width: 50%;
+  .md\:w-2\/6 {
+    width: 33.333333%;
   }
 
   .md\:w-64 {
