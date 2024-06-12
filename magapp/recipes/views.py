@@ -6,7 +6,7 @@ from django.http import HttpResponseNotFound, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 
-from magapp.recipes.forms import RecipeForm
+from magapp.recipes.forms import RecipeForm, RecipeIngredientFormSet
 from magapp.recipes.models import Recipe
 
 
@@ -21,26 +21,54 @@ def list(request):
 
 
 class Create(LoginRequiredMixin, View):
-    template = 'recipes/modals/create_update.html'
+    template = 'recipes/partials/create_update.html'
 
     def get(self, request):
-        if not request.htmx:
-            return HttpResponseNotFound()
-        return render(request, self.template, context={'form': RecipeForm()})
+        base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
+        recipe_form = RecipeForm()
+        ingredient_formset = RecipeIngredientFormSet()
+        context = {
+            "recipe_form": recipe_form,
+            "ingredient_formset": ingredient_formset,
+            'base_template': base_template,
+        }
+        return render(request, self.template, context)
 
     def post(self, request):
-        form = RecipeForm(request.POST)
-        if not form.is_valid():
-            return render(request, self.template, context={'form': form})
+        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
+        recipe_form = RecipeForm(request.POST)
+        ingredient_formset = RecipeIngredientFormSet(request.POST)
+        if not any([
+            recipe_form.is_valid(),
+            ingredient_formset.is_valid(),
+        ]):
+            print('algum formulario nao eh valido')
+            context = {
+                "recipe_form": recipe_form,
+                "ingredient_formset": ingredient_formset,
+                'base_template': base_template,
+            }
+            return render(request, self.template, context)
+        print('form.is_valid()')
 
-        form.instance.created_by = request.user
-        form.save()
+        # form.instance.created_by = request.user
+        # form.save()
+        # reset forms
+        recipe_form = RecipeForm()
+        ingredient_formset = RecipeIngredientFormSet()
+        context = {
+            "recipe_form": recipe_form,
+            "ingredient_formset": ingredient_formset,
+            'base_template': base_template,
+        }
         messages.success(request, 'Receita criada.')
-        return render(request, self.template, status=201)
+        return render(request, self.template, context, status=201)
 
 
 class Update(LoginRequiredMixin, View):
-    template = 'recipes/modals/create_update.html'
+    template = 'recipes/partials/create_update.html'
 
     def get(self, request, slug):
         if not request.htmx:

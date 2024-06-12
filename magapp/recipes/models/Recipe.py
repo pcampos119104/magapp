@@ -10,7 +10,7 @@ from magapp.utils import create_unique_slug
 
 class Recipe(SoftDeletionModel):
     title = LowerCharField("título", max_length=64, help_text="Título da receita.")
-    description = models.TextField("descrição", help_text="Breve descrição da receita")
+    description = models.TextField("descrição", help_text="Breve descrição da receita.")
     directions = models.TextField("preparo", help_text="Passos para o preparo.")
     slug = models.SlugField(max_length=64, unique=True, editable=False)
     created_by = models.ForeignKey(

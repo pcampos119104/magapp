@@ -30,6 +30,20 @@
         @apply mt-2 text-sm text-red-600 dark:text-red-500;
     }
 
+    /* textarea */
+    .textarea {
+        @apply input rounded-2xl
+
+    }
+
+    .textarea-error {
+        @apply textarea bg-red-50 border-red-500 text-red-900 placeholder-red-700
+        focus:ring-red-500 dark:bg-gray-700 focus:border-red-500
+        dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+        dark:focus:ring-red-500 dark:focus:border-red-500;
+    }
+
+
     /* buttons */
     .btn {
         @apply text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4

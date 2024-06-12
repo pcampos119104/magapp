@@ -1,0 +1,113 @@
+{% extends base_template %}
+{% load static %}
+{% block content %}
+
+    <section id='section' class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
+            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Nova receita</h2>
+            <form
+                    hx-post="{% url 'recipes:create' %}"
+                    hx-swap="outerHTML"
+                    hx-target="#section"
+            >
+                <div class="grid gap-4 sm:grid-cols-2 sm:g tap-6">
+                    <!-- Title -->
+                    <div class="">
+                        <label for="name" class="input-label">
+                            {{ recipe_form.title.label }}
+                        </label>
+                        <input type="text"
+                               name="{{ recipe_form.title.name }}"
+                               id="name"
+                                {% if form.title.errors %}
+                               class="input-error"
+                                {% else %}
+                               class="input"
+                                {% endif %}
+                               value="{{ recipe_form.title.value | default_if_none:'' }}"
+                               placeholder="{{ recipe_form.title.help_text }}"
+                               required>
+                        {% for err in recipe_form.title.errors %}
+                            <p class="input-error-message">{{ err }}
+                            </p>
+                        {% endfor %}
+
+                    </div>
+                    <!-- description -->
+                    <div class="sm:col-span-2">
+                        <label for="description" class="input-label">
+                            {{ recipe_form.description.label }}
+                        </label>
+                        <textarea id="description" rows="8"
+                                  name="{{ recipe_form.description.name }}"
+                                  value="{{ recipe_form.description.value }}"
+                                {% if form.title.errors %}
+                                  class="textarea-error"
+                                {% else %}
+                                  class="textarea"
+                                {% endif %}
+                                  placeholder="{{ recipe_form.description.help_text }}"
+                                  required></textarea>
+                        {% for err in recipe_form.description.errors %}
+                            <p class="input-error-message">{{ err }}
+                            </p>
+                        {% endfor %}
+
+                    </div>
+
+                    <!-- font -->
+                    <div class="">
+                        <label for="font" class="input-label">
+                            {{ recipe_form.font.label }}
+                        </label>
+                        <input type="text"
+                               id="font"
+                               name="{{ recipe_form.font.name }}"
+                               value="{{ recipe_form.font.value  | default_if_none:'' }}"
+                                {% if form.title.errors %}
+                               class="input-error"
+                                {% else %}
+                               class="input"
+                                {% endif %}
+                               placeholder="{{ recipe_form.font.help_text }}">
+
+                    </div>
+
+                    <!-- directions -->
+                    <div class="sm:col-span-2">
+                        <label for="directions" class="input-label">
+                            {{ recipe_form.directions.label }}
+                        </label>
+                        <textarea id="directions" rows="8"
+                                  name="{{ recipe_form.directions.name }}"
+                                  value="{{ recipe_form.directions.value }}"
+                                {% if form.title.errors %}
+                                  class="textarea-error"
+                                {% else %}
+                                  class="textarea "
+                                {% endif %}
+                                  placeholder="{{ recipe_form.directions.help_text }}"
+                                  required></textarea>
+                        {% for err in recipe_form.directions.errors %}
+                            <p class="input-error-message">{{ err }}
+                            </p>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Ingredients block -->
+                    <!-- ingredient -->
+                    <!-- metric -->
+                    <!-- qualifiers -->
+                    <!-- qtd -->
+
+
+                </div>
+                <!-- submit button -->
+                <button type="submit"
+                        class="btn">
+                    Inserir receita
+                </button>
+            </form>
+        </div>
+    </section>
+{% endblock content %}
