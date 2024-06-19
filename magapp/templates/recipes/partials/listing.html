@@ -3,10 +3,6 @@
 {% block content %}
     <!-- This section trigger a partial refresh if added a new recipe  -->
     <section
-            hx-get="{% url 'recipes:list' %}"
-            hx-push-url="true"
-            hx-trigger="createdRecipe from:window"
-            hx-swap="outerHTML"
             id='listing'
             class="bg-gray-50 dark:bg-gray-900 p-3 sm:p-5">
         <div class="mx-auto max-w-screen-xl px-4">

@@ -10,9 +10,9 @@
                     hx-swap="outerHTML"
                     hx-target="#section"
             >
-                <div class="grid gap-4 sm:grid-cols-2 ">
+                <div class="flex flex-col gap-4 ">
                     <!-- Title -->
-                    <div class="">
+                    <div class="w-1/2">
                         <label for="name" class="input-label">
                             {{ recipe_form.title.label }}
                         </label>
@@ -107,7 +107,7 @@
                     <!-- ingredients:formset -->
                     <div class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32
                                 border-y py-2">
-                    {{ ingredient_formset.management_form }}
+                        {{ ingredient_formset.management_form }}
                         {% for ingredient_form in ingredient_formset %}
                             <!-- qtd -->
                             <div>
@@ -225,15 +225,20 @@
                                         <input type="checkbox"
                                                name="{{ ingredient_form.qualifiers.html_name }}"
                                                value="{{ qualifier.data.value }}">
-                                        <label for="langs_ruby">{{ qualifier.choice_label | title}}</label>
+                                        <label for="langs_ruby">{{ qualifier.choice_label | title }}</label>
                                     </div>
                                 {% endfor %}
 
                             </div>
+                            <button type="button"
+                                    class="btn-red h-fit">
+                                Remover
+                            </button>
                             </div>
                         {% endfor %}
+                    <!-- Add ingredient button -->
                     <button type="submit"
-                            class="btn mt-4">
+                            class="btn w-fit self-end">
                         Adicionar ingrediente
                     </button>
 

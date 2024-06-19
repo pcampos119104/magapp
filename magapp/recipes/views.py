@@ -29,8 +29,8 @@ class Create(LoginRequiredMixin, View):
         recipe_form = RecipeForm()
         ingredient_formset = RecipeIngredientFormSet()
         context = {
-            "recipe_form": recipe_form,
-            "ingredient_formset": ingredient_formset,
+            'recipe_form': recipe_form,
+            'ingredient_formset': ingredient_formset,
             'base_template': base_template,
         }
         return render(request, self.template, context)
@@ -42,14 +42,16 @@ class Create(LoginRequiredMixin, View):
         recipe_form = RecipeForm(request.POST)
         ingredient_formset = RecipeIngredientFormSet(request.POST)
         print(request.POST)
-        if not any([
-            recipe_form.is_valid(),
-            ingredient_formset.is_valid(),
-        ]):
+        if not any(
+            [
+                recipe_form.is_valid(),
+                ingredient_formset.is_valid(),
+            ]
+        ):
             print('algum formulario nao eh valido')
             context = {
-                "recipe_form": recipe_form,
-                "ingredient_formset": ingredient_formset,
+                'recipe_form': recipe_form,
+                'ingredient_formset': ingredient_formset,
                 'base_template': base_template,
             }
             return render(request, self.template, context)
@@ -61,8 +63,8 @@ class Create(LoginRequiredMixin, View):
         recipe_form = RecipeForm()
         ingredient_formset = RecipeIngredientFormSet()
         context = {
-            "recipe_form": recipe_form,
-            "ingredient_formset": ingredient_formset,
+            'recipe_form': recipe_form,
+            'ingredient_formset': ingredient_formset,
             'base_template': base_template,
         }
         messages.success(request, 'Receita criada.')
@@ -95,5 +97,3 @@ class Update(LoginRequiredMixin, View):
         form.save()
         messages.success(request, 'Receita atualizada.')
         return render(request, self.template, status=204)
-
-

@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.urls import path
 
-from magapp.recipes.views import list, Create, Update
+from magapp.recipes.views import Create, Update, list
 
 app_name = 'recipes'
 urlpatterns = [
