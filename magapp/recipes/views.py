@@ -6,6 +6,7 @@ from django.http import HttpResponseNotFound, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 
+from magapp.ingredients.models import Ingredient
 from magapp.recipes.forms import RecipeForm, RecipeIngredientFormSet
 from magapp.recipes.models import Recipe
 
@@ -40,6 +41,7 @@ class Create(LoginRequiredMixin, View):
         base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
         recipe_form = RecipeForm(request.POST)
         ingredient_formset = RecipeIngredientFormSet(request.POST)
+        print(request.POST)
         if not any([
             recipe_form.is_valid(),
             ingredient_formset.is_valid(),
@@ -93,3 +95,5 @@ class Update(LoginRequiredMixin, View):
         form.save()
         messages.success(request, 'Receita atualizada.')
         return render(request, self.template, status=204)
+
+
