@@ -105,38 +105,44 @@
                     </div>
 
                     <!-- ingredients:formset -->
-                    <div class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32
-                                border-y py-2">
+                    <div id="ingredient_group">
+
                         {{ ingredient_formset.management_form }}
                         {% for ingredient_form in ingredient_formset %}
-                            <!-- qtd -->
-                            <div>
-                                <input type="number"
-                                       name="{{ ingredient_form.qtd.html_name }}"
-                                       value="{{ ingredient_form.qtd.value }}"
-                                       class="input"
-                                       placeholder="0"
-                                       required/>
-                            </div>
+                            <div                          x-data="{
+                         // Remove this ingredient form from the dom
+                         selfRemove() {
+                         console.log($el)
+		                    $el.remove()
+                         },
+                        }"
+                                    id="{{ ingredient_form.prefix }}"
+                                 class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32
+                                border-y py-2">
+                                <!-- qtd -->
+                                <div>
+                                    <input type="number"
+                                           name="{{ ingredient_form.qtd.html_name }}"
+                                           value="{{ ingredient_form.qtd.value }}"
+                                           class="input"
+                                           placeholder="0"
+                                           required/>
+                                </div>
+                                <!-- metric -->
+                                <div>
+                                    <select
+                                            name="{{ ingredient_form.metric.html_name }}"
+                                            class="input">
+                                        {% for choice in ingredient_form.metric %}
+                                            {{ choice }}
+                                        {% endfor %}
 
-
-                            <!-- metric -->
-                            <div>
-                                <select
-                                        name="{{ ingredient_form.metric.html_name }}"
-                                        class="input">
-                                    {% for choice in ingredient_form.metric %}
-                                        {{ choice }}
-                                    {% endfor %}
-
-                                </select>
-                            </div>
-
-                            <!-- ingredient -->
-
-                            <div class="col-span-2 flex w-full">
-                                <div
-                                        x-data="{
+                                    </select>
+                                </div>
+                                <!-- ingredient -->
+                                <div class="col-span-2 flex w-full">
+                                    <div
+                                            x-data="{
                                     open: false,
                                     label: 'Selecione ...',
                                     selectedId: 0,
@@ -158,93 +164,117 @@
                                         focusAfter && focusAfter.focus()
                                     }
                                     }"
-                                        x-on:keydown.escape.prevent.stop="close($refs.button)"
-                                        x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                                        x-id="['dropdown-button']"
-                                        class="relative w-full"
-                                >
-                                    <!-- ingredient:the value to be post -->
-                                    <input
-                                            type="hidden"
-                                            :value="selectedId"
-                                            name="{{ ingredient_form.ingredient.html_name }}"
+                                            x-on:keydown.escape.prevent.stop="close($refs.button)"
+                                            x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                                            x-id="['dropdown-button']"
+                                            class="relative w-full"
                                     >
-                                    <!-- ingredient:button -->
-                                    <button
-                                            x-ref="button"
-                                            x-on:click="toggle()"
-                                            :aria-expanded="open"
-                                            :aria-controls="$id('dropdown-button')"
-                                            type="button"
-                                            x-text="label"
-                                            class="flex items-center justify-between bg-gray-50 border border-gray-300
-                                               w-full rounded-full p-2 pl-4 font-light overflow-y-scroll">
-                                        <!-- ingredient:chevron-down -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"
-                                             viewBox="0 0 20 20" fill="currentColor">
-                                            <path fill-rule="evenodd"
-                                                  d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                  clip-rule="evenodd"/>
-                                        </svg>
-                                    </button>
-
-                                    <!-- ingredient:panel -->
-                                    <div
-                                            x-ref="panel"
-                                            x-show="open"
-                                            x-transition.origin.top.left
-                                            x-on:click.outside="close($refs.button)"
-                                            :id="$id('dropdown-button')"
-                                            style="display: none;"
-                                            class="absolute left-0 mt-2 w-full rounded-md bg-white
-                                                p-2  shadow-md"
-                                    >
+                                        <!-- ingredient:the value to be post -->
                                         <input
-                                                type="text"
-                                                name="search"
-                                                hx-get="{% url 'ingredients:search' %}"
-                                                hx-params="search"
-                                                hx-trigger="load, input changed delay:500ms, search"
-                                                hx-target="#ingredient-search-results"
-                                                class="input w-full"
+                                                type="hidden"
+                                                :value="selectedId"
+                                                name="{{ ingredient_form.ingredient.html_name }}"
                                         >
+                                        <!-- ingredient:button -->
+                                        <button
+                                                x-ref="button"
+                                                x-on:click="toggle()"
+                                                :aria-expanded="open"
+                                                :aria-controls="$id('dropdown-button')"
+                                                type="button"
+                                                x-text="label"
+                                                class="flex items-center justify-between bg-gray-50 border border-gray-300
+                                               w-full rounded-full p-2 pl-4 font-light overflow-y-scroll">
+                                            <!-- ingredient:chevron-down -->
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"
+                                                 viewBox="0 0 20 20" fill="currentColor">
+                                                <path fill-rule="evenodd"
+                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                                                      clip-rule="evenodd"/>
+                                            </svg>
+                                        </button>
+
+                                        <!-- ingredient:panel -->
+                                        <div
+                                                x-ref="panel"
+                                                x-show="open"
+                                                x-transition.origin.top.left
+                                                x-on:click.outside="close($refs.button)"
+                                                :id="$id('dropdown-button')"
+                                                style="display: none;"
+                                                class="absolute left-0 mt-2 w-full rounded-md bg-white
+                                                p-2  shadow-md"
+                                        >
+                                            <input
+                                                    type="text"
+                                                    name="search"
+                                                    hx-get="{% url 'ingredients:search' %}"
+                                                    hx-params="search"
+                                                    hx-trigger="load, input changed delay:500ms, search"
+                                                    hx-target="#ingredient-search-results"
+                                                    class="input w-full"
+                                            >
 
 
-                                        <!-- ingredient:search_result -->
-                                        <div id="ingredient-search-results"></div>
+                                            <!-- ingredient:search_result -->
+                                            <div id="ingredient-search-results"></div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                                <!-- qualifiers -->
+                                <div class="grid grid-cols-2 col-span-3 gap-2 bg-gray-50 border border-gray-300
+                                    rounded-md p-2 font-light overflow-y-scroll max-h-24">
+                                    {% for qualifier in ingredient_form.qualifiers %}
+                                        <div>
+                                            <input type="checkbox"
+                                                   name="{{ ingredient_form.qualifiers.html_name }}"
+                                                   value="{{ qualifier.data.value }}">
+                                            <label for="langs_ruby">{{ qualifier.choice_label | title }}</label>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <button type="button"
+                                        class="btn-red h-fit"
+                                        x-on:click="selfRemove">
 
-
-                            <!-- qualifiers -->
-                            <div class="grid grid-cols-2 col-span-3 gap-2 bg-gray-50 border border-gray-300
-                                    rounded-md p-2 font-light overflow-y-scroll h-full">
-                                {% for qualifier in ingredient_form.qualifiers %}
-                                    <div>
-                                        <input type="checkbox"
-                                               name="{{ ingredient_form.qualifiers.html_name }}"
-                                               value="{{ qualifier.data.value }}">
-                                        <label for="langs_ruby">{{ qualifier.choice_label | title }}</label>
-                                    </div>
-                                {% endfor %}
-
-                            </div>
-                            <button type="button"
-                                    class="btn-red h-fit">
-                                Remover
-                            </button>
+                                    Remover
+                                </button>
                             </div>
                         {% endfor %}
+                    </div>
                     <!-- Add ingredient button -->
-                    <button type="submit"
+                    <button x-data="{
+                            // Quantidade de formulario de ingredientes
+                            totalForms: document.getElementById('id_ingredients-TOTAL_FORMS'),
+                            // o container dos formularios
+                            ingredientGroup: document.getElementById('ingredient_group'),
+                            // Primeiro formulario enviado pelo servidor, usado como template
+                            ingredientTemplate: document.getElementById('ingredients-0'),
+                            addIngredient(){
+                                // clona o primeiro formulario
+                                let newIngredientForm = this.ingredientTemplate.cloneNode(true)
+                                // incrementa o totalForms
+                                let totalFormsValue = Number(this.totalForms.value)
+                                totalFormsValue += 1
+                                this.totalForms.value = totalFormsValue
+                                // substitui ingredients-0 para ingredients-'totalFormsValue'
+                                newIngredientForm.innerHTML = newIngredientForm.innerHTML.replaceAll('ingredients-0', 'ingredient-' + totalFormsValue )
+
+                                // adiciona o novo formulario no container de formularios
+                                this.ingredientGroup.appendChild(newIngredientForm)
+
+                            }
+                            }"
+                            x-on:click="addIngredient"
+                            type="button"
                             class="btn w-fit self-end">
                         Adicionar ingrediente
                     </button>
 
                 </div>
                 <!-- submit button -->
-                <button type="submit"
+                <button
+                        type="submit"
                         class="btn mt-4">
                     Inserir receita
                 </button>
