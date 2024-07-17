@@ -116,6 +116,8 @@
                                      console.log($el)
                                         $el.remove()
                                      },
+                                     // Se tiver somente um ingrediente nao exibir o botao 'remover'
+                                     showRemove: true,
                                     }"
                                     id="{{ ingredient_form.prefix }}"
                                     class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32
@@ -236,6 +238,7 @@
                                 </div>
                                 <button type="button"
                                         class="btn-red h-fit"
+                                        x-show="showRemove"
                                         x-on:click="selfRemove">
 
                                     Remover
@@ -261,7 +264,6 @@
                                 // substitui ingredients-0 para ingredients-'totalFormsValue'
                                 newIngredientForm.innerHTML = newIngredientForm.innerHTML
                                 .replaceAll('ingredients-0', 'ingredient-' + totalFormsValue )
-
                                 // adiciona o novo formulario no container de formularios
                                 this.ingredientGroup.appendChild(newIngredientForm)
 
