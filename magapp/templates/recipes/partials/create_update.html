@@ -113,14 +113,11 @@
                                     x-data="{
                                      // Remove this ingredient form from the dom
                                      selfRemove() {
-                                     console.log($el)
                                         $el.remove()
                                      },
-                                     // Se tiver somente um ingrediente nao exibir o botao 'remover'
-                                     showRemove: true,
                                     }"
                                     id="{{ ingredient_form.prefix }}"
-                                    class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32
+                                    class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32 ingredient-template
                                 border-y py-2">
                                 <!-- qtd -->
                                 <div>
@@ -238,7 +235,7 @@
                                 </div>
                                 <button type="button"
                                         class="btn-red h-fit"
-                                        x-show="showRemove"
+                                        x-show="document.querySelectorAll('.ingredient-template').length > 1"
                                         x-on:click="selfRemove">
 
                                     Remover
@@ -252,8 +249,8 @@
                             totalForms: document.getElementById('id_ingredients-TOTAL_FORMS'),
                             // o container dos formularios
                             ingredientGroup: document.getElementById('ingredient_group'),
-                            // Primeiro formulario enviado pelo servidor, usado como template
-                            ingredientTemplate: document.getElementById('ingredients-0'),
+                            // Seleciona o primeiro formulario como template
+                            ingredientTemplate: document.querySelector('.ingredient-template'),
                             addIngredient(){
                                 // clona o primeiro formulario
                                 let newIngredientForm = this.ingredientTemplate.cloneNode(true)
