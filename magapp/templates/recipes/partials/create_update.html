@@ -109,15 +109,16 @@
 
                         {{ ingredient_formset.management_form }}
                         {% for ingredient_form in ingredient_formset %}
-                            <div                          x-data="{
-                         // Remove this ingredient form from the dom
-                         selfRemove() {
-                         console.log($el)
-		                    $el.remove()
-                         },
-                        }"
+                            <div
+                                    x-data="{
+                                     // Remove this ingredient form from the dom
+                                     selfRemove() {
+                                     console.log($el)
+                                        $el.remove()
+                                     },
+                                    }"
                                     id="{{ ingredient_form.prefix }}"
-                                 class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32
+                                    class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32
                                 border-y py-2">
                                 <!-- qtd -->
                                 <div>
@@ -203,7 +204,7 @@
                                                 :id="$id('dropdown-button')"
                                                 style="display: none;"
                                                 class="absolute left-0 mt-2 w-full rounded-md bg-white
-                                                p-2  shadow-md"
+                                                p-2 shadow-md z-10"
                                         >
                                             <input
                                                     type="text"
@@ -258,7 +259,8 @@
                                 totalFormsValue += 1
                                 this.totalForms.value = totalFormsValue
                                 // substitui ingredients-0 para ingredients-'totalFormsValue'
-                                newIngredientForm.innerHTML = newIngredientForm.innerHTML.replaceAll('ingredients-0', 'ingredient-' + totalFormsValue )
+                                newIngredientForm.innerHTML = newIngredientForm.innerHTML
+                                .replaceAll('ingredients-0', 'ingredient-' + totalFormsValue )
 
                                 // adiciona o novo formulario no container de formularios
                                 this.ingredientGroup.appendChild(newIngredientForm)
