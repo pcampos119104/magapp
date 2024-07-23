@@ -36,29 +36,33 @@ class Create(LoginRequiredMixin, View):
         return render(request, self.template, context)
 
     def post(self, request):
-        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
         base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
         recipe_form = RecipeForm(request.POST)
         ingredient_formset = RecipeIngredientFormSet(request.POST)
-        print(request.POST)
+        # validar os formularios
         if not any(
             [
                 recipe_form.is_valid(),
                 ingredient_formset.is_valid(),
             ]
         ):
-            print('algum formulario nao eh valido')
             context = {
                 'recipe_form': recipe_form,
                 'ingredient_formset': ingredient_formset,
                 'base_template': base_template,
             }
             return render(request, self.template, context)
-        print('form.is_valid()')
 
-        # form.instance.created_by = request.user
-        # form.save()
+        # salvar os formularios
+        # recipe_form.instance.created_by = request.user
+        # recipe_form.save()
+        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        print(request.POSTsabado
+              )
+        for form in ingredient_formset:
+            print(form.instance.qtd)
+
         # reset forms
         recipe_form = RecipeForm()
         ingredient_formset = RecipeIngredientFormSet()
