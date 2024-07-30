@@ -15,3 +15,8 @@ def ingredient(db) -> Type[Ingredient]:
         deleted_at=None,
     )
     return model
+
+
+@pytest.fixture
+def ingredients(db):
+    return baker.make(Ingredient, _fill_optional=True, deleted_at=None, _quantity=3)
