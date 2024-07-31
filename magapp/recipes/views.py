@@ -2,6 +2,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
+from django.db import transaction
 from django.http import HttpResponseNotFound, QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.views import View
@@ -35,16 +36,12 @@ class Create(LoginRequiredMixin, View):
         }
         return render(request, self.template, context)
 
+    @transaction.atomic
     def post(self, request):
         base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
         recipe_form = RecipeForm(request.POST)
         ingredient_formset = RecipeIngredientFormSet(request.POST)
         # validar os formularios
-        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
-        print(recipe_form.is_valid())
-        print(ingredient_formset.is_valid())
-        print(ingredient_formset.errors)
         if any(
             [
                 not recipe_form.is_valid(),
@@ -59,12 +56,13 @@ class Create(LoginRequiredMixin, View):
             }
             return render(request, self.template, context, status=400)
 
-        # salvar os formularios
-        # recipe_form.instance.created_by = request.user
-        # recipe_form.save()
-        print(request.POST)
+        # salva os formularios
+        recipe_form.instance.created_by = request.user
+        recipe = recipe_form.save()
         for form in ingredient_formset:
-            print(form.instance.qtd)
+            if form.has_changed():
+                form.instance.recipe = recipe
+                form.save()
 
         # reset forms
         recipe_form = RecipeForm()

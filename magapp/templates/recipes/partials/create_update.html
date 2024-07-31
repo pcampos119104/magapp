@@ -245,22 +245,22 @@
                     </div>
                     <!-- Add ingredient button -->
                     <button x-data="{
-                            // Quantidade de formulario de ingredientes
-                            totalForms: document.getElementById('id_ingredients-TOTAL_FORMS'),
                             // o container dos formularios
                             ingredientGroup: document.getElementById('ingredient_group'),
                             // Seleciona o primeiro formulario como template
                             ingredientTemplate: document.querySelector('.ingredient-template'),
                             addIngredient(){
+                            // Quantidade de formulario de ingredientes
+                                let totalForms = document.getElementById('id_ingredients-TOTAL_FORMS')
                                 // clona o primeiro formulario
                                 let newIngredientForm = this.ingredientTemplate.cloneNode(true)
-                                // incrementa o totalForms
-                                let totalFormsValue = Number(this.totalForms.value)
-                                totalFormsValue += 1
-                                this.totalForms.value = totalFormsValue
                                 // substitui ingredients-0 para ingredients-'totalFormsValue'
+                                let totalFormsValue = Number(totalForms.value)
                                 newIngredientForm.innerHTML = newIngredientForm.innerHTML
-                                .replaceAll('ingredients-0', 'ingredient-' + totalFormsValue )
+                                .replaceAll('ingredients-0', 'ingredients-' + totalFormsValue )
+                                // incrementa o totalForms
+                                totalFormsValue += 1
+                                totalForms.value = totalFormsValue
                                 // adiciona o novo formulario no container de formularios
                                 this.ingredientGroup.appendChild(newIngredientForm)
 

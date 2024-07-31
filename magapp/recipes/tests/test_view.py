@@ -36,18 +36,18 @@ class TestCreateRecipes:
             'ingredients-0-metric': metrics[0].id,
             'ingredients-0-ingredient': ingredients[0].id,
             'ingredients-0-qualifiers': [qualifiers[0].id],
-            'ingredient-2-qtd': ['22'],
-            'ingredient-2-metric': metrics[1].id,
-            'ingredient-2-ingredient': ingredients[1].id,
-            'ingredient-2-qualifiers': [qualifiers[1].id, qualifiers[2].id],
-            'ingredient-3-qtd': ['33'],
-            'ingredient-3-metric': metrics[2].id,
-            'ingredient-3-ingredient': ingredients[2].id,
+            'ingredients-2-qtd': ['22'],
+            'ingredients-2-metric': metrics[1].id,
+            'ingredients-2-ingredient': ingredients[1].id,
+            'ingredients-2-qualifiers': [qualifiers[1].id, qualifiers[2].id],
+            'ingredients-3-qtd': ['33'],
+            'ingredients-3-metric': metrics[2].id,
+            'ingredients-3-ingredient': ingredients[2].id,
         }
         resp = logged_client.post(reverse('recipes:create'), data=valid_data)
         assert resp.status_code == 201
 
     def test_create_invalid_data(self, logged_client):
-        valid_data = {'title': 'Test Recipe'}
-        resp = logged_client.post(reverse('recipes:create'), data=valid_data)
+        invalid_data = {'title': 'Test Recipe'}
+        resp = logged_client.post(reverse('recipes:create'), data=invalid_data)
         assert resp.status_code == 400
