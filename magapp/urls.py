@@ -30,6 +30,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('', include('magapp.base.urls')),
     path('ingredients/', include('magapp.ingredients.urls')),
+    path('recipes/', include('magapp.recipes.urls')),
     # django browser reload
     path('__reload__/', include('django_browser_reload.urls')),
 ]

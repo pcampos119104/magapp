@@ -83,3 +83,17 @@ class Delete(View, LoginRequiredMixin):
     """
 
     pass
+
+
+def search_ingredients_selector(request):
+    search_term = request.GET.get('search', '')
+    if search_term:
+        ingredients = Ingredient.objects.filter(name__unaccent__icontains=search_term)[:7]
+    else:
+        ingredients = Ingredient.objects.all()[:7]
+
+    template = 'recipes/partials/ingredient_search_selector.html'
+    context = {
+        'ingredients': ingredients,
+    }
+    return render(request, template, context)

@@ -30,10 +30,28 @@
         @apply mt-2 text-sm text-red-600 dark:text-red-500;
     }
 
+    /* textarea */
+    .textarea {
+        @apply input rounded-2xl
+
+    }
+
+    .textarea-error {
+        @apply textarea bg-red-50 border-red-500 text-red-900 placeholder-red-700
+        focus:ring-red-500 dark:bg-gray-700 focus:border-red-500
+        dark:text-red-500 dark:placeholder-red-500 dark:border-red-500
+        dark:focus:ring-red-500 dark:focus:border-red-500;
+    }
+
+
     /* buttons */
     .btn {
         @apply text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4
         focus:outline-none focus:ring-primary-300 font-medium rounded-full text-sm px-5 py-2.5
         text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800;
+    }
+    .btn-red {
+        @apply btn bg-red-700 hover:bg-red-800 focus:ring-red-300 dark:bg-red-600
+        dark:hover:bg-red-700 dark:focus:ring-red-900
     }
 }
