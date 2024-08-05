@@ -106,7 +106,7 @@
                 </div>
                 <div class="grid grid-cols-2 p-4 gap-4">
                 {% for recipe in page_obj %}
-                        <div class="flex flex-col p-6 bg-white border border-gray-200 rounded-lg
+                        <div class="relative flex flex-col p-6 bg-white border border-gray-200 rounded-lg
                                     shadow dark:bg-gray-800 dark:border-gray-700 w-full h-52">
                             <a href="#">
                                 <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
@@ -116,7 +116,7 @@
                             <p class="mb-3 font-normal text-gray-500 dark:text-gray-400 line-clamp-3">
                                 {{ recipe.description }}
                             </p>
-                            <a href="#" class="font-medium self-end justify-self-end text-blue-600 hover:underline">
+                            <a href="#" class="absolute bottom-6 right-6 place-self-end font-medium text-blue-600 hover:underline">
                                 Editar
                             </a>
                         </div>
