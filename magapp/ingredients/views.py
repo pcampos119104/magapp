@@ -13,12 +13,12 @@ from magapp.ingredients.models import Ingredient
 @login_required
 def list(request):
     base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
-    num_per_page = 10
+    qtd_per_page = 10
     template = 'ingredients/partials/listing.html'
     search_term = request.GET.get('search', '')
     # postgres full text search https://medium.com/django-unleashed/mastering-full-text-search-enhancing-search-functionality-in-django-74f7f0f2d6a8
     ingredients = Ingredient.objects.filter(name__unaccent__icontains=search_term)
-    paginator = Paginator(ingredients, num_per_page)
+    paginator = Paginator(ingredients, qtd_per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
     context = {

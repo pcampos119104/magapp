@@ -104,49 +104,23 @@
                         </div>
                     </div>
                 </div>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                        <tr>
-                            <th
-                                    scope="col"
-                                    class="px-4 py-3"
-                            >
-                                Nome
-                            </th>
-
-                            <th
-                                    scope="col"
-                                    class="px-4 py-3">
-                                <span class="sr-only">Actions</span>
-                            </th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {% for recipe in page_obj %}
-                            <tr class="border-b dark:border-gray-700">
-                                <th
-                                        scope="row"
-                                        class="px-4 py-3 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                    {{ recipe.title | title }}
-                                </th>
-                                <td class="px-4 py-3 flex items-center justify-end">
-                                    <button
-                                            type="button"
-                                            class="inline-flex items-center p-0.5 text-sm font-medium text-center text-gray-500
-								 hover:text-gray-800 rounded-lg focus:outline-none dark:text-gray-400
-								 dark:hover:text-gray-100"
-                                            hx-get="{% url 'recipes:update' recipe.slug %}"
-                                            hx-target="body"
-                                            hx-swap="beforeend"
-                                            hx-push-url="false">
-                                        Editar
-                                    </button>
-                                </td>
-                            </tr>
-                        {% endfor %}
-                        </tbody>
-                    </table>
+                <div class="grid grid-cols-2 p-4 gap-4">
+                {% for recipe in page_obj %}
+                        <div class="flex flex-col p-6 bg-white border border-gray-200 rounded-lg
+                                    shadow dark:bg-gray-800 dark:border-gray-700 w-full h-52">
+                            <a href="#">
+                                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                                    {{ recipe.title }}
+                                </h5>
+                            </a>
+                            <p class="mb-3 font-normal text-gray-500 dark:text-gray-400 line-clamp-3">
+                                {{ recipe.description }}
+                            </p>
+                            <a href="#" class="font-medium self-end justify-self-end text-blue-600 hover:underline">
+                                Editar
+                            </a>
+                        </div>
+                {% endfor %}
                 </div>
                 <!-- Pagination -->
                 <nav
