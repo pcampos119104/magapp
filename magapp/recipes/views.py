@@ -15,9 +15,17 @@ from magapp.recipes.models import Recipe
 @login_required
 def list(request):
     base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
+    qtd_per_page = 10
     template = 'recipes/partials/listing.html'
+    search_term = request.GET.get('search', '')
+    recipes = Recipe.objects.filter(title__unaccent__icontains=search_term)
+    paginator = Paginator(recipes, qtd_per_page)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
     context = {
         'base_template': base_template,
+        'page_obj': page_obj,
+        'search_term': search_term,
     }
     return render(request, template, context)
 
