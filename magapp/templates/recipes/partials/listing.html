@@ -116,7 +116,14 @@
                             <p class="mb-3 font-normal text-gray-500 dark:text-gray-400 line-clamp-3">
                                 {{ recipe.description }}
                             </p>
-                            <a href="#" class="absolute bottom-6 right-6 place-self-end font-medium text-blue-600 hover:underline">
+                            <a href="#"
+                               class="absolute bottom-6 right-6 place-self-end font-medium text-blue-600
+                               hover:underline"
+                               hx-get="{% url 'recipes:update' recipe.slug %}"
+                               hx-swap="outerHTML"
+		                       hx-target="#listing"
+                               hx-push-url="true"
+                            >
                                 Editar
                             </a>
                         </div>

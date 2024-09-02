@@ -3,11 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.http import HttpResponseNotFound, QueryDict
+from django.http import QueryDict
 from django.shortcuts import get_object_or_404, render
 from django.views import View
 
-from magapp.ingredients.models import Ingredient
 from magapp.recipes.forms import RecipeForm, RecipeIngredientFormSet
 from magapp.recipes.models import Recipe
 
@@ -51,10 +50,10 @@ class Create(LoginRequiredMixin, View):
         ingredient_formset = RecipeIngredientFormSet(request.POST)
         # validar os formularios
         if any(
-            [
-                not recipe_form.is_valid(),
-                not ingredient_formset.is_valid(),
-            ]
+                [
+                    not recipe_form.is_valid(),
+                    not ingredient_formset.is_valid(),
+                ]
         ):
             # Nao passou na validacao, retorna o form com o erro.
             context = {
@@ -88,25 +87,66 @@ class Update(LoginRequiredMixin, View):
     template = 'recipes/partials/create_update.html'
 
     def get(self, request, slug):
-        if not request.htmx:
-            return HttpResponseNotFound()
+        base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
         recipe = get_object_or_404(Recipe, slug=slug)
-        form = RecipeForm(instance=recipe)
-        return render(request, self.template, context={'form': form, 'update': True})
+        recipe_form = RecipeForm(instance=recipe)
+        ingredient_formset = RecipeIngredientFormSet(instance=recipe)
+        print('################################################')
+        print(recipe_form)
+        print(ingredient_formset)
+        context = {
+            'recipe_form': recipe_form,
+            'ingredient_formset': ingredient_formset,
+            'base_template': base_template,
+            'update': True,
+        }
+        return render(request, self.template, context=context)
 
     def put(self, request, slug):
+        base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
         recipe = get_object_or_404(Recipe, slug=slug)
         payload = QueryDict(request.body)
-        form = RecipeForm(payload, instance=recipe)
-        # if has not changed compared with original
-        if not form.has_changed():
+        recipe_form = RecipeForm(payload, instance=recipe)
+        ingredient_formset = RecipeIngredientFormSet(payload, instance=recipe)
+
+        # se nao houver mudanca, nao faz nada e notifica atualizacao
+        if any([
+            not recipe_form.has_changed(),
+            not ingredient_formset.has_changed()
+        ]):
             messages.success(request, 'Receita atualizada.')
-            return render(request, self.template, status=204)
+            # reset forms
+            recipe_form = RecipeForm()
+            ingredient_formset = RecipeIngredientFormSet()
+            context = {
+                'recipe_form': recipe_form,
+                'ingredient_formset': ingredient_formset,
+                'base_template': base_template,
+            }
 
-        if not form.is_valid():
-            return render(request, self.template, context={'form': form, 'update': True})
+            return render(request, self.template, context, status=204)
 
-        form.instance.created_by = request.user
-        form.save()
+        # validar os formularios
+        if any(
+                [
+                    not recipe_form.is_valid(),
+                    not ingredient_formset.is_valid(),
+                ]
+        ):
+            # Nao passou na validacao, retorna o form com o erro.
+            context = {
+                'recipe_form': recipe_form,
+                'ingredient_formset': ingredient_formset,
+                'base_template': base_template,
+                'update': True,
+            }
+            return render(request, self.template, context, status=400)
+
+        recipe = recipe_form.save()
+        for form in ingredient_formset:
+            if form.has_changed():
+                form.instance.recipe = recipe
+                form.save()
+
         messages.success(request, 'Receita atualizada.')
         return render(request, self.template, status=204)

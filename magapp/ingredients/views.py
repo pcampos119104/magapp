@@ -86,6 +86,7 @@ class Delete(View, LoginRequiredMixin):
 
 
 def search_ingredients_selector(request):
+    print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@2')
     search_term = request.GET.get('search', '')
     if search_term:
         ingredients = Ingredient.objects.filter(name__unaccent__icontains=search_term)[:7]

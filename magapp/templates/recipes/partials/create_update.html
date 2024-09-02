@@ -4,11 +4,21 @@
 
     <section id='section' class="bg-white dark:bg-gray-900">
         <div class="py-8 px-16 mx-auto py-16">
-            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Nova receita</h2>
+            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                {% if update %}
+                    Editar {{ recipe_form.instance.name | title }}
+                {% else %}
+                    Nova receita
+                {% endif %}
+            </h2>
             <form
-                    hx-post="{% url 'recipes:create' %}"
-                    hx-swap="outerHTML"
-                    hx-target="#section"
+                    {% if update %}
+                        hx-put="{% url 'recipes:update' recipe_form.instance.slug %}"
+                    {% else %}
+                        hx-post="{% url 'recipes:create' %}"
+                    {% endif %}
+                        hx-swap="outerHTML"
+                        hx-target="#section"
             >
                 <div class="flex flex-col gap-4 ">
                     <!-- Title -->
@@ -19,7 +29,7 @@
                         <input type="text"
                                name="{{ recipe_form.title.name }}"
                                id="name"
-                                {% if form.title.errors %}
+                                {% if recipe_form.title.errors %}
                                class="input-error"
                                 {% else %}
                                class="input"
@@ -47,7 +57,8 @@
                                   class="textarea"
                                 {% endif %}
                                   placeholder="{{ recipe_form.description.help_text }}"
-                                  required></textarea>
+                                  required
+                        >{{ recipe_form.description.value | default_if_none:''  }}</textarea>
                         {% for err in recipe_form.description.errors %}
                             <p class="input-error-message">{{ err }}
                             </p>
@@ -86,7 +97,7 @@
                                   class="textarea "
                                 {% endif %}
                                   placeholder="{{ recipe_form.directions.help_text }}"
-                                  required></textarea>
+                                  required>{{ recipe_form.directions.value | default_if_none:''  }}</textarea>
                         {% for err in recipe_form.directions.errors %}
                             <p class="input-error-message">{{ err }}
                             </p>
@@ -144,7 +155,7 @@
                                     <div
                                             x-data="{
                                     open: false,
-                                    label: 'Selecione ...',
+                                    label: '{{ ingredient_form.ingredient.value | default_if_none:"Selecione..."  }}',
                                     selectedId: 0,
                                     select(el) {
                                         this.label = el.innerText
@@ -166,7 +177,6 @@
                                     }"
                                             x-on:keydown.escape.prevent.stop="close($refs.button)"
                                             x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
-                                            x-id="['dropdown-button']"
                                             class="relative w-full"
                                     >
                                         <!-- ingredient:the value to be post -->
@@ -180,18 +190,11 @@
                                                 x-ref="button"
                                                 x-on:click="toggle()"
                                                 :aria-expanded="open"
-                                                :aria-controls="$id('dropdown-button')"
                                                 type="button"
                                                 x-text="label"
                                                 class="flex items-center justify-between bg-gray-50 border border-gray-300
                                                w-full rounded-full p-2 pl-4 font-light overflow-y-scroll">
-                                            <!-- ingredient:chevron-down -->
-                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-400"
-                                                 viewBox="0 0 20 20" fill="currentColor">
-                                                <path fill-rule="evenodd"
-                                                      d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
-                                                      clip-rule="evenodd"/>
-                                            </svg>
+
                                         </button>
 
                                         <!-- ingredient:panel -->
@@ -200,7 +203,6 @@
                                                 x-show="open"
                                                 x-transition.origin.top.left
                                                 x-on:click.outside="close($refs.button)"
-                                                :id="$id('dropdown-button')"
                                                 style="display: none;"
                                                 class="absolute left-0 mt-2 w-full rounded-md bg-white
                                                 p-2 shadow-md z-10"
@@ -210,14 +212,16 @@
                                                     name="search"
                                                     hx-get="{% url 'ingredients:search' %}"
                                                     hx-params="search"
-                                                    hx-trigger="load, input changed delay:500ms, search"
-                                                    hx-target="#ingredient-search-results"
+                                                    hx-trigger="input changed delay:500ms, search, load"
+                                                    hx-target="#ingredient-search-results-{{ ingredient_form.prefix }}"
+                                                    hx-swap="innerHTML"
                                                     class="input w-full"
+                                                    autocomplete="off"
                                             >
 
 
                                             <!-- ingredient:search_result -->
-                                            <div id="ingredient-search-results"></div>
+                                            <div id="ingredient-search-results-{{ ingredient_form.prefix }}"></div>
                                         </div>
                                     </div>
                                 </div>
@@ -256,6 +260,7 @@
                                 let newIngredientForm = this.ingredientTemplate.cloneNode(true)
                                 // substitui ingredients-0 para ingredients-'totalFormsValue'
                                 let totalFormsValue = Number(totalForms.value)
+                                // todo limpar formulario
                                 newIngredientForm.innerHTML = newIngredientForm.innerHTML
                                 .replaceAll('ingredients-0', 'ingredients-' + totalFormsValue )
                                 // incrementa o totalForms
