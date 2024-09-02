@@ -155,7 +155,7 @@
                                     <div
                                             x-data="{
                                     open: false,
-                                    label: '{{ ingredient_form.ingredient.value | default_if_none:"Selecione..."  }}',
+                                    label: '{{ ingredient_form.instance.ingredient.name | title | default:"Selecione..."  }}',
                                     selectedId: 0,
                                     select(el) {
                                         this.label = el.innerText

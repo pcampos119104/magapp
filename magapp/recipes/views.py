@@ -122,6 +122,7 @@ class Update(LoginRequiredMixin, View):
                 'recipe_form': recipe_form,
                 'ingredient_formset': ingredient_formset,
                 'base_template': base_template,
+                'update': True,
             }
 
             return render(request, self.template, context, status=204)
