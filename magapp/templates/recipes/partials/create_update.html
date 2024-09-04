@@ -126,9 +126,7 @@
 
                             }"
                     >
-                        <div
-                                id="ingredient_group"
-                        >
+                        <div id="ingredient_group">
 
                             {{ ingredient_formset.management_form }}
                             {% for ingredient_form in ingredient_formset %}
@@ -247,7 +245,11 @@
                                             <div>
                                                 <input type="checkbox"
                                                        name="{{ ingredient_form.qualifiers.html_name }}"
-                                                       value="{{ qualifier.data.value }}">
+                                                       value="{{ qualifier.data.value }}"
+                                                       {% if qualifier.data.value in ingredient_form.qualifiers.value %}
+                                                       	checked
+                                                       {% endif %}
+                                                >
                                                 <label for="langs_ruby">{{ qualifier.choice_label | title }}</label>
                                             </div>
                                         {% endfor %}
