@@ -50,10 +50,10 @@ class Create(LoginRequiredMixin, View):
         ingredient_formset = RecipeIngredientFormSet(request.POST)
         # validar os formularios
         if any(
-                [
-                    not recipe_form.is_valid(),
-                    not ingredient_formset.is_valid(),
-                ]
+            [
+                not recipe_form.is_valid(),
+                not ingredient_formset.is_valid(),
+            ]
         ):
             # Nao passou na validacao, retorna o form com o erro.
             context = {
@@ -110,10 +110,7 @@ class Update(LoginRequiredMixin, View):
         ingredient_formset = RecipeIngredientFormSet(payload, instance=recipe)
 
         # se nao houver mudanca, nao faz nada e notifica atualizacao
-        if any([
-            not recipe_form.has_changed(),
-            not ingredient_formset.has_changed()
-        ]):
+        if any([not recipe_form.has_changed(), not ingredient_formset.has_changed()]):
             messages.success(request, 'Receita atualizada.')
             # reset forms
             recipe_form = RecipeForm()
@@ -129,10 +126,10 @@ class Update(LoginRequiredMixin, View):
 
         # validar os formularios
         if any(
-                [
-                    not recipe_form.is_valid(),
-                    not ingredient_formset.is_valid(),
-                ]
+            [
+                not recipe_form.is_valid(),
+                not ingredient_formset.is_valid(),
+            ]
         ):
             # Nao passou na validacao, retorna o form com o erro.
             context = {
