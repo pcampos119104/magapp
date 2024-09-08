@@ -4,7 +4,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db import transaction
 from django.http import QueryDict
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, render, redirect
+from django.urls import reverse
 from django.views import View
 
 from magapp.recipes.forms import RecipeForm, RecipeIngredientFormSet
@@ -91,9 +92,6 @@ class Update(LoginRequiredMixin, View):
         recipe = get_object_or_404(Recipe, slug=slug)
         recipe_form = RecipeForm(instance=recipe)
         ingredient_formset = RecipeIngredientFormSet(instance=recipe)
-        print('################################################')
-        print(recipe_form)
-        print(ingredient_formset)
         context = {
             'recipe_form': recipe_form,
             'ingredient_formset': ingredient_formset,
@@ -112,17 +110,7 @@ class Update(LoginRequiredMixin, View):
         # se nao houver mudanca, nao faz nada e notifica atualizacao
         if any([not recipe_form.has_changed(), not ingredient_formset.has_changed()]):
             messages.success(request, 'Receita atualizada.')
-            # reset forms
-            recipe_form = RecipeForm()
-            ingredient_formset = RecipeIngredientFormSet()
-            context = {
-                'recipe_form': recipe_form,
-                'ingredient_formset': ingredient_formset,
-                'base_template': base_template,
-                'update': True,
-            }
-
-            return render(request, self.template, context, status=204)
+            return redirect(reverse('recipes:list'))
 
         # validar os formularios
         if any(
@@ -138,13 +126,21 @@ class Update(LoginRequiredMixin, View):
                 'base_template': base_template,
                 'update': True,
             }
+            print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22')
+            print('recipe_form.errors')
+            print(recipe_form.errors)
+            print('ingredient_formset.errors')
+            print(ingredient_formset.errors)
             return render(request, self.template, context, status=400)
 
         recipe = recipe_form.save()
+        print('#########################')
         for form in ingredient_formset:
+            print('formset loop')
             if form.has_changed():
+                print('form.has_changed')
                 form.instance.recipe = recipe
                 form.save()
 
         messages.success(request, 'Receita atualizada.')
-        return render(request, self.template, status=204)
+        return redirect(reverse('recipes:list'))

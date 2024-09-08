@@ -151,6 +151,10 @@
                                                class="input"
                                                placeholder="0"
                                                required/>
+                                        {% for err in ingredient_form.qtd.errors %}
+                                            <p class="input-error-message">{{ err }}
+                                            </p>
+                                        {% endfor %}
                                     </div>
                                     <!-- metric -->
                                     <div>
@@ -162,6 +166,9 @@
                                             {% endfor %}
 
                                         </select>
+                                        {% for err in ingredient_form.metric.errors %}
+                                            <p class="input-error-message">{{ err }}</p>
+                                        {% endfor %}
                                     </div>
                                     <!-- ingredient -->
                                     <div class="col-span-2 flex w-full">
@@ -169,7 +176,7 @@
                                                 x-data="{
                                                 open: false,
                                                 label: '{{ ingredient_form.instance.ingredient.name | title | default:"Selecione..." }}',
-                                                selectedId: 0,
+                                                selectedId: '{{ ingredient_form.instance.ingredient.id | default:0 }}',
                                                 select(el) {
                                                     this.label = el.innerText
                                                     this.selectedId = el.id
@@ -209,6 +216,9 @@
                                                w-full rounded-full p-2 pl-4 font-light overflow-y-scroll">
 
                                             </button>
+                                            {% for err in ingredient_form.ingredient.errors %}
+                                                <p class="input-error-message">{{ err }}</p>
+                                            {% endfor %}
 
                                             <!-- ingredient:panel -->
                                             <div
@@ -245,13 +255,17 @@
                                             <div>
                                                 <input type="checkbox"
                                                        name="{{ ingredient_form.qualifiers.html_name }}"
+                                                       id="{{ ingredient_form.qualifiers.auto_id }}"
                                                        value="{{ qualifier.data.value }}"
-                                                       {% if qualifier.data.value in ingredient_form.qualifiers.value %}
-                                                       	checked
-                                                       {% endif %}
+                                                        {% if qualifier.data.value in ingredient_form.qualifiers.value %}
+                                                       checked
+                                                        {% endif %}
                                                 >
                                                 <label for="langs_ruby">{{ qualifier.choice_label | title }}</label>
                                             </div>
+                                        {% endfor %}
+                                        {% for err in ingredient_form.qualifier.errors %}
+                                            <p class="input-error-message">{{ err }}</p>
                                         {% endfor %}
                                     </div>
                                     <!-- Remove button -->
@@ -278,7 +292,6 @@
                                 let newIngredientForm = this.ingredientTemplate.cloneNode(true)
                                 // substitui ingredients-0 para ingredients-'totalFormsValue'
                                 let totalFormsValue = Number(totalForms.value)
-                                // todo limpar formulario
                                 newIngredientForm.innerHTML = newIngredientForm.innerHTML
                                 .replaceAll(new RegExp(/ingredients-[0-9]+/, 'g'), 'ingredients-' + totalFormsValue )
                                 // incrementa o totalForms
