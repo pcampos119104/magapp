@@ -1,0 +1,29 @@
+<c-vars required="false" type="text" :nolabel="False"/>
+
+<div>
+    {% if nolabel is False %}
+        <label for="{{ field.id_for_label }}"
+               class="input-label">
+            {{ field.label }}
+        </label>
+    {% endif %}
+    <input type="{{ type }}"
+           name="{{ field.html_name }}"
+           id="{{ field.id_for_label }}"
+            {% if field.errors %}
+                class="input-error"
+            {% else %}
+                class="input"
+            {% endif %}
+                value="{{ field.value | default_if_none:'' }}"
+           placeholder="{{ field.help_text }}"
+            {% if required is True %}
+           required
+            {% endif %}
+    >
+    {% for err in field.errors %}
+        <p class="input-error-message">
+            {{ err }}
+        </p>
+    {% endfor %}
+</div>

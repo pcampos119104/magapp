@@ -6,7 +6,7 @@
         <div class="py-8 px-16 mx-auto py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                 {% if update %}
-                    Editar {{ recipe_form.instance.name | title }}
+                    Editar {{ recipe_form.instance.title | title }}
                 {% else %}
                     Nova receita
                 {% endif %}
@@ -23,85 +23,35 @@
                 <div class="flex flex-col gap-4 ">
                     <!-- Title -->
                     <div class="w-1/2">
-                        <label for="name" class="input-label">
-                            {{ recipe_form.title.label }}
-                        </label>
-                        <input type="text"
-                               name="{{ recipe_form.title.name }}"
-                               id="name"
-                                {% if recipe_form.title.errors %}
-                               class="input-error"
-                                {% else %}
-                               class="input"
-                                {% endif %}
-                               value="{{ recipe_form.title.value | default_if_none:'' }}"
-                               placeholder="{{ recipe_form.title.help_text }}"
-                               required>
-                        {% for err in recipe_form.title.errors %}
-                            <p class="input-error-message">{{ err }}
-                            </p>
-                        {% endfor %}
+                        <c-form.input
+                                type="text"
+                                :field="recipe_form.title"
+                                required
+                        >
 
                     </div>
                     <!-- description -->
                     <div class="sm:col-span-2">
-                        <label for="description" class="input-label">
-                            {{ recipe_form.description.label }}
-                        </label>
-                        <textarea id="description" rows="8"
-                                  name="{{ recipe_form.description.name }}"
-                                  value="{{ recipe_form.description.value }}"
-                                {% if form.title.errors %}
-                                  class="textarea-error"
-                                {% else %}
-                                  class="textarea"
-                                {% endif %}
-                                  placeholder="{{ recipe_form.description.help_text }}"
-                                  required
-                        >{{ recipe_form.description.value | default_if_none:'' }}</textarea>
-                        {% for err in recipe_form.description.errors %}
-                            <p class="input-error-message">{{ err }}
-                            </p>
-                        {% endfor %}
-
+                        <c-form.textarea
+                                :field="recipe_form.description"
+                                required
+                        >
                     </div>
 
                     <!-- font -->
-                    <div class="">
-                        <label for="font" class="input-label">
-                            {{ recipe_form.font.label }}
-                        </label>
-                        <input type="text"
-                               id="font"
-                               name="{{ recipe_form.font.name }}"
-                               value="{{ recipe_form.font.value  | default_if_none:'' }}"
-                                {% if form.title.errors %}
-                               class="input-error"
-                                {% else %}
-                               class="input"
-                                {% endif %}
-                               placeholder="{{ recipe_form.font.help_text }}">
-
+                    <div class="w-1/2">
+                        <c-form.input
+                                type="text"
+                                :field="recipe_form.font"
+                                required
+                        >
                     </div>
                     <!-- directions -->
                     <div class="sm:col-span-2">
-                        <label for="directions" class="input-label">
-                            {{ recipe_form.directions.label }}
-                        </label>
-                        <textarea id="directions" rows="8"
-                                  name="{{ recipe_form.directions.name }}"
-                                  value="{{ recipe_form.directions.value }}"
-                                {% if form.title.errors %}
-                                  class="textarea-error"
-                                {% else %}
-                                  class="textarea "
-                                {% endif %}
-                                  placeholder="{{ recipe_form.directions.help_text }}"
-                                  required>{{ recipe_form.directions.value | default_if_none:'' }}</textarea>
-                        {% for err in recipe_form.directions.errors %}
-                            <p class="input-error-message">{{ err }}
-                            </p>
-                        {% endfor %}
+                        <c-form.textarea
+                                :field="recipe_form.directions"
+                                required
+                        >
                     </div>
 
                     <!-- Ingredients block -->
