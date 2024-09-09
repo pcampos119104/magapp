@@ -10,16 +10,10 @@
     <input type="{{ type }}"
            name="{{ field.html_name }}"
            id="{{ field.id_for_label }}"
-            {% if field.errors %}
-                class="input-error"
-            {% else %}
-                class="input"
-            {% endif %}
-                value="{{ field.value | default_if_none:'' }}"
-           placeholder="{{ field.help_text }}"
-            {% if required is True %}
-           required
-            {% endif %}
+           value="{{ field.value | default_if_none:'' }}"
+           placeholder="{% if type == "number" %}0{% else %}{{ field.help_text }}{% endif %}"
+           class="{% if field.errors %}input-error{% else %}input{% endif %}"
+           {% if required is True %}required{% endif %}
     >
     {% for err in field.errors %}
         <p class="input-error-message">

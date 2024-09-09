@@ -106,6 +106,9 @@ class Update(LoginRequiredMixin, View):
         payload = QueryDict(request.body)
         recipe_form = RecipeForm(payload, instance=recipe)
         ingredient_formset = RecipeIngredientFormSet(payload, instance=recipe)
+        print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
+        print('ingredient_formset.instance.')
+        print(ingredient_formset.instance.id)
 
         # se nao houver mudanca, nao faz nada e notifica atualizacao
         if any([not recipe_form.has_changed(), not ingredient_formset.has_changed()]):
@@ -126,7 +129,6 @@ class Update(LoginRequiredMixin, View):
                 'base_template': base_template,
                 'update': True,
             }
-            print('@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@22')
             print('recipe_form.errors')
             print(recipe_form.errors)
             print('ingredient_formset.errors')
