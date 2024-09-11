@@ -31,6 +31,18 @@ def list(request):
     return render(request, template, context)
 
 
+@login_required
+def detail(request, slug):
+    base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
+    template = 'recipes/partials/detail.html'
+    recipe = get_object_or_404(Recipe, slug=slug)
+    context = {
+        'base_template': base_template,
+        'recipe': recipe,
+    }
+    return render(request, template, context=context)
+
+
 class Create(LoginRequiredMixin, View):
     template = 'recipes/partials/create_update.html'
 
@@ -52,10 +64,10 @@ class Create(LoginRequiredMixin, View):
         ingredient_formset = RecipeIngredientFormSet(request.POST)
         # validar os formularios
         if any(
-            [
-                not recipe_form.is_valid(),
-                not ingredient_formset.is_valid(),
-            ]
+                [
+                    not recipe_form.is_valid(),
+                    not ingredient_formset.is_valid(),
+                ]
         ):
             # Nao passou na validacao, retorna o form com o erro.
             context = {
@@ -114,10 +126,10 @@ class Update(LoginRequiredMixin, View):
 
         # validar os formularios
         if any(
-            [
-                not recipe_form.is_valid(),
-                not ingredient_formset.is_valid(),
-            ]
+                [
+                    not recipe_form.is_valid(),
+                    not ingredient_formset.is_valid(),
+                ]
         ):
             # Nao passou na validacao, retorna o form com o erro.
             context = {
