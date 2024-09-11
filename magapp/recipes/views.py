@@ -3,13 +3,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db import transaction
+from django.forms import inlineformset_factory
 from django.http import QueryDict
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
 
-from magapp.recipes.forms import RecipeForm, RecipeIngredientFormSet
-from magapp.recipes.models import Recipe
+from magapp.recipes.forms import RecipeForm, RecipeIngredientFormSet, RecipeIngredientForm
+from magapp.recipes.models import Recipe, RecipeIngredient
 
 
 @login_required
@@ -127,11 +128,8 @@ class Update(LoginRequiredMixin, View):
             }
             return render(request, self.template, context, status=400)
 
-        recipe = recipe_form.save()
-        for form in ingredient_formset:
-            if form.has_changed():
-                form.instance.recipe = recipe
-                form.save()
+        recipe_form.save()
+        ingredient_formset.save()
 
         messages.success(request, 'Receita atualizada.')
         return redirect(reverse('recipes:list'))
