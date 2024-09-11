@@ -245,6 +245,7 @@
                             ingredientGroup: document.getElementById('ingredient_group'),
                             // Seleciona o primeiro formulario como template
                             ingredientTemplate: '',
+                            update: '{{ update }}',
                             addIngredient(){
                             // Quantidade de formulario de ingredientes
                                 let totalForms = document.getElementById('id_ingredients-TOTAL_FORMS')
@@ -267,6 +268,10 @@
                             },
                             init(){
                                 this.ingredientTemplate = document.querySelector('.ingredient-template:last-of-type').cloneNode(true)
+                                // if it's an update, remove the extra form.
+                                if (this.update){
+                                    document.querySelector('.ingredient-template:last-of-type').remove()
+                                }
                             }
                             }"
                                 x-on:click="addIngredient"
