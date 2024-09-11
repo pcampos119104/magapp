@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'django_extensions',
+    'django_cotton',
     'magapp.base',
     'magapp.ingredients',
     'magapp.recipes',
