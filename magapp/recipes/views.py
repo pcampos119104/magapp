@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse
 from django.views import View
 
-from magapp.recipes.forms import RecipeForm, RecipeIngredientFormSet, RecipeIngredientForm
+from magapp.recipes.forms import RecipeForm, RecipeIngredientForm, RecipeIngredientFormSet
 from magapp.recipes.models import Recipe, RecipeIngredient
 
 
@@ -64,10 +64,10 @@ class Create(LoginRequiredMixin, View):
         ingredient_formset = RecipeIngredientFormSet(request.POST)
         # validar os formularios
         if any(
-                [
-                    not recipe_form.is_valid(),
-                    not ingredient_formset.is_valid(),
-                ]
+            [
+                not recipe_form.is_valid(),
+                not ingredient_formset.is_valid(),
+            ]
         ):
             # Nao passou na validacao, retorna o form com o erro.
             context = {
@@ -126,10 +126,10 @@ class Update(LoginRequiredMixin, View):
 
         # validar os formularios
         if any(
-                [
-                    not recipe_form.is_valid(),
-                    not ingredient_formset.is_valid(),
-                ]
+            [
+                not recipe_form.is_valid(),
+                not ingredient_formset.is_valid(),
+            ]
         ):
             # Nao passou na validacao, retorna o form com o erro.
             context = {
