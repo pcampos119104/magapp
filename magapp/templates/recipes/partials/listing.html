@@ -105,10 +105,15 @@
                     </div>
                 </div>
                 <div class="grid grid-cols-2 p-4 gap-4">
-                {% for recipe in page_obj %}
+                    {% for recipe in page_obj %}
                         <div class="relative flex flex-col p-6 bg-white border border-gray-200 rounded-lg
                                     shadow dark:bg-gray-800 dark:border-gray-700 w-full h-52">
-                            <a href="#">
+                            <a href="#"
+                               hx-get="{% url 'recipes:detail' recipe.slug %}"
+                               hx-swap="outerHTML"
+                               hx-target="#listing"
+                               hx-push-url="true"
+                            >
                                 <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
                                     {{ recipe.title }}
                                 </h5>
@@ -121,13 +126,13 @@
                                hover:underline"
                                hx-get="{% url 'recipes:update' recipe.slug %}"
                                hx-swap="outerHTML"
-		                       hx-target="#listing"
+                               hx-target="#listing"
                                hx-push-url="true"
                             >
                                 Editar
                             </a>
                         </div>
-                {% endfor %}
+                    {% endfor %}
                 </div>
                 <!-- Pagination -->
                 <nav

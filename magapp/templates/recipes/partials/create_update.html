@@ -267,6 +267,7 @@
 
                             },
                             init(){
+                                // clona em memoria um template para o formulario
                                 this.ingredientTemplate = document.querySelector('.ingredient-template:last-of-type').cloneNode(true)
                                 // if it's an update, remove the extra form.
                                 if (this.update){
