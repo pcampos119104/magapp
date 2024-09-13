@@ -1191,10 +1191,6 @@ video {
   grid-column: span 8 / span 8;
 }
 
-.m-10 {
-  margin: 2.5rem;
-}
-
 .-mx-1 {
   margin-left: -0.25rem;
   margin-right: -0.25rem;
@@ -1260,10 +1256,6 @@ video {
 
 .ml-0 {
   margin-left: 0px;
-}
-
-.ml-1 {
-  margin-left: 0.25rem;
 }
 
 .ml-3 {
@@ -1597,10 +1589,6 @@ video {
   flex-wrap: wrap;
 }
 
-.content-between {
-  align-content: space-between;
-}
-
 .items-start {
   align-items: flex-start;
 }
@@ -1647,11 +1635,6 @@ video {
 
 .gap-4 {
   gap: 1rem;
-}
-
-.gap-x-2 {
-  -moz-column-gap: 0.5rem;
-       column-gap: 0.5rem;
 }
 
 .-space-x-px > :not([hidden]) ~ :not([hidden]) {
@@ -2117,10 +2100,6 @@ video {
   text-align: center;
 }
 
-.align-middle {
-  vertical-align: middle;
-}
-
 .text-2xl {
   font-size: 1.5rem;
   line-height: 2rem;
@@ -2270,11 +2249,6 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
-.text-black {
-  --tw-text-opacity: 1;
-  color: rgb(0 0 0 / var(--tw-text-opacity));
-}
-
 .decoration-double {
   text-decoration-style: double;
 }
@@ -2367,24 +2341,6 @@ video {
   border-bottom-left-radius: 0.375rem;
 }
 
-.checked\:m-10:checked {
-  margin: 2.5rem;
-}
-
-.checked\:border-indigo-500:checked {
-  --tw-border-opacity: 1;
-  border-color: rgb(99 102 241 / var(--tw-border-opacity));
-}
-
-.checked\:border-l-blue-700:checked {
-  --tw-border-opacity: 1;
-  border-left-color: rgb(29 78 216 / var(--tw-border-opacity));
-}
-
-.checked\:line-through:checked {
-  text-decoration-line: line-through;
-}
-
 .hover\:border-gray-300:hover {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
@@ -2460,11 +2416,6 @@ video {
   color: rgb(77 124 15 / var(--tw-text-opacity));
 }
 
-.hover\:text-primary-800:hover {
-  --tw-text-opacity: 1;
-  color: rgb(63 98 18 / var(--tw-text-opacity));
-}
-
 .hover\:underline:hover {
   text-decoration-line: underline;
 }
@@ -2534,10 +2485,6 @@ video {
 .disabled\:text-gray-500:disabled {
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity));
-}
-
-.peer:checked ~ .peer-checked\:m-10 {
-  margin: 2.5rem;
 }
 
 .peer:checked ~ .peer-checked\:line-through {
@@ -2732,11 +2679,6 @@ video {
 :is(.dark .dark\:hover\:text-gray-300:hover) {
   --tw-text-opacity: 1;
   color: rgb(209 213 219 / var(--tw-text-opacity));
-}
-
-:is(.dark .dark\:hover\:text-primary-700:hover) {
-  --tw-text-opacity: 1;
-  color: rgb(77 124 15 / var(--tw-text-opacity));
 }
 
 :is(.dark .dark\:hover\:text-white:hover) {
