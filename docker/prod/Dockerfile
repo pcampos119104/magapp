@@ -1,6 +1,5 @@
-ARG PYTHON_VERSION=3.11-slim-bullseye
-
-FROM python:${PYTHON_VERSION}
+# Pull official base image
+FROM python:3.12.6-alpine3.20
 
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
@@ -9,7 +8,8 @@ RUN mkdir -p /code
 
 WORKDIR /code
 
-RUN pip install poetry
+RUN apk update
+RUN pip3 install poetry
 COPY ../../pyproject.toml poetry.lock /code/
 RUN poetry config virtualenvs.create false
 RUN poetry install --only main --no-root --no-interaction
