@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'magapp.base',
     'magapp.ingredients',
     'magapp.recipes',
+    'magapp.planners',
 ]
 
 MIDDLEWARE = [
