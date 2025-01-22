@@ -160,16 +160,8 @@ CSRF_COOKIE_SECURE = True
 """
 LOGIN_REDIRECT_URL = '/'
 
-APP_NAME = env('FLY_APP_NAME', default='')
-if DEBUG:
-    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-else:
-    host = f'{APP_NAME}.fly.dev'
-    https_host = f'https://{host}'
-    ALLOWED_HOSTS = [host]
-    CSRF_TRUSTED_ORIGINS = [https_host]
-    CSRF_ALLOWED_ORIGINS = [https_host]
-    CORS_ORIGINS_WHITELIST = [https_host]
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
 
 # sentry
 SENTRY_DSN = env('SENTRY_DSN', default='')
