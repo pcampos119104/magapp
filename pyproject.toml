@@ -4,10 +4,11 @@ version = "0.1.0"
 description = ""
 authors = ["pcampos <pcampos119104@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
-Django = "^5.0.2"
+Django = "5.1.5"
 django-allauth = "^0.61.1"
 django-environ = "^0.11.2"
 django-extensions = "^3.2.3"
