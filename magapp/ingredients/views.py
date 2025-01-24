@@ -13,14 +13,20 @@ from magapp.ingredients.models import Ingredient
 @login_required
 def list(request):
     base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
-    num_per_page = 10
+    qtd_per_page = 10
     template = 'ingredients/partials/listing.html'
-    # Ingredient.objects.filter(name__unaccent__lower__trigram_similar="banana")
-    ingredients = Ingredient.objects.all()
-    paginator = Paginator(ingredients, num_per_page)
+    search_term = request.GET.get('search', '')
+    # postgres full text search https://medium.com/django-unleashed/mastering-full-text-search-enhancing-search-functionality-in-django-74f7f0f2d6a8
+    ingredients = Ingredient.objects.filter(name__unaccent__icontains=search_term)
+    paginator = Paginator(ingredients, qtd_per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
-    return render(request, template, {'page_obj': page_obj, 'base_template': base_template})
+    context = {
+        'page_obj': page_obj,
+        'base_template': base_template,
+        'search_term': search_term,
+    }
+    return render(request, template, context)
 
 
 class Create(LoginRequiredMixin, View):
@@ -42,7 +48,7 @@ class Create(LoginRequiredMixin, View):
         return render(request, self.template, status=201)
 
 
-class Update(View, LoginRequiredMixin):
+class Update(LoginRequiredMixin, View):
     template = 'ingredients/modals/create_update.html'
 
     def get(self, request, slug):
@@ -77,3 +83,17 @@ class Delete(View, LoginRequiredMixin):
     """
 
     pass
+
+
+def search_ingredients_selector(request):
+    search_term = request.GET.get('search', '')
+    if search_term:
+        ingredients = Ingredient.objects.filter(name__unaccent__icontains=search_term)[:7]
+    else:
+        ingredients = Ingredient.objects.all()[:7]
+
+    template = 'recipes/partials/ingredient_search_selector.html'
+    context = {
+        'ingredients': ingredients,
+    }
+    return render(request, template, context)

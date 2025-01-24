@@ -9,7 +9,7 @@ echo "Running migrations..."
 python manage.py migrate
 
 echo "Starting marimo"
-exec marimo edit &> /dev/null & # Ignora a saida mandando para /dev/null
+exec marimo edit --host 0.0.0.0 -p 2718 --no-token --headless &> /dev/null &
 
 echo "Starting tailwindcss watcher"
 exec npx tailwindcss -i ./magapp/static/input.css -o ./magapp/static/output.css --watch=always &

@@ -1,0 +1,12 @@
+{% load static %}
+{% for ingredient in ingredients %}
+    <span
+            id="{{ ingredient.id }}"
+            class="flex items-center gap-2 w-full first-of-type:rounded-t-md
+                   cursor-pointer last-of-type:rounded-b-md px-4 py-2.5 text-left text-sm hover:bg-gray-50
+                   disabled:text-gray-500"
+            x-on:click="select($el)"
+    >
+      {{ ingredient.name  | title }}
+    </span>
+{% endfor %}

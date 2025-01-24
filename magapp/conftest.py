@@ -1,4 +1,7 @@
+import uuid
+
 import pytest
+from model_bakery import baker
 
 
 @pytest.fixture
@@ -13,3 +16,10 @@ def created_user(db, django_user_model):
 def logged_client(db, client, created_user):
     client.force_login(created_user)
     return client
+
+
+def gen_lower_char_field():
+    return uuid.uuid4().hex[0:16]
+
+
+baker.generators.add('magapp.base.utils.models.LowerCharField', gen_lower_char_field)

@@ -15,7 +15,7 @@ class TestListIngredients:
         resp = logged_client.get(reverse('ingredients:list'))
         assert resp.status_code == 200
 
-    '''
+    """
     def test_list_view(self, client):
         ingredients = baker.make(
             Ingredient, 5, name=str(uuid.uuid4())[:6], deleted_at=None
@@ -26,7 +26,7 @@ class TestListIngredients:
         assert_contains(resp, ingredients[0].get_absolute_url())
         assert_contains(resp, ingredients[-1].name)
         assert_contains(resp, ingredients[-1].get_absolute_url())
-    '''
+    """
 
 
 class TestCreateIngredients:
@@ -41,29 +41,19 @@ class TestCreateIngredients:
         assert resp.status_code == 302
 
     def test_new_name(self, logged_client):
-        payload = {
-            'name': 'Test name 2'
-        }
-        resp = logged_client.post(
-            reverse('ingredients:create'),
-            data=payload,
-            headers=self.headers
-        )
+        payload = {'name': 'Test name 2'}
+        resp = logged_client.post(reverse('ingredients:create'), data=payload, headers=self.headers)
         assert resp.status_code == 201
 
     def test_try_already_exists_name(self, logged_client, ingredient):
-        payload = {
-            'name': ingredient.name
-        }
-        resp = logged_client.post(
-            reverse('ingredients:create'),
-            data=payload,
-            headers=self.headers
-        )
+        payload = {'name': ingredient.name}
+        resp = logged_client.post(reverse('ingredients:create'), data=payload, headers=self.headers)
         assertContains(resp, 'Este ingrediente já existe.', status_code=200)
 
     def test_create(self, client):
         pass
+
+
 # update
 #
 #

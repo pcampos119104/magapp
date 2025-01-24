@@ -1,0 +1,299 @@
+{% extends base_template %}
+{% load static %}
+{% block content %}
+
+    <section id='section' class="bg-white dark:bg-gray-900">
+        <div class="py-8 px-16 mx-auto py-16">
+            <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
+                {% if update %}
+                    Editar {{ recipe_form.instance.title | title }}
+                {% else %}
+                    Nova receita
+                {% endif %}
+            </h2>
+            <form
+                    {% if update %}
+                        hx-put="{% url 'recipes:update' recipe_form.instance.slug %}"
+                    {% else %}
+                        hx-post="{% url 'recipes:create' %}"
+                    {% endif %}
+                        hx-swap="outerHTML"
+                        hx-target="#section"
+            >
+                <div class="flex flex-col gap-4 ">
+                    <!-- Title -->
+                    <div class="w-1/2">
+                        <c-form.input
+                                type="text"
+                                :field="recipe_form.title"
+                                required
+                        >
+
+                    </div>
+                    <!-- description -->
+                    <div class="sm:col-span-2">
+                        <c-form.textarea
+                                :field="recipe_form.description"
+                                required
+                        >
+                    </div>
+
+                    <!-- font -->
+                    <div class="w-1/2">
+                        <c-form.input
+                                type="text"
+                                :field="recipe_form.font"
+                        >
+                    </div>
+                    <!-- directions -->
+                    <div class="sm:col-span-2">
+                        <c-form.textarea
+                                :field="recipe_form.directions"
+                                required
+                        >
+                    </div>
+
+                    <!-- Ingredients block -->
+                    <div class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-24">
+                        <!-- Header -->
+                        <span class="col-span-8 font-bold text-xl border-b-4 border-b-black">Ingredientes</span>
+                        <span>Valor</span>
+                        <span>Metrica</span>
+                        <span class="col-span-2">Ingredient</span>
+                        <span class="col-span-3">Qualificador</span>
+
+                    </div>
+
+                    <!-- ingredients:formset -->
+                    <div
+                            class="flex flex-col"
+                            x-data="{
+                                    showRemoveButton: true,
+                                    calculateShowRemoveButton(){
+                                        this.showRemoveButton = document.querySelectorAll('.visible-ingredientform').length > 1
+                                    },
+                                    init(){
+                                        this.calculateShowRemoveButton()
+                                    }
+                            }"
+                    >
+                        <div id="ingredient_group">
+
+                            {{ ingredient_formset.management_form }}
+                            {% for ingredient_form in ingredient_formset %}
+
+                                <div
+                                        x-data="{
+                                        deleteIngredientFromRecipe: false,
+                                        // remove this ingredient form from the dom and mark to delete.
+                                        selfRemove() {
+                                            $refs.ingredientFormContent.remove()
+                                            this.deleteIngredientFromRecipe = true
+                                            this.calculateShowRemoveButton()
+                                        },
+                                        }"
+                                        id="{{ ingredient_form.prefix }}"
+                                        class="ingredient-template"
+                                >
+                                    <!-- ingredient_form hidden fields -->
+                                    {% for hidden in ingredient_form.hidden_fields %}{{ hidden }}{% endfor %}
+                                    <input type="hidden" name="{{ ingredient_form.prefix }}-DELETE"
+                                           x-bind:value="deleteIngredientFromRecipe">
+
+                                    <div x-ref="ingredientFormContent"
+                                         class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32 border-y py-2 visible-ingredientform">
+
+                                        <!-- qtd -->
+                                        <div>
+                                            <c-form.input
+                                                    type="number"
+                                                    :field="ingredient_form.qtd"
+                                                    required
+                                                    nolabel
+                                            >
+                                        </div>
+                                        <!-- metric -->
+                                        <div>
+                                            <select
+                                                    name="{{ ingredient_form.metric.html_name }}"
+                                                    class="input">
+                                                {% for choice in ingredient_form.metric %}
+                                                    {{ choice }}
+                                                {% endfor %}
+
+                                            </select>
+                                            {% for err in ingredient_form.metric.errors %}
+                                                <p class="input-error-message">{{ err }}</p>
+                                            {% endfor %}
+                                        </div>
+                                        <!-- ingredient -->
+                                        <div class="col-span-2 flex w-full">
+                                            <div
+                                                    x-data="{
+                                                open: false,
+                                                label: '{{ ingredient_form.instance.ingredient.name | title | default:"Selecione..." }}',
+                                                selectedId: '{{ ingredient_form.instance.ingredient.id | default:0 }}',
+                                                select(el) {
+                                                    this.label = el.innerText
+                                                    this.selectedId = el.id
+                                                    this.toggle()
+                                                },
+                                                toggle() {
+                                                    if (this.open) {
+                                                        return this.close()
+                                                    }
+                                                    this.$refs.button.focus()
+                                                    this.open = true
+                                                },
+                                                close(focusAfter) {
+                                                    if (! this.open) return
+                                                    this.open = false
+                                                    focusAfter && focusAfter.focus()
+                                                }
+                                            }"
+                                                    x-on:keydown.escape.prevent.stop="close($refs.button)"
+                                                    x-on:focusin.window="! $refs.panel.contains($event.target) && close()"
+                                                    class="relative w-full"
+                                            >
+                                                <!-- ingredient:the value to be post -->
+                                                <input
+                                                        type="hidden"
+                                                        :value="selectedId"
+                                                        name="{{ ingredient_form.ingredient.html_name }}"
+                                                >
+                                                <!-- ingredient:button -->
+                                                <button
+                                                        x-ref="button"
+                                                        x-on:click="toggle()"
+                                                        :aria-expanded="open"
+                                                        type="button"
+                                                        x-text="label"
+                                                        class="flex items-center justify-between bg-gray-50 border border-gray-300
+                                               w-full rounded-full p-2 pl-4 font-light overflow-y-scroll">
+
+                                                </button>
+                                                {% for err in ingredient_form.ingredient.errors %}
+                                                    <p class="input-error-message">{{ err }}</p>
+                                                {% endfor %}
+
+                                                <!-- ingredient:panel -->
+                                                <div
+                                                        x-ref="panel"
+                                                        x-show="open"
+                                                        x-transition.origin.top.left
+                                                        x-on:click.outside="close($refs.button)"
+                                                        style="display: none;"
+                                                        class="absolute left-0 mt-2 w-full rounded-md bg-white
+                                                p-2 shadow-md z-10"
+                                                >
+                                                    <input
+                                                            type="text"
+                                                            name="search"
+                                                            hx-get="{% url 'ingredients:search' %}"
+                                                            hx-params="search"
+                                                            hx-trigger="input changed delay:500ms, search, load"
+                                                            hx-target="#ingredient-search-results-{{ ingredient_form.prefix }}"
+                                                            hx-swap="innerHTML"
+                                                            class="input w-full"
+                                                            autocomplete="off"
+                                                    >
+
+
+                                                    <!-- ingredient:search_result -->
+                                                    <div id="ingredient-search-results-{{ ingredient_form.prefix }}"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Qualifiers -->
+                                        <div class="flex flex-col col-span-3">
+                                            <div class="grid grid-cols-2 gap-2 bg-gray-50 border border-gray-300
+                                    rounded-md p-2 font-light overflow-y-scroll max-h-32">
+
+                                                {% for qualifier in ingredient_form.qualifiers %}
+                                                    <div>
+                                                        <input type="checkbox"
+                                                               name="{{ ingredient_form.qualifiers.html_name }}"
+                                                               id="{{ ingredient_form.qualifiers.auto_id }}"
+                                                               value="{{ qualifier.data.value }}"
+                                                                {% if qualifier.data.value in ingredient_form.qualifiers.value %}
+                                                               checked
+                                                                {% endif %}
+                                                        >
+                                                        <label for="langs_ruby">{{ qualifier.choice_label | title }}</label>
+                                                    </div>
+                                                {% endfor %}
+                                            </div>
+                                            {% for err in ingredient_form.qualifier.errors %}
+                                                <p class="input-error-message">{{ err }}</p>
+                                            {% endfor %}
+                                        </div>
+                                        <!-- Remove button -->
+                                        <button type="button"
+                                                class="btn-red h-fit"
+                                                x-show="showRemoveButton"
+                                                x-on:click="selfRemove">
+
+                                            Remover
+                                        </button>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <!-- Add ingredient button -->
+                        <button x-data="{
+                            // o container dos formularios
+                            ingredientGroup: document.getElementById('ingredient_group'),
+                            // Seleciona o primeiro formulario como template
+                            ingredientTemplate: '',
+                            update: '{{ update }}',
+                            addIngredient(){
+                            // Quantidade de formulario de ingredientes
+                                let totalForms = document.getElementById('id_ingredients-TOTAL_FORMS')
+                                // clona o template de formulario
+                                let newIngredientForm = this.ingredientTemplate.cloneNode(true)
+                                // substitui ingredients-0 para ingredients-'totalFormsValue'
+                                let totalFormsValue = Number(totalForms.value)
+                                newIngredientForm.innerHTML = newIngredientForm.innerHTML
+                                .replaceAll(new RegExp(/ingredients-[0-9]+/, 'g'), 'ingredients-' + totalFormsValue )
+                                // incrementa o totalForms
+                                totalFormsValue += 1
+                                totalForms.value = totalFormsValue
+                                // adiciona o novo formulario no container de formularios
+                                this.ingredientGroup.appendChild(newIngredientForm)
+                                // Passa o ingredientGroup no htmx, para habilitar as tags hx-...
+                                htmx.process(this.ingredientGroup)
+                                // mostrar ou nao o botao de remover ingredient
+                                this.calculateShowRemoveButton()
+
+                            },
+                            init(){
+                                // clona em memoria um template para o formulario
+                                this.ingredientTemplate = document.querySelector('.ingredient-template:last-of-type').cloneNode(true)
+                                // if it's an update, remove the extra form.
+                                if (this.update){
+                                    document.querySelector('.ingredient-template:last-of-type').remove()
+                                }
+                            }
+                            }"
+                                x-on:click="addIngredient"
+                                type="button"
+                                class="btn w-fit self-end mt-2">
+                            Adicionar ingrediente
+                        </button>
+                    </div>
+
+                </div>
+                <!-- submit button -->
+                <button
+                        type="submit"
+                        class="btn mt-4">
+                    {% if update %}
+                        Inserir receita
+                    {% else %}
+                        Atualizar receita
+                    {% endif %}
+                </button>
+            </form>
+        </div>
+    </section>
+{% endblock content %}

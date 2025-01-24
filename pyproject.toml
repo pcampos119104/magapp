@@ -4,14 +4,14 @@ version = "0.1.0"
 description = ""
 authors = ["pcampos <pcampos119104@gmail.com>"]
 readme = "README.md"
+package-mode = false
 
 [tool.poetry.dependencies]
 python = "^3.11"
-Django = "^5.0.2"
+Django = "5.1.5"
 django-allauth = "^0.61.1"
 django-environ = "^0.11.2"
 django-extensions = "^3.2.3"
-pytest-django = "^4.8.0"
 gunicorn = "^21.2.0"
 whitenoise = {extras = ["brotli"], version = "^6.6.0"}
 sentry-sdk = {extras = ["django"], version = "^1.41.0"}
@@ -19,13 +19,14 @@ django-browser-reload = "^1.12.1"
 django-htmx = "^1.17.3"
 python-slugify = "^8.0.4"
 psycopg = {extras = ["binary", "pool"], version = "^3.1.18"}
+django-cotton = "^0.9.37"
 
 [tool.poetry.group.dev.dependencies]
-django-pytest = "^0.2.0"
-marimo = "0.2.4"
+marimo = "0.8.15"
 werkzeug = "^3.0.1"
 ruff = "^0.2.2"
 model-bakery = "^1.17.0"
+pytest-django = "^4.8.0"
 
 [build-system]
 requires = ["poetry-core"]
@@ -51,7 +52,8 @@ quote-style = "single"
 DJANGO_SETTINGS_MODULE = "magapp.settings"
 markers = [
     'models: test the models',
-    'views: test all views'
+    'views: test all views',
+    'search: test search implementations'
 ]
 
 # -- recommended but optional:

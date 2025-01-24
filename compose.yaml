@@ -12,7 +12,7 @@ services:
     ports:
       - "8000:8000"
       - "2718:2718" # marimo
-    command: /start
+    command: /start.sh
     depends_on:
       - postgres
 
@@ -21,6 +21,8 @@ services:
     container_name: magapp_postgres
     volumes:
       - magapp_postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
     environment:
       POSTGRES_PASSWORD: postgres
 

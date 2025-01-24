@@ -35,13 +35,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.postgres',
     'django_browser_reload',
     'django_htmx',
     'allauth',
     'allauth.account',
     'django_extensions',
+    'django_cotton',
     'magapp.base',
     'magapp.ingredients',
+    'magapp.recipes',
 ]
 
 MIDDLEWARE = [
@@ -92,10 +95,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': env('DB_NAME'),
-        'USER':  env('DB_USER'),
-        'PASSWORD':  env('DB_PASSWORD'),
-        'HOST':  env('DB_HOST'),
-        'PORT':  env('DB_PORT'),
+        'USER': env('DB_USER'),
+        'PASSWORD': env('DB_PASSWORD'),
+        'HOST': env('DB_HOST'),
+        'PORT': env('DB_PORT'),
     }
 }
 
@@ -157,16 +160,8 @@ CSRF_COOKIE_SECURE = True
 """
 LOGIN_REDIRECT_URL = '/'
 
-APP_NAME = env('FLY_APP_NAME', default='')
-if DEBUG:
-    ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-else:
-    host = f'{APP_NAME}.fly.dev'
-    https_host = f'https://{host}'
-    ALLOWED_HOSTS = [host]
-    CSRF_TRUSTED_ORIGINS = [https_host]
-    CSRF_ALLOWED_ORIGINS = [https_host]
-    CORS_ORIGINS_WHITELIST = [https_host]
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
 
 # sentry
 SENTRY_DSN = env('SENTRY_DSN', default='')
