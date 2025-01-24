@@ -12,4 +12,4 @@ echo "Running collectstatic..."
 python manage.py collectstatic --noinput
 
 echo "Starting server"
-exec gunicorn --bind :8000 --workers 1 magapp.wsgi
+exec gunicorn --log-level debug --bind :80 --workers 3 magapp.wsgi:application
