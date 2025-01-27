@@ -64,6 +64,7 @@ Versions is on Poetry.
 
 1. Certified that docker is up and running
 2. `$ just runserver`
+3. Create a superuser so you can login and/or create a User. 
 
 You can run `$ just` to see the available commands.
 
