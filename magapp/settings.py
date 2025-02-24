@@ -153,11 +153,11 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = None
-# todo isso nao funciona por algum motivo
-"""https://forum.djangoproject.com/t/cannot-access-admin-if-setting-is-set-cannot-access-website-if-setting-is-not-set/24496
+# https://forum.djangoproject.com/t/cannot-access-admin-if-setting-is-set-cannot-access-website-if-setting-is-not-set/24496
+SECURE_SSL_REDIRECT = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
-"""
+
 LOGIN_REDIRECT_URL = '/'
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
