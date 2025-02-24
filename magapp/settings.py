@@ -27,6 +27,8 @@ SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', False)
+CSRF_TRUSTED_ORIGINS = env.list('CSRF_TRUSTED_ORIGINS')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -122,13 +124,9 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'UTC'
-
 USE_I18N = True
-
 USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
@@ -153,11 +151,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = None
-# https://forum.djangoproject.com/t/cannot-access-admin-if-setting-is-set-cannot-access-website-if-setting-is-not-set/24496
-
 LOGIN_REDIRECT_URL = '/'
-
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 
 # sentry
 SENTRY_DSN = env('SENTRY_DSN', default='')
