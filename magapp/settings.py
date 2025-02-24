@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+from logging import DEBUG
 from pathlib import Path
 
 import environ
@@ -153,15 +154,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 ACCOUNT_AUTHENTICATION_METHOD = 'username_email'
 ACCOUNT_CHANGE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = None
-# todo isso nao funciona por algum motivo
-"""https://forum.djangoproject.com/t/cannot-access-admin-if-setting-is-set-cannot-access-website-if-setting-is-not-set/24496
-SESSION_COOKIE_SECURE = True
-CSRF_COOKIE_SECURE = True
-"""
+# https://forum.djangoproject.com/t/cannot-access-admin-if-setting-is-set-cannot-access-website-if-setting-is-not-set/24496
+SECURE_SSL_REDIRECT = not DEBUG
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+
 LOGIN_REDIRECT_URL = '/'
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
-
 
 # sentry
 SENTRY_DSN = env('SENTRY_DSN', default='')
