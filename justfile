@@ -7,7 +7,7 @@ build:
   docker compose build
 
 # Sobe o servidor em desenvolvimento com hot reload
-runserver:
+run:
   docker compose up --build
 
 # Roda o comando manage.py dentro do container
