@@ -46,6 +46,7 @@ jobs:
           echo DB_PASSWORD=postgres >> .env
           echo DB_HOST=postgres >> .env
           echo DB_PORT=5432 >> .env
+          echo CSRF_TRUSTED_ORIGINS=http://localhost >> .env
           cat .env
 
       - name: Build the Stack
