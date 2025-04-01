@@ -1953,6 +1953,10 @@ video {
   padding: 1.5rem;
 }
 
+.p-5 {
+  padding: 1.25rem;
+}
+
 .px-16 {
   padding-left: 4rem;
   padding-right: 4rem;
