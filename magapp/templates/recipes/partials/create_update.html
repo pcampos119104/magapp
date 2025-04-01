@@ -1,9 +1,8 @@
 {% extends base_template %}
 {% load static %}
 {% block content %}
-
     <section id='section' class="bg-white dark:bg-gray-900">
-        <div class="py-8 px-16 mx-auto py-16">
+        <div class="py-8 px-3 lg:px-16 mx-auto py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
                 {% if update %}
                     Editar {{ recipe_form.instance.title | title }}
@@ -22,7 +21,7 @@
             >
                 <div class="flex flex-col gap-4 ">
                     <!-- Title -->
-                    <div class="w-1/2">
+                    <div class="lg:w-1/2">
                         <c-form.input
                                 type="text"
                                 :field="recipe_form.title"
@@ -39,7 +38,7 @@
                     </div>
 
                     <!-- font -->
-                    <div class="w-1/2">
+                    <div class="lg:w-1/2">
                         <c-form.input
                                 type="text"
                                 :field="recipe_form.font"
@@ -57,10 +56,10 @@
                     <div class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-24">
                         <!-- Header -->
                         <span class="col-span-8 font-bold text-xl border-b-4 border-b-black">Ingredientes</span>
-                        <span>Valor</span>
-                        <span>Metrica</span>
-                        <span class="col-span-2">Ingredient</span>
-                        <span class="col-span-3">Qualificador</span>
+                        <span class="hidden lg:block">Valor</span>
+                        <span class="hidden lg:block">Metrica</span>
+                        <span class="hidden lg:block col-span-2">Ingredient</span>
+                        <span class="hidden lg:block col-span-3">Qualificador</span>
 
                     </div>
 
@@ -101,7 +100,7 @@
                                            x-bind:value="deleteIngredientFromRecipe">
 
                                     <div x-ref="ingredientFormContent"
-                                         class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-32 border-y py-2 visible-ingredientform">
+                                         class="grid grid-cols-1 lg:grid-cols-8 gap-1.5 sm:col-span-2 lg:max-h-32 border-y py-2 visible-ingredientform">
 
                                         <!-- qtd -->
                                         <div>
@@ -229,10 +228,9 @@
                                         </div>
                                         <!-- Remove button -->
                                         <button type="button"
-                                                class="btn-red h-fit"
+                                                class="btn-red col-span-2 lg:col-span-1 h-fit w-fit place-self-end lg:place-self-start "
                                                 x-show="showRemoveButton"
                                                 x-on:click="selfRemove">
-
                                             Remover
                                         </button>
                                     </div>
