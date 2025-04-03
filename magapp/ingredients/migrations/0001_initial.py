@@ -53,7 +53,7 @@ class Migration(migrations.Migration):
                     ),
                 ),
                 (
-                    'owner',
+                    'created_by',
                     models.ForeignKey(
                         on_delete=django.db.models.deletion.CASCADE,
                         to=settings.AUTH_USER_MODEL,
