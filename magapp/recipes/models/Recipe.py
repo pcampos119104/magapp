@@ -9,11 +9,16 @@ from magapp.utils import create_unique_slug
 
 
 class Recipe(SoftDeletionModel):
+    VISIBILITY_CHOICES = [
+        ('private', 'Privada'),
+        ('public', 'Pública'),
+    ]
     title = LowerCharField('título', max_length=64, help_text='Título da receita.')
     description = models.TextField('descrição', help_text='Breve descrição da receita.')
     directions = models.TextField('preparo', help_text='Passos para o preparo.')
     slug = models.SlugField(max_length=64, unique=True, editable=False)
-    created_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=False)
+    visibility = models.CharField(max_length=10, choices=VISIBILITY_CHOICES, default='private', help_text='Se a receita é pública.')
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=False)
     font = models.CharField(
         'Fonte',
         max_length=200,

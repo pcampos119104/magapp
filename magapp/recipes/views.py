@@ -77,7 +77,7 @@ class Create(LoginRequiredMixin, View):
             return render(request, self.template, context, status=400)
 
         # salva os formularios
-        recipe_form.instance.created_by = request.user
+        recipe_form.instance.owner = request.user
         recipe = recipe_form.save()
         for form in ingredient_formset:
             if form.has_changed():
