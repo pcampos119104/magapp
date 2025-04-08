@@ -11,7 +11,7 @@ run:
   docker compose up --build
 
 # Roda o comando manage.py dentro do container
-mng command:
+mng +command:
   docker compose run --rm web python manage.py {{command}}
 
 # Entra no console do container web

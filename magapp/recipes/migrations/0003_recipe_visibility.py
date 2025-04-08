@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     dependencies = [
         ('recipes', '0002_rename_created_by_recipe_owner_and_more'),
     ]
@@ -13,6 +12,7 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='recipe',
             name='visibility',
-            field=models.CharField(choices=[('private', 'Privada'), ('public', 'Pública')], default='private', help_text='Se a receita é pública.', max_length=10),
+            field=models.CharField(choices=[('private', 'Privada'), ('public', 'Pública')], default='private',
+                                   help_text='Se a receita é pública.', max_length=10),
         ),
     ]
