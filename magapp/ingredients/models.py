@@ -23,7 +23,7 @@ class Ingredient(SoftDeletionModel):
     slug = models.SlugField(
         max_length=64, editable=False, unique=True, error_messages={'unique': 'Este slug já existe.'}
     )
-    created_by = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=False)
+    owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=False)
 
     def clean_fields(self, exclude=None):
         super().clean_fields(exclude)

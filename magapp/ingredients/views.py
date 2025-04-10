@@ -42,7 +42,7 @@ class Create(LoginRequiredMixin, View):
         if not form.is_valid():
             return render(request, self.template, context={'form': form})
 
-        form.instance.created_by = request.user
+        form.instance.owner = request.user
         form.save()
         messages.success(request, 'Ingrediente criado.')
         return render(request, self.template, status=201)
@@ -70,7 +70,7 @@ class Update(LoginRequiredMixin, View):
         if not form.is_valid():
             return render(request, self.template, context={'form': form, 'update': True})
 
-        form.instance.created_by = request.user
+        form.instance.owner = request.user
         form.save()
         messages.success(request, 'Ingrediente atualizado.')
         return render(request, self.template, status=204)
