@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'magapp.base',
     'magapp.ingredients',
     'magapp.recipes',
+    'magapp.menus',
 ]
 
 MIDDLEWARE = [
@@ -137,7 +138,6 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'magapp/static']
 
 STORAGES = {
-    # ...
     'staticfiles': {
         'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage',
     },

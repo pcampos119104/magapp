@@ -12,7 +12,11 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='recipe',
             name='visibility',
-            field=models.CharField(choices=[('private', 'Privada'), ('public', 'Pública')], default='private',
-                                   help_text='Se a receita é pública.', max_length=10),
+            field=models.CharField(
+                choices=[('private', 'Privada'), ('public', 'Pública')],
+                default='private',
+                help_text='Se a receita é pública.',
+                max_length=10,
+            ),
         ),
     ]

@@ -17,8 +17,9 @@ class Recipe(SoftDeletionModel):
     description = models.TextField('descrição', help_text='Breve descrição da receita.')
     directions = models.TextField('preparo', help_text='Passos para o preparo.')
     slug = models.SlugField(max_length=64, unique=True, editable=False)
-    visibility = models.CharField(max_length=10, choices=VISIBILITY_CHOICES, default='private',
-                                  help_text='Se a receita é pública.')
+    visibility = models.CharField(
+        max_length=10, choices=VISIBILITY_CHOICES, default='private', help_text='Se a receita é pública.'
+    )
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=False)
     font = models.CharField(
         'Fonte',
