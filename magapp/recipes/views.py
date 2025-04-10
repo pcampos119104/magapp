@@ -18,7 +18,7 @@ def list(request):
     qtd_per_page = 10
     template = 'recipes/partials/listing.html'
     search_term = request.GET.get('search', '')
-    recipes = Recipe.objects.filter(title__unaccent__icontains=search_term)
+    recipes = Recipe.objects.filter(owner=request.user).filter(title__unaccent__icontains=search_term)
     paginator = Paginator(recipes, qtd_per_page)
     page_number = request.GET.get('page')
     page_obj = paginator.get_page(page_number)
@@ -34,7 +34,8 @@ def list(request):
 def detail(request, slug):
     base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
     template = 'recipes/partials/detail.html'
-    recipe = get_object_or_404(Recipe, slug=slug)
+    recipe = get_object_or_404(Recipe, slug=slug, owner=request.user)
+
     context = {
         'base_template': base_template,
         'recipe': recipe,
@@ -77,7 +78,7 @@ class Create(LoginRequiredMixin, View):
             return render(request, self.template, context, status=400)
 
         # salva os formularios
-        recipe_form.instance.created_by = request.user
+        recipe_form.instance.owner = request.user
         recipe = recipe_form.save()
         for form in ingredient_formset:
             if form.has_changed():
@@ -101,7 +102,7 @@ class Update(LoginRequiredMixin, View):
 
     def get(self, request, slug):
         base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
-        recipe = get_object_or_404(Recipe, slug=slug)
+        recipe = get_object_or_404(Recipe, slug=slug, owner=request.user)
         recipe_form = RecipeForm(instance=recipe)
         ingredient_formset = RecipeIngredientFormSet(instance=recipe)
         context = {
@@ -114,7 +115,7 @@ class Update(LoginRequiredMixin, View):
 
     def put(self, request, slug):
         base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
-        recipe = get_object_or_404(Recipe, slug=slug)
+        recipe = get_object_or_404(Recipe, slug=slug, owner=request.user)
         payload = QueryDict(request.body)
         recipe_form = RecipeForm(payload, instance=recipe)
         ingredient_formset = RecipeIngredientFormSet(payload, instance=recipe)
