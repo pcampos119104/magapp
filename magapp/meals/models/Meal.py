@@ -1,20 +1,19 @@
 import uuid
 
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.db import models
-from django.db.models.functions import Lower
+from django.forms import model_to_dict
 from django.urls import reverse
-from slugify import slugify
 
 from magapp.base.models import SoftDeletionModel
 from magapp.base.utils.models import LowerCharField
 from magapp.recipes.models import Recipe
+from magapp.utils import create_unique_slug
 
 
 class Meal(SoftDeletionModel):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    title = LowerCharField('título', max_length=64, help_text='Titulo da refeicao')
+    title = LowerCharField('título', max_length=64, help_text='Titulo da refeição')
     slug = models.SlugField(
         max_length=64, editable=False, unique=True, error_messages={'unique': 'Este slug já existe.'}
     )
@@ -22,17 +21,20 @@ class Meal(SoftDeletionModel):
     recipes = models.ManyToManyField(Recipe)
 
     class Meta:
-        verbose_name = 'Refeicao'
-        verbose_name_plural = 'refeicoes'
+        verbose_name = 'Refeição'
+        verbose_name_plural = 'refeições'
         ordering = ['title']
         constraints = [models.UniqueConstraint('slug', name='unique_meal_slug')]
 
     def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
+        self.slug = create_unique_slug(self.title)
         super().save(*args, **kwargs)
 
     def __str__(self):
         return self.title
 
+    def __repr__(self):
+        return f'Meals({model_to_dict(self)})'
+
     def get_absolute_url(self):
-        return reverse(':detail', kwargs={'slug': self.slug})
+        return reverse('meals:detail', kwargs={'slug': self.slug})
