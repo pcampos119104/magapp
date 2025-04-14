@@ -31,8 +31,8 @@ urlpatterns = [
     path('', include('magapp.base.urls')),
     path('ingredients/', include('magapp.ingredients.urls')),
     path('recipes/', include('magapp.recipes.urls')),
-    # todo Menu has multiples resources urls
     path('menus/', include('magapp.menus.urls')),
+    path('meals/', include('magapp.meals.urls')),
     # django browser reload
     path('__reload__/', include('django_browser_reload.urls')),
 ]
