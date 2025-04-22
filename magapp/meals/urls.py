@@ -16,12 +16,12 @@ Including another URLconf
 """
 from django.urls import path
 
-from magapp.menus.views import detail
+from magapp.meals.views import Create, Update, detail, list
 
 app_name = 'meals'
 urlpatterns = [
-    path('create/', detail, name='create'),
-    # path('', list, name='list'),
-    # path('<slug:slug>/', detail, name='detail'),
-    # path('<slug:slug>/update/', Update.as_view(), name='update'),
+    path('create/', Create.as_view(), name='create'),
+    path('', list, name='list'),
+    path('<slug:slug>/', detail, name='detail'),
+    path('<slug:slug>/update/', Update.as_view(), name='update'),
 ]

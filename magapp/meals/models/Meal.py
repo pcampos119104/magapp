@@ -7,7 +7,6 @@ from django.urls import reverse
 
 from magapp.base.models import SoftDeletionModel
 from magapp.base.utils.models import LowerCharField
-from magapp.recipes.models import Recipe
 from magapp.utils import create_unique_slug
 
 
@@ -18,7 +17,7 @@ class Meal(SoftDeletionModel):
         max_length=64, editable=False, unique=True, error_messages={'unique': 'Este slug já existe.'}
     )
     owner = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, null=False)
-    recipes = models.ManyToManyField(Recipe)
+    recipes = models.ManyToManyField('recipes.Recipe', related_name='meals')
 
     class Meta:
         verbose_name = 'Refeição'
