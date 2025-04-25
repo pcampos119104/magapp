@@ -21,36 +21,31 @@
             >
                 <div class="flex flex-col gap-4 ">
                     <!-- Title -->
-                    <div class="lg:w-1/2">
-                        <c-form.input
-                                type="text"
-                                :field="recipe_form.title"
-                                required
-                        >
+                    <c-form.input
+                            class="lg:w-1/2"
+                            type="text"
+                            :field="recipe_form.title"
+                            required/>
 
-                    </div>
                     <!-- description -->
-                    <div class="sm:col-span-2">
-                        <c-form.textarea
-                                :field="recipe_form.description"
-                                required
-                        >
-                    </div>
+                    <c-form.textarea
+                            class="sm:col-span-2"
+                            :field="recipe_form.description"
+                            required
+                    />
 
                     <!-- font -->
-                    <div class="lg:w-1/2">
-                        <c-form.input
-                                type="text"
-                                :field="recipe_form.font"
-                        >
-                    </div>
+                    <c-form.input
+                            class="lg:w-1/2"
+                            type="text"
+                            :field="recipe_form.font"
+                    />
                     <!-- directions -->
-                    <div class="sm:col-span-2">
-                        <c-form.textarea
-                                :field="recipe_form.directions"
-                                required
-                        >
-                    </div>
+                    <c-form.textarea
+                            class="sm:col-span-2"
+                            :field="recipe_form.directions"
+                            required
+                    />
 
                     <!-- Ingredients block -->
                     <div class="grid grid-cols-8 gap-1.5 sm:col-span-2 max-h-24">

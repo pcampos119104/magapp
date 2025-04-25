@@ -1,7 +1,84 @@
 {% extends base_template %}
 {% load static %}
 {% block content %}
-    <section id="detail" class="bg-white dark:bg-gray-900">
+    <section id="section" class="bg-white dark:bg-gray-900">
         <h1>create_update</h1>
+        <form
+                {% if update %}
+                    hx-put="{% url 'meals:update' recipe_form.instance.slug %}"
+                {% else %}
+                    hx-post="{% url 'meals:create' %}"
+                {% endif %}
+                    hx-swap="outerHTML"
+                    hx-target="#section"
+        >
+            <div class="flex flex-col gap-4 ">
+                <!-- Title -->
+                <c-form.input
+                        class="lg:w-1/2"
+                        type="text"
+                        :field="recipe_form.title"
+                        required></c-form.input>
+                <!-- Add recipes to meal -->
+                <div
+                        x-data="{
+                              recipes: [
+                                    {id: 1, title:'asdfasdf', description:'asdfasdfs dasdf asdf asdf asdf asdf asdfasdfasd fasf'},
+                                    {id: 2, title:'qwerqwer', description:'asdfasdfs dasdf asdf asdf asdf asdf asdfasdfasd fasf'},
+                                    {id: 3, title:'xcvbxcvb', description:'asdfasdfs dasdf asdf asdf asdf asdf t asdfasdfasd fasf'},
+                              ],
+                              addRecipe(){
+                                   novoObjeto = {id: 4, title:'gasdf', description:'asdfasdfs dasdf asdf asdf asdf asdf asdfasdfasd fasf'}
+                                if (this.recipes.some(obj => obj.id === novoObjeto.id)) {
+                                    return
+                                }
+                                   this.recipes.push(novoObjeto)
+                              },
+                              removeRecipe(id){
+                               this.recipes.splice(this.recipes.findIndex(obj => obj.id === id), 1)
+                              }
+                            }"
+                        class="grid lg:grid-cols-2 p-4 gap-4">
+                    <template x-for="recipe in recipes">
+                        <!-- Recipes -->
+                        <div x-ref="recipe" class="relative flex flex-col p-6 bg-white border border-gray-200 rounded-lg
+                                    shadow dark:bg-gray-800 dark:border-gray-700 w-full h-52">
+                            <h5 x-text="recipe.title"
+                                    class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white">
+                            </h5>
+                            <p x-text="recipe.description" class="mb-3 font-normal text-gray-500 dark:text-gray-400 line-clamp-3">
+                            </p>
+                            <a x-on:click="removeRecipe(recipe.id)"
+                                    href="#"
+                               class="absolute bottom-6 right-6 place-self-end font-medium text-blue-600
+                               hover:underline"
+                            >
+                                Remover
+                            </a>
+                        </div>
+
+                    </template>
+                    <!-- Add button -->
+                    <button
+                            type="button"
+                            class="btn w-fit self-end"
+                            x-on:click="addRecipe()"
+                    >
+                        Adicionar Receita
+                    </button>
+                </div>
+
+                <!-- submit button -->
+                <button
+                        type="submit"
+                        class="btn mt-4">
+                    {% if update %}
+                        Atualizar refeição
+                    {% else %}
+                        Criar refeição
+                    {% endif %}
+                </button>
+            </div>
+        </form>
     </section>
 {% endblock content %}
