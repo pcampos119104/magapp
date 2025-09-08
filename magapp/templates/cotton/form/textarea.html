@@ -1,0 +1,35 @@
+<c-vars
+        required="false"
+        rows="8"
+        :nolabel="False"
+        class=""
+/>
+
+    <div class="{{ class }}">
+    {% if nolabel is False %}
+        <label for="{{ field.id_for_label }}"
+               class="input-label">
+            {{ field.label }}
+        </label>
+    {% endif %}
+    <textarea
+            id="{{ field.id_for_label }}"
+            name="{{ field.html_name }}"
+            rows="{{ rows }}"
+            value="{{ field.value | default_if_none:'' }}"
+            placeholder="{{ field.help_text }}"
+            {% if field.errors %}
+                class="textarea-error"
+            {% else %}
+                class="textarea"
+            {% endif %}
+            {% if required is True %}
+           required
+            {% endif %}
+    >{{ field.value | default_if_none:'' }}</textarea>
+    {% for err in field.errors %}
+        <p class="input-error-message">
+            {{ err }}
+        </p>
+    {% endfor %}
+</div>

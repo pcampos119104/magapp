@@ -51,6 +51,10 @@ INSTALLED_APPS = [
     'allauth.account',
     'django_htmx',
     'magapp.base',
+    'magapp.ingredients',
+    'magapp.recipes',
+    'magapp.meals',
+
 ]
 
 MIDDLEWARE = [
@@ -65,6 +69,7 @@ MIDDLEWARE = [
     'allauth.account.middleware.AccountMiddleware',
     'django_htmx.middleware.HtmxMiddleware',
     'django_browser_reload.middleware.BrowserReloadMiddleware',
+    'magapp.base.middleware.HtmxMessageMiddleware',
 ]
 
 ROOT_URLCONF = 'magapp.urls'
@@ -188,11 +193,11 @@ LOGGING = {
     'loggers': {
         'django': {
             'handlers': ['console','sentry'],
-            'level': LOG_LEVEL,
+            'level': 'INFO',
             'propagate': True,
         },
         'sentry_sdk': {
-            'handlers': ['console', 'sentry'],
+            'handlers': ['sentry'],
             'level': LOG_LEVEL,
             'propagate': False,
         },

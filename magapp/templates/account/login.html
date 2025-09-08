@@ -1,0 +1,98 @@
+{% extends 'account/_base.html' %}
+{% block content %}
+	<section class="bg-gray-50 dark:bg-gray-900">
+		<div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
+			<a
+				href="#"
+				class="flex items-center mb-6 text-2xl font-semibold text-gray-900 dark:text-white">
+				Magapp
+			</a>
+			<div
+				class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+				<div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+					<h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+						Entre com a sua conta
+					</h1>
+					<!-- form -->
+					<form
+						class="space-y-4 md:space-y-6"
+						method="post"
+						action="{% url 'account_login' %}">
+						{% csrf_token %}
+						{{ form.non_field_errors | safe }}
+						<!-- login -->
+						<div>
+							<label
+								for="{{ form.login.name }}"
+								class="input-label">
+								Usuário</label>
+							<input
+								type="text"
+								value="{{ form.login.value | default_if_none:'' }}"
+								name="{{ form.login.name }}"
+								autofocus="True"
+								id="nome"
+								placeholder="Nome ou email"
+								class="input"
+								required>
+							{% for err in form.login.errors %}
+								<p class="text-error text-xs pl-6 text-left">*{{ err }}</p>{% endfor %}
+						</div>
+						<!-- senha -->
+						<div>
+							<label
+								for="{{ form.password.name }}"
+								class="input-label">
+								Senha</label>
+							<input
+								type="password"
+								value="{{ form.password.value | default_if_none:'' }}"
+								name="{{ form.password.name }}"
+								id="password"
+								class="input"
+								required>
+							{% for err in form.password.errors %}
+								<p class="text-error text-xs pl-6 text-left">*{{ err }}</p>{% endfor %}
+						</div>
+						<!-- recuperar senha -->
+						<div class="flex items-center justify-between">
+							<div class="flex items-start">
+								<div class="flex items-center h-5">
+									<input
+										id="remember"
+										value="{{ form.remember.value | default_if_none:'' }}"
+										name="{{ form.remember.name }}"
+										aria-describedby="remember"
+										type="checkbox"
+										class="w-4 h-4 border border-gray-300 rounded bg-gray-50
+										   focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600
+										   dark:focus:ring-primary-600 dark:ring-offset-gray-800"
+									>
+								</div>
+								<div class="ml-3 text-sm">
+									<label
+										for="{{ form.remember.name }}"
+										class="text-gray-500 dark:text-gray-300">
+										Remember me
+									</label>
+								</div>
+							</div>
+						</div>
+						{% if redirect_field_value %}
+							<input
+								type="hidden"
+								name="{{ redirect_field_name }}"
+								value="{{ redirect_field_value }}"/>
+						{% endif %}
+						<!-- botao de submissao -->
+						<button
+							type="submit"
+							class="btn w-full text-center">
+							<span class="w-full">Entrar</span>
+						</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock content %}

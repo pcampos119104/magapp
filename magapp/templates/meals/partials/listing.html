@@ -1,0 +1,9 @@
+{% extends base_template %}
+{% load static %}
+{% block content %}
+    <section id="detail" class="bg-white dark:bg-gray-900">
+        {% for meal in page_obj %}
+            <h1>{{ meal.title }}</h1>
+        {% endfor %}
+    </section>
+{% endblock content %}

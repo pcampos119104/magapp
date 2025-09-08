@@ -1,0 +1,60 @@
+{% extends 'base/_modal.html' %}
+{% block modal_title %}
+    Selecione a receita
+{% endblock modal_title %}
+{% block modal_content %}
+    <!-- Search form -->
+    <form
+            hx-get="{% url 'meals:recipes_search' %}"
+            hx-target="#listing"
+            hx-swap="outerHTML"
+            hx-push-url="false"
+            class="flex w-full items-center gap-2 mb-0"
+    >
+        <label
+                for="simple-search"
+                class="sr-only">Search</label>
+        <div class="w-full md:w-2/6 flex items-center mb-0 relative">
+            <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <svg
+                        aria-hidden="true"
+                        class="w-5 h-5 text-gray-500 dark:text-gray-400"
+                        fill="currentColor"
+                        viewbox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                    <path
+                            fill-rule="evenodd"
+                            d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                            clip-rule="evenodd"/>
+                </svg>
+            </div>
+            <input
+                    type="search"
+                    id="simple-search"
+                    name="search"
+                    class="input pl-10"
+                    placeholder="Buscar"
+                    value="{{ search_term }}"
+            >
+        </div>
+        <button
+                type="submit"
+                class="btn"
+        >
+            Buscar
+        </button>
+    </form>
+    <div
+            class="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch
+					 md:items-center justify-end md:space-x-3 flex-shrink-0">
+    </div>
+    <div id="listing"></div>
+    <h1>Adicionar receita</h1>
+    <button
+            type="button"
+            class="btn w-fit self-end"
+            x-on:click="addRecipe(id=5, title='lkjlkjlk', description='lkjlkjlkjlk'); selfRemove()"
+    >
+        Adicionar
+    </button>
+{% endblock modal_content %}
