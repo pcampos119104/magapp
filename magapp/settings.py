@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.postgres',
     'django_extensions',
     'django_browser_reload',
+    'django_cotton',
     'allauth',
     'allauth.account',
     'django_htmx',
@@ -193,7 +194,7 @@ LOGGING = {
     },
     'loggers': {
         'django': {
-            'handlers': ['console','sentry'],
+            'handlers': ['console', 'sentry'],
             'level': 'INFO',
             'propagate': True,
         },
