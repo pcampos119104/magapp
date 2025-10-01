@@ -49,7 +49,7 @@ jobs:
         run: just build
 
       - name: Run DB Migrations
-        run: just manage migrate
+        run: just mng migrate
 
       - name: Run tests
         run: just test
