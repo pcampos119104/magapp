@@ -1,7 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
 
-from magapp.ingredients.models import Ingredient
 from magapp.recipes.models import Recipe, RecipeIngredient
 
 
