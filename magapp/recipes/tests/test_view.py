@@ -1,8 +1,6 @@
 import pytest
 from django.urls import reverse
 
-from magapp.ingredients.tests.conftest import ingredients
-
 pytestmark = pytest.mark.views
 
 

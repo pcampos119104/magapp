@@ -5,17 +5,19 @@
         <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
             <div class="max-w-screen-lg text-gray-500 sm:text-lg dark:text-gray-400">
                 <h2 class="mb-4 text-4xl tracking-tight font-bold text-gray-900 dark:text-white font-extrabold">
-                    {{ recipe.title }}
+                    {{ recipe.title | title}}
                 </h2>
                 <p class="mb-4 font-light">{{ recipe.description }}</p>
                 <p class="mb-4 text-xl text-gray-800 font-semibold">Ingredientes</p>
                 {% for ingredient in recipe.ingredients.all %}
-                    <p class="flex gap-2 mb-2 font-medium ">
-                        <input type="checkbox" class="peer">
-                    <span class="peer-checked:line-through decoration-double">
+                    <div class="flex items-center gap-2 mb-2 font-medium">
+                        <input type="checkbox"
+                               class="w-4 h-4 bg-gray-100 border-gray-300 rounded text-primary-600
+                                 focus:ring-primary-500  focus:ring-2 peer">
+                        <span class="peer-checked:line-through decoration-double">
                         {{ ingredient }}
                     </span>
-                    </p>
+                    </div>
                 {% endfor %}
                 <p class="mb-4 text-xl text-gray-800 font-semibold">Preparo</p>
                 <p class="mb-4 ">{{ recipe.directions }}</p>

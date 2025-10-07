@@ -1,11 +1,8 @@
 from django.db import models
 from django.forms import model_to_dict
-from django.urls import reverse
 
 from magapp.base.models import SoftDeletionModel
-from magapp.base.utils.models import LowerCharField
-from magapp.ingredients.models import Ingredient
-from magapp.recipes.models import Metric, Recipe
+from magapp.recipes.models import Recipe
 
 
 class RecipeIngredient(SoftDeletionModel):
