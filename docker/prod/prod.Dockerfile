@@ -13,8 +13,8 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     uv sync --frozen --no-dev
 COPY . .
 RUN npm install
-RUN npx @tailwindcss/cli -i {{project_slug}}/static/css/input.css -o {{project_slug}}/static/css/output.css --minify
-RUN rm {{project_slug}}/static/css/input.css
+RUN npx @tailwindcss/cli -i magapp/static/css/input.css -o magapp/static/css/output.css --minify
+RUN rm magapp/static/css/input.css
 RUN rm -rf node_modules
 
 # criar o output.css do tailwind
