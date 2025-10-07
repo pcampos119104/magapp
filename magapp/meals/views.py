@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.paginator import Paginator
 from django.db import transaction
-from django.shortcuts import get_object_or_404, render, redirect
+from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views import View
 
@@ -14,6 +14,14 @@ from magapp.recipes.models import Recipe
 
 @login_required
 def list(request):
+    """Lista refeições do usuário com paginação e filtro por título.
+
+    Parâmetros:
+        request: HttpRequest com parâmetros 'search' e 'page', e flag HTMX.
+
+    Retorna:
+        HttpResponse: Template de listagem com objetos paginados.
+    """
     base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
     template = 'meals/partials/listing.html'
     qtd_per_page = 10
@@ -31,9 +39,12 @@ def list(request):
 
 
 class Create(LoginRequiredMixin, View):
+    """Cria uma nova refeição."""
+
     template = 'meals/partials/create_update.html'
 
     def get(self, request):
+        """Exibe o formulário de criação de refeição."""
         base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
         meal_form = MealForm()
         context = {
@@ -44,6 +55,11 @@ class Create(LoginRequiredMixin, View):
 
     @transaction.atomic
     def post(self, request):
+        """Processa a criação de uma refeição.
+
+        Retorna:
+            HttpResponse: 201 em caso de sucesso; 400 com formulário e erros de validação.
+        """
         base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
         meal_form = MealForm(request.POST)
         # validar os formularios
@@ -70,9 +86,12 @@ class Create(LoginRequiredMixin, View):
 
 
 class Update(LoginRequiredMixin, View):
+    """Atualiza uma refeição existente."""
+
     template = 'meals/partials/create_update.html'
 
     def get(self, request, slug):
+        """Exibe a tela de edição de refeição (layout/placeholder)."""
         base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
         # recipe = get_object_or_404(Recipe, slug=slug, owner=request.user)
         # recipe_form = RecipeForm(instance=recipe)
@@ -86,6 +105,11 @@ class Update(LoginRequiredMixin, View):
         return render(request, self.template, context=context)
 
     def put(self, request, slug):
+        """Processa a atualização de uma refeição (placeholder).
+
+        Retorna:
+            HttpResponseRedirect: Redireciona para a listagem de receitas.
+        """
         base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
         '''
         # recipe = get_object_or_404(Recipe, slug=slug, owner=request.user)
@@ -123,6 +147,14 @@ class Update(LoginRequiredMixin, View):
 
 # @login_required
 def detail(request, slug):
+    """Detalhe de uma refeição.
+
+    Parâmetros:
+        slug (str): Identificador da refeição.
+
+    Retorna:
+        HttpResponse: Template com detalhes (placeholder).
+    """
     base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
     template = 'meals/partials/detail.html'
     # recipe = get_object_or_404(Recipe, slug=slug, owner=request.user)
@@ -135,10 +167,12 @@ def detail(request, slug):
 
 
 def recipes_modal(request):
+    """Retorna o modal para adicionar receita a uma refeição."""
     return render(request, 'meals/modals/add_recipe.html')
 
 
 def recipes_search(request):
+    """Pesquisa receitas para seleção em refeições (autocomplete)."""
     search_term = request.GET.get('search', '')
     if search_term:
         recipes = Recipe.objects.filter(title__unaccent__icontains=search_term)[:6]

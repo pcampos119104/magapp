@@ -48,18 +48,27 @@ python_files = ["test_*.py", "*_test.py", "testing/python/*.py"]
 line-length = 120
 # Show an enumeration of all fixed lint violations
 show-fixes = true
-
-[tool.ruff.lint]
-# https://docs.astral.sh/ruff/linter/#rule-selection
-# which linter to run
-select = [
-    # isort
-    "I",
-    # pycodestyle
-    "E",
+# Exclude migrations directories from linting
+extend-exclude = [
+    "tests",
+    "migrations",
+    "conftest.py",
 ]
 
 [tool.ruff.format]
-# https://docs.astral.sh/ruff/settings/#format_quote-style
-# A lot discussion on the internet about it, I use single quotes.
 quote-style = "single"
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # Pyflakes
+    "UP", # pyupgrade
+    "B", # flake8-bugbear
+    "C4", # flake8-comprehensions
+    "I", # isort
+    "S", # flake8-bandit
+    "T20", # flake8-print
+    "PT", # flake8-pytest-style
+]
+ignore = ["F841","N999"]

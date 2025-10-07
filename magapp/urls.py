@@ -1,19 +1,3 @@
-"""
-URL configuration for magapp project.
-
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.0/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
-"""
 import django
 from django.conf import settings
 from django.contrib import admin
@@ -21,6 +5,14 @@ from django.urls import include, path
 
 
 def trigger_error(request):
+    """Lança propositalmente ZeroDivisionError para testar Sentry e tratamento de erros.
+
+    Parâmetros:
+        request: Objeto HttpRequest.
+
+    Retorna:
+        Nunca retorna; sempre levanta uma exceção.
+    """
     division_by_zero = 1 / 0
 
 
@@ -39,15 +31,41 @@ urlpatterns = [
 
 # for testing the 400, 404, 500 pages layout
 if settings.DEBUG:
-
     def custom_page_not_found(request):
+        """Retorna a página 404 de teste quando DEBUG está ativo.
+
+        Parâmetros:
+            request: Objeto HttpRequest da requisição.
+
+        Retorna:
+            HttpResponse: Resposta 404 gerada pela view padrão do Django.
+        """
         return django.views.defaults.page_not_found(request, None)
 
+
     def custom_page_bad_request(request):
+        """Retorna a página 400 de teste quando DEBUG está ativo.
+
+        Parâmetros:
+            request: Objeto HttpRequest da requisição.
+
+        Retorna:
+            HttpResponse: Resposta 400 gerada pela view padrão do Django.
+        """
         return django.views.defaults.bad_request(request, None)
 
+
     def custom_server_error(request):
+        """Retorna a página 500 de teste quando DEBUG está ativo.
+
+        Parâmetros:
+            request: Objeto HttpRequest da requisição.
+
+        Retorna:
+            HttpResponse: Resposta 500 gerada pela view padrão do Django.
+        """
         return django.views.defaults.server_error(request)
+
 
     urlpatterns += [
         path('404/', custom_page_not_found),

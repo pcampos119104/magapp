@@ -1,4 +1,3 @@
-from django.db import models
 
 from magapp.base.models import SoftDeletionModel
 from magapp.base.utils.models import LowerCharField

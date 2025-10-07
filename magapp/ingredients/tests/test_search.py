@@ -1,7 +1,5 @@
 import pytest
-from django.urls import reverse
 from model_bakery import baker
-from pytest_django.asserts import assertContains
 
 from magapp.ingredients.models import Ingredient
 

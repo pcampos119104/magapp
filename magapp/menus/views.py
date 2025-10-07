@@ -1,9 +1,9 @@
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render
 
 
 # @login_required
 def detail(request):
+    """Detalhe do menu (placeholder)."""
     base_template = 'base/_partial_base.html' if request.htmx else 'base/_base.html'
     template = 'menus/partials/detail.html'
     # recipe = get_object_or_404(Recipe, slug=slug, owner=request.user)
