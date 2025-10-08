@@ -16,4 +16,4 @@ RecipeIngredientFormSet = inlineformset_factory(Recipe, RecipeIngredient, form=R
 class RecipeForm(forms.ModelForm):
     class Meta:
         model = Recipe
-        fields = ('title', 'description', 'font', 'directions')
+        fields = ('title', 'description', 'font', 'directions', 'tags')

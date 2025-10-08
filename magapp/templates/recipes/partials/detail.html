@@ -24,9 +24,11 @@
                 <p class="mb-4 text-xl text-gray-800 font-semibold">Fonte</p>
                 <p class="mb-4 ">{{ recipe.font }}</p>
                 <p class="mb-4 text-xl text-gray-800 font-semibold">Tags</p>
-                {% for tag in recipe.tags.all %}
-                    <p class="mb-4 ">{{ tag }}</p>
-                {% endfor %}
+                <p class="mb-4 ">
+                    {% for tag in recipe.tags.all %}
+                        {{ tag }},
+                    {% endfor %}
+                </p>
                 <a href="#"
                    class="font-medium text-blue-600 hover:underline"
                    hx-get="{% url 'recipes:update' recipe.slug %}"

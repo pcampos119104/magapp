@@ -1,6 +1,7 @@
 {% extends base_template %}
 {% load static %}
 {% block content %}
+    <!--suppress CheckEmptyScriptTag -->
     <section id='section' class="bg-white dark:bg-gray-900">
         <div class="py-8 px-3 lg:px-16 mx-auto py-16">
             <h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">
@@ -32,6 +33,12 @@
                             class="sm:col-span-2"
                             :field="recipe_form.description"
                             required
+                    />
+                    <!-- tags -->
+                    <c-form.input
+                            class="lg:w-1/2"
+                            type="text"
+                            :field="recipe_form.tags"
                     />
 
                     <!-- font -->

@@ -109,7 +109,6 @@ class Create(LoginRequiredMixin, View):
             if form.has_changed():
                 form.instance.recipe = recipe
                 form.save()
-        recipe.tags.add('ficcao', 'aventura')
         recipe_form.save_m2m()
 
         # reset forms
