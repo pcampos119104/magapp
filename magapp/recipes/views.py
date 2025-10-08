@@ -102,12 +102,15 @@ class Create(LoginRequiredMixin, View):
             return render(request, self.template, context, status=400)
 
         # salva os formularios
-        recipe_form.instance.owner = request.user
-        recipe = recipe_form.save()
+        recipe = recipe_form.save(commit=False)
+        recipe.owner = request.user
+        recipe.save()
         for form in ingredient_formset:
             if form.has_changed():
                 form.instance.recipe = recipe
                 form.save()
+        recipe.tags.add('ficcao', 'aventura')
+        recipe_form.save_m2m()
 
         # reset forms
         recipe_form = RecipeForm()
