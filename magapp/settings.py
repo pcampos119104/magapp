@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     'magapp.ingredients',
     'magapp.recipes',
     'magapp.meals',
+    'taggit',
 
 ]
 
@@ -166,6 +167,8 @@ STORAGES = {
         'BACKEND': 'whitenoise.storage.CompressedStaticFilesStorage',
     },
 }
+TAGGIT_CASE_INSENSITIVE = True
+TAGGIT_STRIP_UNICODE_WHEN_SLUGIFYING = True
 LOG_LEVEL = 'DEBUG' if DEBUG else env.str('LOG_LEVEL', 'INFO')
 LOGGING = {
     'version': 1,

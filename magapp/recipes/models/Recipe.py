@@ -6,6 +6,7 @@ from django.urls import reverse
 from magapp.base.models import SoftDeletionModel
 from magapp.base.utils.models import LowerCharField
 from magapp.utils import create_unique_slug
+from taggit.managers import TaggableManager
 
 
 class Recipe(SoftDeletionModel):
@@ -28,6 +29,7 @@ class Recipe(SoftDeletionModel):
         null=True,
         blank=True,
     )
+    tags = TaggableManager()
 
     class Meta:
         verbose_name = 'receita'
